@@ -1,0 +1,76 @@
+{
+  "code": "en",
+  "name": "English",
+  "nativeName": "English",
+  "script": "latin",
+  "direction": "ltr",
+  "phonemes": [
+    { "id": "a", "symbol": "a" },
+    { "id": "b", "symbol": "b" },
+    { "id": "c", "symbol": "c" }
+  ],
+  "letters": [
+    { "id": "a", "char": "A", "name": "A", "sound": "ah" },
+    { "id": "b", "char": "B", "name": "B", "sound": "buh" },
+    { "id": "c", "char": "C", "name": "C", "sound": "kuh" },
+    { "id": "d", "char": "D", "name": "D", "sound": "duh" },
+    { "id": "e", "char": "E", "name": "E", "sound": "eh" }
+  ],
+  "numbers": [
+    { "value": 0, "word": "zero" },
+    { "value": 1, "word": "one" },
+    { "value": 2, "word": "two" },
+    { "value": 3, "word": "three" },
+    { "value": 4, "word": "four" }
+  ],
+  "words": [
+    { "id": "w-water", "conceptId": "water", "label": "water" },
+    { "id": "w-apple", "conceptId": "apple", "label": "apple" },
+    { "id": "w-sun", "conceptId": "sun", "label": "sun" },
+    { "id": "w-mother", "conceptId": "mother", "label": "mother" },
+    { "id": "w-eat", "conceptId": "eat", "label": "eat" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "en", "label": "water", "contextSentence": "I drink water." },
+        { "lang": "bn", "label": "পানি", "region": "standard", "contextSentence": "আমি পানি পান করি।" },
+        { "lang": "bn", "label": "জল", "region": "formal/literary", "contextSentence": "জল জীবন।" },
+        { "lang": "bn", "label": "বাড়ি", "region": "dialectal", "contextSentence": "বাড়িতে পানি আনো।" },
+        { "lang": "es", "label": "agua" },
+        { "lang": "ar", "label": "ماء" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "en", "label": "eat", "contextSentence": "I eat rice." },
+        { "lang": "bn", "label": "খা", "contextSentence": "ভাত খা।" },
+        { "lang": "bn", "label": "খাওয়া", "contextSentence": "খাবার খাওয়া।" },
+        { "lang": "es", "label": "comer" },
+        { "lang": "ar", "label": "أكل" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "p-hello", "text": "Hello", "translation": "হ্যালো" },
+    { "id": "p-thankyou", "text": "Thank you", "translation": "ধন্যবাদ" }
+  ],
+  "stages": {
+    "toddler": [
+      { "id": "t-color-a", "type": "color-letter", "prompt": "Color the letter A", "itemId": "a" },
+      { "id": "t-tap-sound", "type": "tap-sound", "prompt": "Tap the sound you hear", "itemId": "a", "options": ["ah", "buh", "kuh"] }
+    ],
+    "preschool": [
+      { "id": "p-trace-a", "type": "trace-letter", "prompt": "Trace the letter A", "itemId": "a" },
+      { "id": "p-match-apple", "type": "match-picture-word", "prompt": "Match the word", "itemId": "w-apple" }
+    ],
+    "prek": [
+      { "id": "pk-concept-water", "type": "concept-table-review", "prompt": "Water — many words, one idea", "itemId": "water" }
+    ],
+    "k1": [],
+    "junior": [],
+    "tween": []
+  }
+}

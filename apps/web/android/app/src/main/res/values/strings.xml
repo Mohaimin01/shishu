@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Shishu</string>
+    <string name="title_activity_main">Shishu</string>
+    <string name="package_name">com.mohaimin.shishu</string>
+    <string name="custom_url_scheme">com.mohaimin.shishu</string>
+</resources>

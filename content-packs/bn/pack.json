@@ -1,0 +1,49 @@
+{
+  "code": "bn",
+  "name": "Bangla",
+  "nativeName": "বাংলা",
+  "script": "bengali",
+  "direction": "ltr",
+  "phonemes": [
+    { "id": "a", "symbol": "অ" },
+    { "id": "aa", "symbol": "আ" }
+  ],
+  "letters": [
+    { "id": "bn-a", "char": "অ", "name": "অ", "sound": "o" },
+    { "id": "bn-aa", "char": "আ", "name": "আ", "sound": "aa" },
+    { "id": "bn-i", "char": "ই", "name": "ই", "sound": "i" },
+    { "id": "bn-u", "char": "উ", "name": "উ", "sound": "u" },
+    { "id": "bn-e", "char": "এ", "name": "এ", "sound": "e" }
+  ],
+  "numbers": [
+    { "value": 0, "word": "শূন্য" },
+    { "value": 1, "word": "এক" },
+    { "value": 2, "word": "দুই" },
+    { "value": 3, "word": "তিন" },
+    { "value": 4, "word": "চার" }
+  ],
+  "words": [
+    { "id": "bn-w-water", "conceptId": "water", "label": "পানি" },
+    { "id": "bn-w-apple", "conceptId": "apple", "label": "আপেল" },
+    { "id": "bn-w-sun", "conceptId": "sun", "label": "সূর্য" },
+    { "id": "bn-w-mother", "conceptId": "mother", "label": "মা" },
+    { "id": "bn-w-eat", "conceptId": "eat", "label": "খা" }
+  ],
+  "conceptTables": [],
+  "phrases": [
+    { "id": "bn-p-hello", "text": "হ্যালো", "translation": "Hello" },
+    { "id": "bn-p-thankyou", "text": "ধন্যবাদ", "translation": "Thank you" }
+  ],
+  "stages": {
+    "toddler": [
+      { "id": "bn-t-color-a", "type": "color-letter", "prompt": "অ রঙ করো", "itemId": "bn-a" }
+    ],
+    "preschool": [
+      { "id": "bn-p-trace-a", "type": "trace-letter", "prompt": "অ আঁকো", "itemId": "bn-a" }
+    ],
+    "prek": [],
+    "k1": [],
+    "junior": [],
+    "tween": []
+  }
+}
