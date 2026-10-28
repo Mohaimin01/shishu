@@ -4,12 +4,12 @@
   "private": true,
   "description": "Shishu — gentle multilingual learning for children (ages 2-12). Open source, free, low-stimulation.",
   "scripts": {
-    "dev": "pnpm --filter web dev",
-    "build": "pnpm --filter web build",
-    "test": "pnpm -r test",
-    "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck",
-    "validate:content": "pnpm --filter content-schema validate"
+    "dev": "npm run dev --workspace web",
+    "build": "npm run build --workspace web",
+    "test": "npm test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "validate:content": "npx tsx packages/content-schema/src/validate.ts"
   },
   "workspaces": [
     "apps/*",

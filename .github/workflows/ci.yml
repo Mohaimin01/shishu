@@ -11,17 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm validate:content
+          cache: "npm"
+      - run: npm ci --legacy-peer-deps --install-strategy=hoisted
+      - run: npm run lint --workspaces --if-present
+      - run: npm run typecheck --workspaces --if-present
+      - run: npm test --workspaces --if-present
+      - run: npm run validate:content --workspace content-schema 2>/dev/null || npx tsx packages/content-schema/src/validate.ts
       - name: Build web
-        run: pnpm build
+        run: npm run build --workspace web
