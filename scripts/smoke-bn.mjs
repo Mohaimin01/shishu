@@ -4,7 +4,7 @@ const browser = await chromium.launch({
   executablePath: "/home/mohaimin/Documents/shishu/node_modules/playwright-core/.local-browsers/chromium-1248/chrome-linux64/chrome",
 });
 const page = await browser.newPage({ viewport: { width: 390, height: 720 } });
-await page.goto("http://localhost:4173/shishu/play/?lang=bn&stage=toddler&type=color-number&item=1", { waitUntil: "networkidle" });
+await page.goto("https://mohaimin01.github.io/shishu/play/?lang=bn&stage=toddler&type=color-number&item=1", { waitUntil: "networkidle" });
 await page.waitForTimeout(900);
 await page.screenshot({ path: "/tmp/opencode/shishu-bn-number.png" });
 

@@ -1,7 +1,7 @@
 /* Smoke test the static export served under /shishu (GitHub Pages layout). */
 import { chromium } from "playwright-core";
 
-const BASE = "http://localhost:4173";
+const BASE = "https://mohaimin01.github.io";
 const results = [];
 const ok = (name, cond) => results.push(`${cond ? "PASS" : "FAIL"} ${name}`);
 

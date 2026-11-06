@@ -11,6 +11,13 @@ Shishu ("child" in Bengali/Sanskrit) is a calm, low-stimulation learning app tha
 - 🎨 Low-stimulation design (muted colors, slow motion, session caps)
 - 🌍 Multilingual: English, Bangla, and growing
 
+## Live (free GitHub Pages)
+
+**https://mohaimin01.github.io/shishu/**
+
+Deploys automatically on every push to `main` (static export, no server, no cost).
+Android APK: push a tag like `v0.1.0` and GitHub Actions publishes an installable APK to Releases.
+
 ## Quick start
 
 ```bash
