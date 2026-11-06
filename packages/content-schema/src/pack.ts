@@ -17,6 +17,7 @@ export const LetterSchema = z.object({
 
 export const NumberSchema = z.object({
   value: z.number().int().nonnegative(),
+  char: z.string().optional(), // digit glyph in the pack's script; falls back to value
   word: z.string(),
   audioUrl: z.string().optional(),
 });
@@ -27,6 +28,7 @@ export const WordSchema = z.object({
   label: z.string(),
   audioUrl: z.string().optional(),
   image: z.string().optional(),
+  emoji: z.string().optional(), // M1 placeholder visual until illustrations exist
 });
 
 export const VariantSchema = z.object({
@@ -87,6 +89,13 @@ export const LanguagePackSchema = z.object({
 });
 
 export type LanguagePack = z.infer<typeof LanguagePackSchema>;
+export type Letter = z.infer<typeof LetterSchema>;
+export type WordItem = z.infer<typeof WordSchema>;
+export type NumberItem = z.infer<typeof NumberSchema>;
+export type ConceptTable = z.infer<typeof ConceptTableSchema>;
+export type Variant = z.infer<typeof VariantSchema>;
+export type Phrase = z.infer<typeof PhraseSchema>;
+export type StageActivity = z.infer<typeof StageActivitySchema>;
 
 export function validatePack(data: unknown): LanguagePack {
   return LanguagePackSchema.parse(data);

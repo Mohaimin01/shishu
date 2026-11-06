@@ -16,18 +16,18 @@
     { "id": "bn-e", "char": "এ", "name": "এ", "sound": "e" }
   ],
   "numbers": [
-    { "value": 0, "word": "শূন্য" },
-    { "value": 1, "word": "এক" },
-    { "value": 2, "word": "দুই" },
-    { "value": 3, "word": "তিন" },
-    { "value": 4, "word": "চার" }
+    { "value": 0, "char": "০", "word": "শূন্য" },
+    { "value": 1, "char": "১", "word": "এক" },
+    { "value": 2, "char": "২", "word": "দুই" },
+    { "value": 3, "char": "৩", "word": "তিন" },
+    { "value": 4, "char": "৪", "word": "চার" }
   ],
   "words": [
-    { "id": "bn-w-water", "conceptId": "water", "label": "পানি" },
-    { "id": "bn-w-apple", "conceptId": "apple", "label": "আপেল" },
-    { "id": "bn-w-sun", "conceptId": "sun", "label": "সূর্য" },
-    { "id": "bn-w-mother", "conceptId": "mother", "label": "মা" },
-    { "id": "bn-w-eat", "conceptId": "eat", "label": "খা" }
+    { "id": "bn-w-water", "conceptId": "water", "label": "পানি", "emoji": "💧" },
+    { "id": "bn-w-apple", "conceptId": "apple", "label": "আপেল", "emoji": "🍎" },
+    { "id": "bn-w-sun", "conceptId": "sun", "label": "সূর্য", "emoji": "☀️" },
+    { "id": "bn-w-mother", "conceptId": "mother", "label": "মা", "emoji": "👩" },
+    { "id": "bn-w-eat", "conceptId": "eat", "label": "খা", "emoji": "🍽️" }
   ],
   "conceptTables": [],
   "phrases": [

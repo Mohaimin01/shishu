@@ -22,7 +22,8 @@ const config: Config = {
         danger: "#C97A7A",
       },
       fontFamily: {
-        sans: ["Nunito", "system-ui", "sans-serif"],
+        sans: ["var(--font-nunito)", "Nunito", "system-ui", "sans-serif"],
+        bengali: ["var(--font-noto-bengali)", "Noto Sans Bengali", "sans-serif"],
       },
       borderRadius: {
         xl: "1.25rem",

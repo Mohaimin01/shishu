@@ -1,12 +1,14 @@
 export type Skill = "letter" | "number" | "word" | "concept" | "phrase" | "stem";
 
 export type ProgressEntry = {
+  id: string;
   childId: string;
   lang: string;
   skill: Skill;
   itemId: string;
   correct: number;
-  attempts: number;
+  attempts: number;   // graded attempts (tap/match)
+  exposed: number;    // ungraded exposures (color/trace/listen)
   mastered: boolean;
   updatedAt: number;
 };
@@ -20,8 +22,14 @@ export type ChildProfile = {
   createdAt: number;
 };
 
-export function masteryThreshold(attempts: number, correct: number): boolean {
-  // mastered after 3 correct in a row-ish: require >=3 attempts and >=80% accuracy
-  if (attempts < 3) return false;
-  return correct / attempts >= 0.8;
+/**
+ * Mastery rule (M1):
+ *  - at least 3 graded attempts with >=80% accuracy, or
+ *  - at least 4 exposures if the child mostly colors/traces,
+ *  - and at least 3 total encounters (graded + exposed).
+ */
+export function masteryThreshold(attempts: number, correct: number, exposed = 0): boolean {
+  if (attempts + exposed < 3) return false;
+  if (attempts >= 3) return correct / attempts >= 0.8;
+  return exposed >= 4;
 }

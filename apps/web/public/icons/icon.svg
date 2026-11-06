@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#F7F5F0"/>
+  <g transform="translate(256 300)">
+    <!-- sprout stem -->
+    <path d="M0 96 C 0 40, 0 10, 0 -6" stroke="#4F7064" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <!-- left leaf -->
+    <path d="M-8 30 C -74 24, -108 -10, -110 -58 C -58 -52, -22 -14, -8 30 Z" fill="#6B9080"/>
+    <!-- right leaf -->
+    <path d="M8 -18 C 66 -30, 96 -66, 96 -110 C 48 -100, 18 -62, 8 -18 Z" fill="#6B9080"/>
+    <!-- gentle pot -->
+    <path d="M-64 96 H 64 L 44 172 Q 40 188 22 188 H -22 Q -40 188 -44 172 Z" fill="#D4A373"/>
+  </g>
+  <!-- tiny star -->
+  <g transform="translate(388 132)" fill="#C9A9A6">
+    <path d="M0-38 10-11 38 0 10 11 0 38 -10 11 -38 0 -10-11Z"/>
+  </g>
+</svg>

@@ -17,18 +17,18 @@
     { "id": "e", "char": "E", "name": "E", "sound": "eh" }
   ],
   "numbers": [
-    { "value": 0, "word": "zero" },
-    { "value": 1, "word": "one" },
-    { "value": 2, "word": "two" },
-    { "value": 3, "word": "three" },
-    { "value": 4, "word": "four" }
+    { "value": 0, "char": "0", "word": "zero" },
+    { "value": 1, "char": "1", "word": "one" },
+    { "value": 2, "char": "2", "word": "two" },
+    { "value": 3, "char": "3", "word": "three" },
+    { "value": 4, "char": "4", "word": "four" }
   ],
   "words": [
-    { "id": "w-water", "conceptId": "water", "label": "water" },
-    { "id": "w-apple", "conceptId": "apple", "label": "apple" },
-    { "id": "w-sun", "conceptId": "sun", "label": "sun" },
-    { "id": "w-mother", "conceptId": "mother", "label": "mother" },
-    { "id": "w-eat", "conceptId": "eat", "label": "eat" }
+    { "id": "w-water", "conceptId": "water", "label": "water", "emoji": "💧" },
+    { "id": "w-apple", "conceptId": "apple", "label": "apple", "emoji": "🍎" },
+    { "id": "w-sun", "conceptId": "sun", "label": "sun", "emoji": "☀️" },
+    { "id": "w-mother", "conceptId": "mother", "label": "mother", "emoji": "👩" },
+    { "id": "w-eat", "conceptId": "eat", "label": "eat", "emoji": "🍽️" }
   ],
   "conceptTables": [
     {
