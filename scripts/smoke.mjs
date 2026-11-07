@@ -24,7 +24,7 @@ try {
 
   // language lanes: second language lane + Together bridge lane
   await page.click('a[href*="lane=bn"]');
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(1200);
   ok("bn lane shows letter অ", (await page.getByRole("link", { name: /অ/ }).count()) > 0);
   await page.click('a[href*="lane=together"]');
   await page.waitForTimeout(400);
