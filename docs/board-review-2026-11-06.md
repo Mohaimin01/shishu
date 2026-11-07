@@ -16,7 +16,7 @@ Scope of review: shipped M1 kit (color/trace/tap-sound/match, Dexie progress, se
 | Online, parent-gated | Pack downloader in Grown-ups (https URL → zod validate → IndexedDB → offline forever). No accounts, no telemetry, no cloud progress in M2 | ✅ shipped |
 | Community contribution | `docs/PACKS.md` guide; emoji standards (single-subject, semantic-only); conceptId canonical registry; `audioUrl` for recordings wins over TTS | ✅ shipped |
 | Best teacher ≠ minimal | Minimal = no noise, not no depth; adaptive review (core SM-2) + bridge-to-life cards | adopted |
-| Words & sentences | Two-strike rule shipped (silent re-listen → glow). Sentence-strip builder + listen-repeat + audio recordings = next slice (M2 continued) | 🔜 next |
+| Words & sentences | Two-strike rule shipped. **Sentence-strip builder shipped** (tap word tiles into order; 2 words @3y → 3 @4y → 4 @5y; visible prompt; graded as `phrase`). **Listen & repeat shipped** (mic echo recorder, RAM-only, opt-in) + **family-voice recorder shipped** (Grown-ups, per-lane, IndexedDB local-only — মা's voice plays before pack audio and TTS everywhere) | ✅ shipped 2026-11-08 |
 | One-tap Continue | Home shows ▶ Continue resuming last activity | ✅ shipped |
 
 ## Verdicts agreed in Round 3

@@ -8,6 +8,7 @@ import { langProgress } from "@/lib/progress";
 import { db, laneMinutesLast7, todayMinutes } from "@/lib/db";
 import { downloadedPacks, fetchAndStashPack, removePack } from "@/lib/online-packs";
 import { playWordAudio, familyKey } from "@/lib/wordaudio";
+import { speakOrPlay } from "@/lib/audio";
 import { resolveBundled } from "@/lib/activities";
 import { STAGE_ORDER, STAGE_AGES, type Stage } from "@shishu/core";
 import type { LanguagePack, WordItem } from "@shishu/content-schema";
@@ -47,7 +48,17 @@ export default function ParentPage() {
       .filter((c) => c !== activeCodes[0])
       .map((c) => (packets()[c] ?? dlPacks.find((p) => p.code === c))?.words.find((x) => x.conceptId === w.conceptId)?.label)
       .filter(Boolean) as string[];
-    return { id: w.conceptId || w.id, label: w.label, audioUrl: w.audioUrl, emoji: w.emoji ?? "🌱", mirrors };
+    // a daily phrase to carry the word into real family talk
+    const shortPhrases = primary.phrases.filter((ph) => (ph.tokens ?? ph.text.split(/\s+/)).length <= 3);
+    const ph = shortPhrases.length > 0 ? shortPhrases[dayIdx % shortPhrases.length] : null;
+    return {
+      id: w.conceptId || w.id,
+      label: w.label,
+      audioUrl: w.audioUrl,
+      emoji: w.emoji ?? "🌱",
+      mirrors,
+      phrase: ph ? { id: ph.id, text: ph.text, audioUrl: ph.audioUrl } : null,
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready]);
 
@@ -208,6 +219,8 @@ const downloadPack = async () => {
 
   const bn = (str: string) => /[\u0980-\u09FF]/.test(str);
 
+  const phrase = useToday?.phrase ?? null;
+
   return (
     <main className="min-h-screen px-5 pb-16">
       <header className="flex items-center justify-between pt-4 pb-3">
@@ -283,6 +296,19 @@ const downloadPack = async () => {
             {useToday.mirrors.length > 0 && (
               <p className="text-sm text-muted mt-1">
                 <span className="font-bengali">এটাকে আরেক বাড়িতে বলে: </span>{useToday.mirrors.join(" · ")}
+              </p>
+            )}
+            {phrase && (
+              <p className="text-base mt-2 flex items-center gap-2">
+                <span className="text-muted text-xs uppercase tracking-wide">In a sentence</span>
+                <span className={`font-semibold ${bn(phrase.text) ? "font-bengali" : ""}`}>{phrase.text}</span>
+                <button
+                  onClick={() => speakOrPlay(phrase.text, activeCodes[0], phrase.audioUrl)}
+                  className="text-primary"
+                  aria-label={`speak the sentence ${phrase.text}`}
+                >
+                  🔊
+                </button>
               </p>
             )}
             <p className="text-xs text-muted mt-2">Bring it into a meal or bath time — twice, warmly.</p>
