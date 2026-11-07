@@ -19,6 +19,7 @@ const SECTIONS: { type: ActivityType; title: string }[] = [
   { type: "match-picture-word", title: "Words with pictures" },
   { type: "sentence-strip", title: "Build the sentence" },
   { type: "listen-repeat", title: "Say it together" },
+  { type: "concept-table-review", title: "One word, many homes" },
 ];
 
 const STAGE_LABEL: Record<Stage, string> = {

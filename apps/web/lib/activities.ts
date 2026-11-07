@@ -10,7 +10,8 @@ export type ActivityType =
   | "match-picture-word"
   | "sentence-strip"
   | "listen-repeat"
-  | "concept-bridge";
+  | "concept-bridge"
+  | "concept-table-review";
 
 export type ActivityCard = {
   key: string;      // `${type}:${itemId}`
@@ -77,6 +78,21 @@ export function listForPack(p: LanguagePack, stage?: Stage): ActivityCard[] {
   for (const w of p.words) {
     cards.push({ key: `listen-repeat:${w.id}`, type: "listen-repeat", itemId: w.id, label: "say", glyph: w.emoji ?? "🗣", glyphScript: "latin" });
   }
+  // "One word, many homes" — respectful variant review, age 4+ (board M2)
+  if (stage !== "toddler" && stage !== "preschool") {
+    for (const t of p.conceptTables) {
+      const w = p.words.find((x) => x.conceptId === t.conceptId);
+      if (!w) continue;
+      cards.push({
+        key: `concept-table-review:${t.conceptId}`,
+        type: "concept-table-review",
+        itemId: t.conceptId,
+        label: "variants",
+        glyph: w.emoji ?? "🪞",
+        glyphScript: "latin",
+      });
+    }
+  }
   return cards;
 }
 
@@ -104,6 +120,7 @@ export const TYPE_TITLE: Record<ActivityType, string> = {
   "match-picture-word": "Find the picture",
   "sentence-strip": "Build the sentence",
   "listen-repeat": "Say it together",
+  "concept-table-review": "One word, many homes",
   "concept-bridge": "One idea, many languages",
 };
 

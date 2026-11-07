@@ -137,6 +137,13 @@ try {
   ok("listen-repeat shows word button", await page.locator('button[aria-label="hear water"]').isVisible());
   ok("listen-repeat shows your turn", await page.locator('button[aria-label="your turn, record your voice"]').isVisible());
 
+  // concept table (one word, many homes) — age 4+
+  await page.goto(`${BASE}/shishu/play/?lang=en&stage=prek&type=concept-table-review&item=water`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(700);
+  ok("concept-table shows variants", (await page.locator('button[aria-label^="hear standard"]').count()) >= 1);
+  ok("concept-table says it out loud", await page.locator('button[aria-label="hear every word again"]').isVisible());
+  await page.screenshot({ path: "/tmp/opencode/shishu-concept.png" });
+
   // parent dashboard
   await page.goto(`${BASE}/shishu/parent/`, { waitUntil: "networkidle" });
   ok("parent shows Grown-ups", await page.getByRole("heading", { name: "Grown-ups" }).isVisible());
