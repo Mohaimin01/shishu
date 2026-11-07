@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { chime, speak, speakOrPlay } from "@/lib/audio";
+import { chime } from "@/lib/audio";
+import { playWordAudio } from "@/lib/wordaudio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { packs } from "@/lib/packs";
@@ -37,7 +38,7 @@ export default function TapSound({ lang, itemId, onAnswer }: {
   const [hintGlow, setHintGlow] = useState(false);
 
   const play = () => {
-    if (sound) speakOrPlay(target.name || target.char, "en", target.audioUrl);
+    if (sound) void playWordAudio(childId || "anon", lang, target.id, target.name || target.char, target.audioUrl);
   };
 
   useEffect(() => {

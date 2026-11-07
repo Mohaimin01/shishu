@@ -7,6 +7,8 @@ import ColorCanvas from "@/components/ColorCanvas";
 import TapSound from "@/components/activities/TapSound";
 import MatchPictureWord from "@/components/activities/MatchPictureWord";
 import ConceptBridge from "@/components/activities/ConceptBridge";
+import SentenceStrip from "@/components/activities/SentenceStrip";
+import ListenRepeat from "@/components/activities/ListenRepeat";
 import {
   bridgeCards, findCard, listForStage, nextAfter, TYPE_TITLE,
   resolveBundled, type ActivityCard, type Lane,
@@ -66,6 +68,12 @@ function ActivityBody({ card, lang, onDone }: { card: ActivityCard; lang: string
   }
   if (card.type === "match-picture-word") {
     return <MatchPictureWord lang={lang} itemId={card.itemId} onAnswer={() => onDone()} />;
+  }
+  if (card.type === "sentence-strip") {
+    return <SentenceStrip lang={lang} itemId={card.itemId} onAnswer={() => onDone()} />;
+  }
+  if (card.type === "listen-repeat") {
+    return <ListenRepeat lang={lang} itemId={card.itemId} onDone={() => onDone()} />;
   }
   if (card.type === "concept-bridge") {
     const lanes = useSettings.getState().activeLangs

@@ -17,6 +17,8 @@ const SECTIONS: { type: ActivityType; title: string }[] = [
   { type: "color-number", title: "Color the numbers" },
   { type: "tap-sound", title: "Listen and tap" },
   { type: "match-picture-word", title: "Words with pictures" },
+  { type: "sentence-strip", title: "Build the sentence" },
+  { type: "listen-repeat", title: "Say it together" },
 ];
 
 const STAGE_LABEL: Record<Stage, string> = {
@@ -138,7 +140,7 @@ function LearnInner() {
         activeLane && (
           <nav className="flex flex-col gap-6 max-w-[560px] mx-auto">
             {SECTIONS.map(({ type, title }) => {
-              const items = listForPack(activeLane.pack).filter((c) => c.type === type);
+              const items = listForPack(activeLane.pack, stage).filter((c) => c.type === type);
               if (items.length === 0) return null;
               return (
                 <section key={type} aria-label={title}>

@@ -117,15 +117,38 @@ try {
   ok("match shows emoji option", (await page.locator('button[aria-label^="picture option"]').count()) === 3);
   await page.screenshot({ path: "/tmp/opencode/shishu-match.png" });
 
+  // sentence strip: build "Water, please!" tile by tile
+  await page.goto(`${BASE}/shishu/play/?lang=en&stage=toddler&type=sentence-strip&item=p-water-please`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(700);
+  const sent = (await page.textContent('[data-testid="sentence-text"]')) ?? "";
+  const tokens = sent.trim().replace(/[.,!?;:—–"'।]+/g, "").split(/\s+/).filter(Boolean);
+  ok("sentence shows prompt", sent.trim().length > 0 && tokens.length >= 2);
+  for (const t of tokens) {
+    await page.click(`button[aria-label="word tile ${t}"]`);
+    await page.waitForTimeout(160);
+  }
+  await page.waitForTimeout(900);
+  ok("sentence completes (strip full + next)", await page.locator('div[aria-label="sentence strip"] span.bg-primary').count() === tokens.length);
+  await page.screenshot({ path: "/tmp/opencode/shishu-sentence.png" });
+
+  // listen & repeat: buttons present
+  await page.goto(`${BASE}/shishu/play/?lang=en&stage=toddler&type=listen-repeat&item=w-water`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(500);
+  ok("listen-repeat shows word button", await page.locator('button[aria-label="hear water"]').isVisible());
+  ok("listen-repeat shows your turn", await page.locator('button[aria-label="your turn, record your voice"]').isVisible());
+
   // parent dashboard
   await page.goto(`${BASE}/shishu/parent/`, { waitUntil: "networkidle" });
   ok("parent shows Grown-ups", await page.getByRole("heading", { name: "Grown-ups" }).isVisible());
   ok("parent has pack URL input", (await page.locator('input[aria-label="pack URL"]').count()) === 1);
   ok("parent shows per-lane progress", (await page.locator('li span.font-semibold').count()) >= 2);
+  ok("parent has family voices", (await page.locator('button[aria-label="record water in your voice"]').count()) === 1);
 
   // bengali learn
   await page.goto(`${BASE}/shishu/learn/?lane=bn`, { waitUntil: "networkidle" });
   ok("bengali pack loads", await page.getByRole("heading", { name: "বাংলা" }).isVisible());
+  ok("bn learn shows sentence section", (await page.getByRole("heading", { name: "Build the sentence" }).count()) > 0);
+  ok("bn learn shows say-it section", (await page.getByRole("heading", { name: "Say it together" }).count()) > 0);
 
   await page.screenshot({ path: "/tmp/opencode/shishu-learn.png", fullPage: true });
 } catch (e) {

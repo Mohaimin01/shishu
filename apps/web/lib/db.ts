@@ -16,11 +16,19 @@ export type LaneSession = {
   minutes: number;
 };
 
+/** Family/parent voice recording for one item in one lane. Never leaves the device. */
+export type FamilyAudio = {
+  key: string; // `${childId}:${lang}:${itemId}`
+  blob: Blob;
+  updatedAt: number;
+};
+
 export class ShishuDB extends Dexie {
   progress!: Table<ProgressEntry, string>;
   sessions!: Table<SessionRow, string>;
   lanelog!: Table<LaneSession, string>;
   packs!: Table<LanguagePack, string>; // downloaded community packs
+  familyaudio!: Table<FamilyAudio, string>;
 
   constructor() {
     super("shishu");
@@ -34,6 +42,14 @@ export class ShishuDB extends Dexie {
       sessions: "day",
       lanelog: "key, day, lang",
       packs: "code",
+    });
+    // v3: family voice memories (local only, never synced)
+    this.version(3).stores({
+      progress: "id, childId, lang, updatedAt",
+      sessions: "day",
+      lanelog: "key, day, lang",
+      packs: "code",
+      familyaudio: "key",
     });
   }
 }

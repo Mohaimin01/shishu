@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { chime, speakOrPlay } from "@/lib/audio";
+import { chime } from "@/lib/audio";
+import { playWordAudio } from "@/lib/wordaudio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { packs } from "@/lib/packs";
@@ -35,7 +36,7 @@ export default function MatchPictureWord({ lang, itemId, onAnswer }: {
   const [hintGlow, setHintGlow] = useState(false);
 
   const play = () => {
-    if (sound) speakOrPlay(target.label, lang, target.audioUrl);
+    if (sound) void playWordAudio(childId || "anon", lang, target.conceptId || target.id, target.label, target.audioUrl);
   };
 
   useEffect(() => {

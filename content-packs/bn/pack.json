@@ -13,36 +13,75 @@
     { "id": "bn-aa", "char": "আ", "name": "আ", "sound": "aa" },
     { "id": "bn-i", "char": "ই", "name": "ই", "sound": "i" },
     { "id": "bn-u", "char": "উ", "name": "উ", "sound": "u" },
-    { "id": "bn-e", "char": "এ", "name": "এ", "sound": "e" }
+    { "id": "bn-e", "char": "এ", "name": "এ", "sound": "e" },
+    { "id": "bn-k", "char": "ক", "name": "ক", "sound": "ko" },
+    { "id": "bn-kh", "char": "খ", "name": "খ", "sound": "kho" },
+    { "id": "bn-g", "char": "গ", "name": "গ", "sound": "go" }
   ],
   "numbers": [
     { "value": 0, "char": "০", "word": "শূন্য" },
     { "value": 1, "char": "১", "word": "এক" },
     { "value": 2, "char": "২", "word": "দুই" },
     { "value": 3, "char": "৩", "word": "তিন" },
-    { "value": 4, "char": "৪", "word": "চার" }
+    { "value": 4, "char": "৪", "word": "চার" },
+    { "value": 5, "char": "৫", "word": "পাঁচ" },
+    { "value": 6, "char": "৬", "word": "ছয়" },
+    { "value": 7, "char": "৭", "word": "সাত" },
+    { "value": 8, "char": "৮", "word": "আট" },
+    { "value": 9, "char": "৯", "word": "নয়" }
   ],
   "words": [
     { "id": "bn-w-water", "conceptId": "water", "label": "পানি", "emoji": "💧" },
     { "id": "bn-w-apple", "conceptId": "apple", "label": "আপেল", "emoji": "🍎" },
     { "id": "bn-w-sun", "conceptId": "sun", "label": "সূর্য", "emoji": "☀️" },
     { "id": "bn-w-mother", "conceptId": "mother", "label": "মা", "emoji": "👩" },
-    { "id": "bn-w-eat", "conceptId": "eat", "label": "খা", "emoji": "🍽️" }
+    { "id": "bn-w-eat", "conceptId": "eat", "label": "খা", "emoji": "🍽️" },
+    { "id": "bn-w-father", "conceptId": "father", "label": "বাবা", "emoji": "👨" },
+    { "id": "bn-w-home", "conceptId": "home", "label": "বাড়ি", "emoji": "🏠" },
+    { "id": "bn-w-rice", "conceptId": "rice", "label": "ভাত", "emoji": "🍚" },
+    { "id": "bn-w-mango", "conceptId": "mango", "label": "আম", "emoji": "🥭" },
+    { "id": "bn-w-milk", "conceptId": "milk", "label": "দুধ", "emoji": "🥛" },
+    { "id": "bn-w-ball", "conceptId": "ball", "label": "বল", "emoji": "⚽" },
+    { "id": "bn-w-book", "conceptId": "book", "label": "বই", "emoji": "📖" },
+    { "id": "bn-w-sleep", "conceptId": "sleep", "label": "ঘুম", "emoji": "🌙" },
+    { "id": "bn-w-tree", "conceptId": "tree", "label": "গাছ", "emoji": "🌳" }
   ],
-  "conceptTables": [],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "bn", "label": "পানি", "region": "standard" },
+        { "lang": "bn", "label": "জল", "region": "formal/literary" },
+        { "lang": "bn", "label": "বারি", "region": "Sylhet" }
+      ]
+    }
+  ],
   "phrases": [
     { "id": "bn-p-hello", "text": "হ্যালো", "translation": "Hello" },
-    { "id": "bn-p-thankyou", "text": "ধন্যবাদ", "translation": "Thank you" }
+    { "id": "bn-p-thankyou", "text": "ধন্যবাদ", "translation": "Thank you" },
+    { "id": "bn-p-pani", "text": "পানি, মা!", "tokens": ["পানি", "মা"], "emoji": "💧", "translation": "Water, Ma!" },
+    { "id": "bn-p-valobashi", "text": "ভালবাসি, মা", "tokens": ["ভালবাসি", "মা"], "emoji": "👩", "translation": "Love you, Ma" },
+    { "id": "bn-p-am-khabo", "text": "আম খাব", "tokens": ["আম", "খাব"], "emoji": "🥭", "translation": "Mango — I'll eat it" },
+    { "id": "bn-p-ami-bhat-khabo", "text": "আমি ভাত খাব", "tokens": ["আমি", "ভাত", "খাব"], "emoji": "🍚", "translation": "I'll eat rice" },
+    { "id": "bn-p-baba-bhat-khabe", "text": "বাবা ভাত খাবে?", "tokens": ["বাবা", "ভাত", "খাবে"], "emoji": "🍚", "translation": "Will daddy eat rice?" },
+    { "id": "bn-p-am-khab-ma", "text": "আমি আম খাব, মা", "tokens": ["আমি", "আম", "খাব", "মা"], "emoji": "🥭", "translation": "Ma, I'll eat a mango" }
   ],
   "stages": {
     "toddler": [
-      { "id": "bn-t-color-a", "type": "color-letter", "prompt": "অ রঙ করো", "itemId": "bn-a" }
+      { "id": "bn-t-color-a", "type": "color-letter", "prompt": "অ রঙ করো", "itemId": "bn-a" },
+      { "id": "bn-t-sentence-1", "type": "sentence-strip", "prompt": "কথা সাজাও", "itemId": "bn-p-pani" },
+      { "id": "bn-t-listen-1", "type": "listen-repeat", "prompt": "একসাথে বলো", "itemId": "bn-w-water" }
     ],
     "preschool": [
-      { "id": "bn-p-trace-a", "type": "trace-letter", "prompt": "অ আঁকো", "itemId": "bn-a" }
+      { "id": "bn-p-trace-a", "type": "trace-letter", "prompt": "অ আঁকো", "itemId": "bn-a" },
+      { "id": "bn-p-sentence-2", "type": "sentence-strip", "prompt": "কথা সাজাও", "itemId": "bn-p-ami-bhat-khabo" }
     ],
-    "prek": [],
-    "k1": [],
+    "prek": [
+      { "id": "bn-pk-sentence-3", "type": "sentence-strip", "prompt": "কথা সাজাও", "itemId": "bn-p-baba-bhat-khabe" }
+    ],
+    "k1": [
+      { "id": "bn-k1-sentence-4", "type": "sentence-strip", "prompt": "কথা সাজাও", "itemId": "bn-p-am-khab-ma" }
+    ],
     "junior": [],
     "tween": []
   }

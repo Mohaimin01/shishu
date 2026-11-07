@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSettings, weeklyTargetFor } from "@/store";
 import { packs } from "@/lib/packs";
 import { langProgress } from "@/lib/progress";
 import { db, laneMinutesLast7, todayMinutes } from "@/lib/db";
 import { downloadedPacks, fetchAndStashPack, removePack } from "@/lib/online-packs";
+import { playWordAudio, familyKey } from "@/lib/wordaudio";
+import { resolveBundled } from "@/lib/activities";
 import { STAGE_ORDER, STAGE_AGES, type Stage } from "@shishu/core";
-import type { LanguagePack } from "@shishu/content-schema";
+import type { LanguagePack, WordItem } from "@shishu/content-schema";
 
 const CO_PLAY = [
   "Say the letter sound together out loud, then clap once. (আওয়াজ মিলিয়ে বল, তারপর একবার হাততালি।)",
@@ -45,7 +47,7 @@ export default function ParentPage() {
       .filter((c) => c !== activeCodes[0])
       .map((c) => (packets()[c] ?? dlPacks.find((p) => p.code === c))?.words.find((x) => x.conceptId === w.conceptId)?.label)
       .filter(Boolean) as string[];
-    return { word: w.label, emoji: w.emoji ?? "🌱", mirrors };
+    return { id: w.conceptId || w.id, label: w.label, audioUrl: w.audioUrl, emoji: w.emoji ?? "🌱", mirrors };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready]);
 
@@ -98,7 +100,7 @@ export default function ParentPage() {
     useSettings.getState().set({ activeLangs: activeCodes.filter((c) => c !== code) });
   };
 
-  const downloadPack = async () => {
+const downloadPack = async () => {
     setPackMsg(null);
     try {
       const pack = await fetchAndStashPack(packUrl);
@@ -110,12 +112,97 @@ export default function ParentPage() {
     }
   };
 
+  // ---------- Family voices (local-only recordings) ----------
+  const childIdNow = s.childId || "anon";
+  const [voiceLane, setVoiceLane] = useState<string>(activeCodes[0] ?? "en");
+  const [recItem, setRecItem] = useState<string | null>(null);
+  const [recorded, setRecorded] = useState<Set<string>>(new Set());
+  const [voiceMsg, setVoiceMsg] = useState<string | null>(null);
+  const mediaRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
+  const streamRef = useRef<MediaStream | null>(null);
+  const pendingRef = useRef<{ id: string; item: WordItem } | null>(null);
+
+  const lanePack = (code: string): LanguagePack | undefined =>
+    resolveBundled(code) ?? dlPacks.find((x) => x.code === code);
+
+  const loadRecorded = async () => {
+    try {
+      const rows = await db.familyaudio.toArray();
+      setRecorded(new Set(rows.map((r) => r.key)));
+    } catch { /* fresh db */ }
+  };
+
+  useEffect(() => { void loadRecorded(); }, []);
+
+  const startVoiceRec = async (item: WordItem) => {
+    if (voiceMsg) setVoiceMsg(null);
+    if (typeof MediaRecorder === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+      setVoiceMsg("Voice recording is not available in this browser.");
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      const rec = new MediaRecorder(stream);
+      chunksRef.current = [];
+      pendingRef.current = { id: item.conceptId || item.id, item };
+      rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
+      rec.onstop = () => { void saveVoiceTake(rec); };
+      mediaRef.current = rec;
+      rec.start();
+      setRecItem(item.conceptId || item.id);
+      setTimeout(() => { if (rec.state === "recording") rec.stop(); }, 5000);
+    } catch {
+      setVoiceMsg("Microphone unavailable — allow mic access in the browser first.");
+    }
+  };
+
+  const saveVoiceTake = async (rec: MediaRecorder) => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    const blob = new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" });
+    const pend = pendingRef.current;
+    setRecItem(null);
+    if (!pend || blob.size === 0) return;
+    const key = familyKey(childIdNow, voiceLane, pend.id);
+    try {
+      await db.familyaudio.put({ key, blob, updatedAt: Date.now() });
+      setRecorded((prev) => new Set(prev).add(key));
+      // instant playback so the grown-up hears the take
+      const url = URL.createObjectURL(blob);
+      const a = new Audio(url);
+      a.onended = () => URL.revokeObjectURL(url);
+      a.onerror = () => URL.revokeObjectURL(url);
+      void a.play().catch(() => URL.revokeObjectURL(url));
+      setVoiceMsg(`✓ "${pend.item.label}" saved — it now plays in every activity`);
+      loadRecorded();
+    } catch {
+      setVoiceMsg("Could not save the recording (storage full?).");
+    }
+  };
+
+  const stopVoiceRec = () => {
+    if (mediaRef.current?.state === "recording") mediaRef.current.stop();
+  };
+
+  const previewVoice = (item: WordItem) => {
+    void playWordAudio(childIdNow, voiceLane, item.conceptId || item.id, item.label, item.audioUrl);
+  };
+
+  const deleteVoice = async (item: WordItem) => {
+    await db.familyaudio.delete(familyKey(childIdNow, voiceLane, item.conceptId || item.id));
+    loadRecorded();
+    setVoiceMsg(`Removed your voice for ${item.label} — device voice takes over`);
+  };
+
   const clearData = async () => {
     const msg = "সব শেখার প্রগ্রেস মুছে ফেলবেন?\nClear all learning progress on this device?";
     if (typeof window !== "undefined" && !window.confirm(msg)) return;
     await db.progress.clear();
     await db.sessions.clear();
     await db.lanelog.clear();
+    await db.familyaudio.clear();
     window.location.reload();
   };
 
@@ -184,7 +271,14 @@ export default function ParentPage() {
             </h2>
             <p className="text-2xl font-bold">
               <span aria-hidden className="align-middle">{useToday.emoji }</span>{" "}
-              <span className="font-bengali">{useToday.word}</span>
+              <span className="font-bengali">{useToday.label}</span>{" "}
+              <button
+                onClick={() => void playWordAudio(childIdNow, activeCodes[0], useToday.id, useToday.label, useToday.audioUrl)}
+                className="align-middle text-xl text-primary ml-1"
+                aria-label={`speak ${useToday.label}`}
+              >
+                🔊
+              </button>
             </p>
             {useToday.mirrors.length > 0 && (
               <p className="text-sm text-muted mt-1">
@@ -291,6 +385,74 @@ export default function ParentPage() {
           <button onClick={clearData} className="text-sm text-danger underline underline-offset-4 py-3">
             Erase progress on this device <span className="font-bengali">· সব মুছুন</span>
           </button>
+        </section>
+
+        {/* Family voices — মা's own voice beats any device voice */}
+        <section className="card">
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-2">
+            Family voices <span className="font-bengali font-normal">· কণ্ঠ</span>
+          </h2>
+          <p className="text-xs text-muted mb-3">
+            Record the words in your family&apos;s voice. They play in every activity before the device voice —
+            and stay on this device only. <span className="font-bengali">মা&apos;s কণ্ঠ সবচেয়ে ভালো।</span>
+          </p>
+
+          <div className="flex gap-2 pb-3 flex-wrap">
+            {activeCodes.map((code) => {
+              const label = s.laneNames[code] ?? lanePack(code)?.nativeName ?? code;
+              return (
+                <button
+                  key={code}
+                  onClick={() => setVoiceLane(code)}
+                  className={`px-3 min-h-[44px] rounded-2xl text-sm transition duration-gentle ${bn(label) ? "font-bengali" : ""} ${
+                    voiceLane === code ? "bg-primary text-white" : "bg-bg text-text ring-1 ring-text/10"
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {(lanePack(voiceLane)?.words ?? []).map((w) => {
+              const id = w.conceptId || w.id;
+              const key = familyKey(childIdNow, voiceLane, id);
+              const isRec = recItem === id;
+              return (
+                <div key={w.id} className="flex items-center justify-between gap-1 bg-bg rounded-2xl px-2 py-1.5">
+                  <span className="text-sm truncate">
+                    <span aria-hidden>{w.emoji}</span>{" "}
+                    <span className={bn(w.label) ? "font-bengali" : ""}>{w.label}</span>
+                    {recorded.has(key) && <span aria-label="has family voice"> ✓</span>}
+                  </span>
+                  <span className="flex items-center">
+                    <button
+                      onClick={() => (isRec ? stopVoiceRec() : startVoiceRec(w))}
+                      className={`w-9 h-9 rounded-full text-sm ${isRec ? "bg-danger text-white animate-pulse" : "bg-surface text-text shadow-sm"}`}
+                      aria-label={isRec ? `stop recording ${w.label}` : `record ${w.label} in your voice`}
+                    >
+                      {isRec ? "■" : "●"}
+                    </button>
+                    <button onClick={() => previewVoice(w)} className="w-9 h-9 rounded-full text-sm" aria-label={`play ${w.label}`}>
+                      ▶
+                    </button>
+                    {recorded.has(key) && (
+                      <button onClick={() => deleteVoice(w)} className="w-7 h-9 text-danger text-xs" aria-label={`delete family voice for ${w.label}`}>
+                        ✕
+                      </button>
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          {recItem !== null && (
+            <p role="status" className="text-sm text-primary mt-2">◉ recording… tap ■ when done (max 5 s)</p>
+          )}
+          {voiceMsg && (
+            <p role="status" className={`text-sm mt-2 ${voiceMsg.startsWith("✓") ? "text-success" : "text-muted"}`}>{voiceMsg}</p>
+          )}
         </section>
 
         {/* Community packs — parent-gated downloads, offline after save */}

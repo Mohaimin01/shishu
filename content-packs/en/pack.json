@@ -14,21 +14,38 @@
     { "id": "b", "char": "B", "name": "B", "sound": "buh" },
     { "id": "c", "char": "C", "name": "C", "sound": "kuh" },
     { "id": "d", "char": "D", "name": "D", "sound": "duh" },
-    { "id": "e", "char": "E", "name": "E", "sound": "eh" }
+    { "id": "e", "char": "E", "name": "E", "sound": "eh" },
+    { "id": "f", "char": "F", "name": "F", "sound": "fuh" },
+    { "id": "g", "char": "G", "name": "G", "sound": "guh" },
+    { "id": "h", "char": "H", "name": "H", "sound": "huh" }
   ],
   "numbers": [
     { "value": 0, "char": "0", "word": "zero" },
     { "value": 1, "char": "1", "word": "one" },
     { "value": 2, "char": "2", "word": "two" },
     { "value": 3, "char": "3", "word": "three" },
-    { "value": 4, "char": "4", "word": "four" }
+    { "value": 4, "char": "4", "word": "four" },
+    { "value": 5, "char": "5", "word": "five" },
+    { "value": 6, "char": "6", "word": "six" },
+    { "value": 7, "char": "7", "word": "seven" },
+    { "value": 8, "char": "8", "word": "eight" },
+    { "value": 9, "char": "9", "word": "nine" }
   ],
   "words": [
     { "id": "w-water", "conceptId": "water", "label": "water", "emoji": "💧" },
     { "id": "w-apple", "conceptId": "apple", "label": "apple", "emoji": "🍎" },
     { "id": "w-sun", "conceptId": "sun", "label": "sun", "emoji": "☀️" },
     { "id": "w-mother", "conceptId": "mother", "label": "mother", "emoji": "👩" },
-    { "id": "w-eat", "conceptId": "eat", "label": "eat", "emoji": "🍽️" }
+    { "id": "w-eat", "conceptId": "eat", "label": "eat", "emoji": "🍽️" },
+    { "id": "w-father", "conceptId": "father", "label": "daddy", "emoji": "👨" },
+    { "id": "w-home", "conceptId": "home", "label": "home", "emoji": "🏠" },
+    { "id": "w-rice", "conceptId": "rice", "label": "rice", "emoji": "🍚" },
+    { "id": "w-mango", "conceptId": "mango", "label": "mango", "emoji": "🥭" },
+    { "id": "w-milk", "conceptId": "milk", "label": "milk", "emoji": "🥛" },
+    { "id": "w-ball", "conceptId": "ball", "label": "ball", "emoji": "⚽" },
+    { "id": "w-book", "conceptId": "book", "label": "book", "emoji": "📖" },
+    { "id": "w-sleep", "conceptId": "sleep", "label": "sleep", "emoji": "🌙" },
+    { "id": "w-tree", "conceptId": "tree", "label": "tree", "emoji": "🌳" }
   ],
   "conceptTables": [
     {
@@ -37,7 +54,7 @@
         { "lang": "en", "label": "water", "contextSentence": "I drink water." },
         { "lang": "bn", "label": "পানি", "region": "standard", "contextSentence": "আমি পানি পান করি।" },
         { "lang": "bn", "label": "জল", "region": "formal/literary", "contextSentence": "জল জীবন।" },
-        { "lang": "bn", "label": "বাড়ি", "region": "dialectal", "contextSentence": "বাড়িতে পানি আনো।" },
+        { "lang": "bn", "label": "বারি", "region": "Sylhet", "contextSentence": "একটু বারি আনো।" },
         { "lang": "es", "label": "agua" },
         { "lang": "ar", "label": "ماء" }
       ]
@@ -55,21 +72,32 @@
   ],
   "phrases": [
     { "id": "p-hello", "text": "Hello", "translation": "হ্যালো" },
-    { "id": "p-thankyou", "text": "Thank you", "translation": "ধন্যবাদ" }
+    { "id": "p-thankyou", "text": "Thank you", "translation": "ধন্যবাদ" },
+    { "id": "p-water-please", "text": "Water, please!", "tokens": ["Water", "please"], "emoji": "💧", "translation": "পানি দাও" },
+    { "id": "p-more-rice", "text": "More rice", "tokens": ["More", "rice"], "emoji": "🍚", "translation": "আর ভাত" },
+    { "id": "p-i-love-you", "text": "I love you", "tokens": ["I", "love", "you"], "emoji": "❤️", "translation": "আমি তোমাকে ভালবাসি" },
+    { "id": "p-i-eat-rice", "text": "I eat rice", "tokens": ["I", "eat", "rice"], "emoji": "🍚", "translation": "আমি ভাত খাই" },
+    { "id": "p-love-you-ma", "text": "I love you, Ma", "tokens": ["I", "love", "you", "Ma"], "emoji": "👩", "translation": "আমি তোমাকে ভালবাসি, মা" }
   ],
   "stages": {
     "toddler": [
       { "id": "t-color-a", "type": "color-letter", "prompt": "Color the letter A", "itemId": "a" },
-      { "id": "t-tap-sound", "type": "tap-sound", "prompt": "Tap the sound you hear", "itemId": "a", "options": ["ah", "buh", "kuh"] }
+      { "id": "t-tap-sound", "type": "tap-sound", "prompt": "Tap the sound you hear", "itemId": "a", "options": ["ah", "buh", "kuh"] },
+      { "id": "t-sentence-1", "type": "sentence-strip", "prompt": "Build the sentence", "itemId": "p-water-please" },
+      { "id": "t-listen-1", "type": "listen-repeat", "prompt": "Say it together", "itemId": "w-water" }
     ],
     "preschool": [
       { "id": "p-trace-a", "type": "trace-letter", "prompt": "Trace the letter A", "itemId": "a" },
-      { "id": "p-match-apple", "type": "match-picture-word", "prompt": "Match the word", "itemId": "w-apple" }
+      { "id": "p-match-apple", "type": "match-picture-word", "prompt": "Match the word", "itemId": "w-apple" },
+      { "id": "p-sentence-2", "type": "sentence-strip", "prompt": "Build the sentence", "itemId": "p-i-love-you" }
     ],
     "prek": [
-      { "id": "pk-concept-water", "type": "concept-table-review", "prompt": "Water — many words, one idea", "itemId": "water" }
+      { "id": "pk-concept-water", "type": "concept-table-review", "prompt": "Water — many words, one idea", "itemId": "water" },
+      { "id": "pk-sentence-3", "type": "sentence-strip", "prompt": "Build the sentence", "itemId": "p-i-eat-rice" }
     ],
-    "k1": [],
+    "k1": [
+      { "id": "k1-sentence-4", "type": "sentence-strip", "prompt": "Build the sentence", "itemId": "p-love-you-ma" }
+    ],
     "junior": [],
     "tween": []
   }

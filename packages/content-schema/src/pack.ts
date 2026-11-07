@@ -49,15 +49,18 @@ export const ConceptTableSchema = z.object({
 export const PhraseSchema = z.object({
   id: z.string(),
   text: z.string(),
+  /** Optional explicit word tiles for "build the sentence" — falls back to text split on spaces. */
+  tokens: z.array(z.string().min(1)).min(1).max(6).optional(),
   audioUrl: z.string().optional(),
   translation: z.string().optional(),
+  emoji: z.string().optional(), // single-subject scene hint, per PACKS.md emoji standards
 });
 
 export const StageActivitySchema = z.object({
   id: z.string(),
   type: z.enum([
     "color-letter", "color-number", "trace-letter", "tap-sound",
-    "match-picture-word", "find-in-scene", "listen-repeat", "concept-table-review",
+    "match-picture-word", "sentence-strip", "find-in-scene", "listen-repeat", "concept-table-review",
   ]),
   prompt: z.string(),
   itemId: z.string(),

@@ -1,5 +1,6 @@
 import { packs as bundledPacks } from "./packs";
-import type { LanguagePack } from "@shishu/content-schema";
+import type { LanguagePack, Phrase } from "@shishu/content-schema";
+import type { Stage } from "@shishu/core";
 
 export type ActivityType =
   | "color-letter"
@@ -7,6 +8,8 @@ export type ActivityType =
   | "trace-letter"
   | "tap-sound"
   | "match-picture-word"
+  | "sentence-strip"
+  | "listen-repeat"
   | "concept-bridge";
 
 export type ActivityCard = {
@@ -23,9 +26,27 @@ function latinLetter(p: LanguagePack): boolean {
   return p.letters.every((l) => /^[A-Za-z]$/.test(l.char));
 }
 
-export function listForPack(p: LanguagePack): ActivityCard[] {
+/** Word tiles for a phrase — authored where available, else the text split on spaces. */
+export function tokensOf(phrase: Phrase): string[] {
+  if (phrase.tokens && phrase.tokens.length > 0) return phrase.tokens;
+  return phrase.text.split(/\s+/).filter(Boolean);
+}
+
+/** Board dosing: sentences grow with the child — 2 words at 3, 3 at 4, 4 at 5+. */
+export function maxTokensFor(stage: Stage): number {
+  switch (stage) {
+    case "toddler": return 2;
+    case "preschool": return 3;
+    case "prek": return 3;
+    case "k1": return 4;
+    default: return 5;
+  }
+}
+
+export function listForPack(p: LanguagePack, stage?: Stage): ActivityCard[] {
   const cards: ActivityCard[] = [];
   const script = p.script === "bengali" ? "bengali" : "latin";
+  const cap = stage ? maxTokensFor(stage) : undefined;
 
   for (const l of p.letters) {
     cards.push({ key: `color-letter:${l.id}`, type: "color-letter", itemId: l.id, label: "color", glyph: l.char, glyphScript: script });
@@ -41,6 +62,20 @@ export function listForPack(p: LanguagePack): ActivityCard[] {
     for (const l of p.letters) {
       cards.push({ key: `tap-sound:${l.id}`, type: "tap-sound", itemId: l.id, label: "hear", glyph: l.char, glyphScript: script });
     }
+  }
+  for (const ph of p.phrases) {
+    if (cap !== undefined && tokensOf(ph).length > cap) continue;
+    cards.push({
+      key: `sentence-strip:${ph.id}`,
+      type: "sentence-strip",
+      itemId: ph.id,
+      label: ph.text,
+      glyph: ph.emoji ?? "🧩",
+      glyphScript: "latin",
+    });
+  }
+  for (const w of p.words) {
+    cards.push({ key: `listen-repeat:${w.id}`, type: "listen-repeat", itemId: w.id, label: "say", glyph: w.emoji ?? "🗣", glyphScript: "latin" });
   }
   return cards;
 }
@@ -67,6 +102,8 @@ export const TYPE_TITLE: Record<ActivityType, string> = {
   "trace-letter": "Trace the letter",
   "tap-sound": "Tap what you hear",
   "match-picture-word": "Find the picture",
+  "sentence-strip": "Build the sentence",
+  "listen-repeat": "Say it together",
   "concept-bridge": "One idea, many languages",
 };
 

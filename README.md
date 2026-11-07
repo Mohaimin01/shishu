@@ -33,7 +33,12 @@ See [docs/](./docs) and the plan in `.opencode/plan/`.
 
 ## Contributing
 
-We welcome language packs! See [CONTRIBUTING.md](./CONTRIBUTING.md). Adding a language = a JSON file + audio assets + a PR.
+We welcome language packs! See [docs/PACKS.md](./docs/PACKS.md). Adding a language = a JSON file (+ optional audio) + a PR — or paste a hosted `pack.json` URL right in the app (Grown-ups → Community language packs).
+
+## Guides
+
+- Install on a phone: [docs/INSTALL.md](./docs/INSTALL.md) — PWA or side-load APK
+- Google Play launch checklist: [docs/PLAY-STORE.md](./docs/PLAY-STORE.md)
 
 ## Monetization
 

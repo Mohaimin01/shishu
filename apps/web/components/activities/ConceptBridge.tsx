@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { chime, pop, speakOrPlay } from "@/lib/audio";
+import { chime } from "@/lib/audio";
+import { playWordAudio } from "@/lib/wordaudio";
 import { recordExposure } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { packs } from "@/lib/packs";
@@ -22,7 +23,6 @@ export default function ConceptBridge({ card, onDone }: {
   const sound = useSettings((s) => s.sound);
   const childId = useSettings((s) => s.childId);
   const recordedRef = useRef(false);
-  const LANG_PAIR: Record<string, string> = { en: "en", bn: "bn" };
 
   const step = card.langs[Math.min(idx, card.langs.length - 1)];
 
@@ -41,7 +41,7 @@ export default function ConceptBridge({ card, onDone }: {
     }
     if (sound) {
       const t = setTimeout(() => {
-        speakOrPlay(step.label, LANG_PAIR[step.code] ?? step.code, step.audioUrl);
+        void playWordAudio(childId || "anon", step.code, card.conceptId, step.label, step.audioUrl);
       }, idx === 0 ? 450 : 1500);
       return () => clearTimeout(t);
     }
