@@ -3,7 +3,21 @@
 Board: Prof. Anisur Rahman (Education Specialist) · Dr. Farhana Karim (Child Psychologist) · Rahim Uddin (Marketing) · Sultana Begum (Parenting Expert)
 Scope of review: shipped M1 kit (color/trace/tap-sound/match, Dexie progress, session cap, parent dashboard), tracing-completion fix, EN+BN packs, pagination-free PWA on GitHub Pages, APK-on-tag release flow, donation model.
 
-> Round 4 (multi-language-at-once, online pack downloads, "best teacher", words & sentences) is being deliberated — verdicts will be appended when the agenda settles.
+> Round 4 verdicts (multi-language, online packs, best-teacher, words & sentences) were deliberated and the **build was accepted by the owner** — see "Round 4 — Shipped" below.
+
+## Round 4 — Shipped (2026-11-07)
+
+| Motion | Verdict | Status |
+|---|---|---|
+| Multi-language at once | `activeLangs: string[]` lanes, home language first; session = one lane; zero data migration (progress already keyed `childId:lang:skill:itemId`) | ✅ shipped |
+| Languages as people | Lane names editable ("মা's ভাষা"); first lane = home language | ✅ shipped |
+| Together bridge lane | `conceptId` join across active packs; one card speaks each home word in turn; exposure recorded per language | ✅ shipped |
+| Dosing | Weekly targets 70/35/15 min by lane order; visible on dashboard; minutes hideable | ✅ shipped |
+| Online, parent-gated | Pack downloader in Grown-ups (https URL → zod validate → IndexedDB → offline forever). No accounts, no telemetry, no cloud progress in M2 | ✅ shipped |
+| Community contribution | `docs/PACKS.md` guide; emoji standards (single-subject, semantic-only); conceptId canonical registry; `audioUrl` for recordings wins over TTS | ✅ shipped |
+| Best teacher ≠ minimal | Minimal = no noise, not no depth; adaptive review (core SM-2) + bridge-to-life cards | adopted |
+| Words & sentences | Two-strike rule shipped (silent re-listen → glow). Sentence-strip builder + listen-repeat + audio recordings = next slice (M2 continued) | 🔜 next |
+| One-tap Continue | Home shows ▶ Continue resuming last activity | ✅ shipped |
 
 ## Verdicts agreed in Round 3
 

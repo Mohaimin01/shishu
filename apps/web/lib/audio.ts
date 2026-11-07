@@ -3,6 +3,8 @@
 // Gentle audio helpers. Volume-conscious: soft chimes, low speak rate.
 // Native recorded audio replaces speech synthesis as packs gain audioUrl entries.
 
+import { BASE_PATH } from "./paths";
+
 let ctx: AudioContext | null = null;
 
 function audioCtx(): AudioContext | null {
@@ -93,4 +95,20 @@ export async function fontsReady(): Promise<void> {
   if (typeof document !== "undefined" && "fonts" in document) {
     try { await document.fonts.ready; } catch { /* ignore */ }
   }
+}
+
+/** Plays pack audio when present (native/family recordings), else device TTS. */
+export function speakOrPlay(text: string, langCode: string, audioUrl?: string): boolean {
+  if (audioUrl) {
+    try {
+      const src = audioUrl.startsWith("/") && BASE_PATH ? `${BASE_PATH}${audioUrl}` : audioUrl;
+      const a = new Audio(src);
+      a.volume = 0.9;
+      void a.play().catch(() => {});
+      return true;
+    } catch {
+      // fall through to TTS
+    }
+  }
+  return speak(text, langCode);
 }

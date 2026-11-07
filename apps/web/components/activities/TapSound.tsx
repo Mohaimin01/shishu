@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { chime, speak } from "@/lib/audio";
+import { chime, speak, speakOrPlay } from "@/lib/audio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { packs } from "@/lib/packs";
 import type { Letter } from "@shishu/content-schema";
 
-// Letter name-audio via device TTS for M1; pack audioUrl replaces it as recordings arrive.
-
+/**
+ * Tap what you hear — letter name-audio via device TTS for M1;
+ * pack audioUrl (native / family recordings) replaces TTS as recordings arrive.
+ *
+ * Two-strike rule (board verdict): wrong #1 → silent re-listen, no visual hint.
+ * Wrong #2 → gentle glow on the correct card. Never a shame state.
+ */
 export default function TapSound({ lang, itemId, onAnswer }: {
   lang: string;
   itemId: string;
@@ -27,11 +32,12 @@ export default function TapSound({ lang, itemId, onAnswer }: {
     return { target: t, options: [t, ...others].sort(() => Math.random() - 0.5) };
   }, [p, itemId]);
 
-  const [pressed, setPressed] = useState<string | null>(null);
+  const wrongCountRef = useRef(0);
   const wrongLoggedRef = useRef(false);
+  const [hintGlow, setHintGlow] = useState(false);
 
   const play = () => {
-    if (sound) speak(target.char || target.name, "en");
+    if (sound) speakOrPlay(target.name || target.char, "en", target.audioUrl);
   };
 
   useEffect(() => {
@@ -46,14 +52,18 @@ export default function TapSound({ lang, itemId, onAnswer }: {
       if (sound) chime(true);
       void recordGraded(childId || "anon", lang, "letter", target.id, true);
       onAnswer(true);
-    } else {
-      if (sound) chime(false);
-      if (!wrongLoggedRef.current) {
-        wrongLoggedRef.current = true;
-        void recordGraded(childId || "anon", lang, "letter", target.id, false);
-      }
-      setPressed(target.id); // show a gentle pulse on the right card to nudge re-listen
-      setTimeout(() => setPressed(null), 900);
+      return;
+    }
+    if (sound) chime(false);
+    if (!wrongLoggedRef.current) {
+      wrongLoggedRef.current = true;
+      void recordGraded(childId || "anon", lang, "letter", target.id, false);
+    }
+    wrongCountRef.current += 1;
+    play(); // wrong #1 & #2: hear it again, think again
+    if (wrongCountRef.current >= 2) {
+      setHintGlow(true); // gentle glow only after a second miss
+      setTimeout(() => setHintGlow(false), 900);
     }
   };
 
@@ -73,7 +83,7 @@ export default function TapSound({ lang, itemId, onAnswer }: {
             key={l.id}
             onClick={() => choose(l.id)}
             className={`card text-center text-5xl font-bold text-text py-8 active:scale-95 transition duration-gentle ${
-              pressed === l.id ? "ring-4 ring-primary/40" : ""
+              hintGlow && l.id === target.id ? "ring-4 ring-primary/40" : ""
             }`}
             aria-label={`letter ${l.name}`}
           >

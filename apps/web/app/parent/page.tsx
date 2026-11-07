@@ -1,52 +1,125 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useSettings } from "@/store";
-import { getPack, LANGS } from "@/lib/packs";
+import { useSettings, weeklyTargetFor } from "@/store";
+import { packs } from "@/lib/packs";
 import { langProgress } from "@/lib/progress";
-import { db, todayMinutes } from "@/lib/db";
+import { db, laneMinutesLast7, todayMinutes } from "@/lib/db";
+import { downloadedPacks, fetchAndStashPack, removePack } from "@/lib/online-packs";
 import { STAGE_ORDER, STAGE_AGES, type Stage } from "@shishu/core";
+import type { LanguagePack } from "@shishu/content-schema";
 
 const CO_PLAY = [
-  "Say the letter sound together out loud, then clap once.",
+  "Say the letter sound together out loud, then clap once. (আওয়াজ মিলিয়ে বল, তারপর একবার হাততালি।)",
   "Ask 'what color next?' and let them choose from the palette.",
-  "After coloring a letter, print it with a finger in the air too.",
-  "For words, find the real thing at home (a glass of water, an apple) and say the word twice.",
+  "After coloring a letter, write it with a finger in the air too.",
+  "Find the real thing at home — a glass of water, an apple — and say the word twice.",
   "Count stairs or toes while counting numbers on screen.",
 ];
 
-function fmtDayMinutes(m: number): string {
-  const r = Math.round(m);
-  return `${r} min today`;
+function dayMinutes(m: number): string {
+  return `${Math.round(m)} min`;
 }
 
 export default function ParentPage() {
   const s = useSettings();
-  const p = getPack(s.lang);
-  const [stats, setStats] = useState<{ touched: number; mastered: number; accuracy: number } | null>(null);
+  const [ready, setReady] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [tip, setTip] = useState(0);
-  const [ready, setReady] = useState(false);
+  const [laneRows, setLaneRows] = useState<{ code: string; name: string; tried: number; solid: number; wk: number; target: number }[]>([]);
+  const [dlPacks, setDlPacks] = useState<LanguagePack[]>([]);
+  const [packUrl, setPackUrl] = useState("");
+  const [packMsg, setPackMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  const activeCodes = s.activeLangs;
+
+  // "Use it today" — one word to bring into family life (stable per day)
+  const useToday = useMemo(() => {
+    const primary = packets()[activeCodes[0]] ?? packs.en;
+    if (primary.words.length === 0) return null;
+    const d = new Date();
+    const dayIdx = d.getFullYear() * 1000 + (d.getMonth() + 1) * 40 + d.getDate();
+    const w = primary.words[dayIdx % primary.words.length];
+    const mirrors = activeCodes
+      .filter((c) => c !== activeCodes[0])
+      .map((c) => (packets()[c] ?? dlPacks.find((p) => p.code === c))?.words.find((x) => x.conceptId === w.conceptId)?.label)
+      .filter(Boolean) as string[];
+    return { word: w.label, emoji: w.emoji ?? "🌱", mirrors };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready]);
+
+  function packets() {
+    return packs as unknown as Record<string, LanguagePack>;
+  }
 
   useEffect(() => {
+    let alive = true;
     (async () => {
       const childId = useSettings.getState().childId || "anon";
-      const [st, min] = await Promise.all([langProgress(childId, s.lang), todayMinutes()]);
-      setStats(st);
+      const rows = await Promise.all(
+        activeCodes.map(async (code, i) => {
+          const p = packets()[code] ?? dlPacks.find((x) => x.code === code);
+          const st = await langProgress(childId, code);
+          const wk = await laneMinutesLast7(code);
+          return {
+            code,
+            name: s.laneNames[code] ?? p?.nativeName ?? code,
+            tried: st.touched,
+            solid: st.mastered,
+            wk,
+            target: weeklyTargetFor(i),
+          };
+        }),
+      );
+      const [min] = await Promise.all([todayMinutes()]);
+      const dl = await downloadedPacks();
+      if (!alive) return;
+      setLaneRows(rows);
       setMinutes(min);
+      setDlPacks(dl);
       setReady(true);
     })();
-  }, [s.lang, s.childId]);
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [s.activeLangs.join(","), s.childId]);
 
   const rotateTip = () => setTip((t) => (t + 1) % CO_PLAY.length);
 
+  const addLane = (code: string) => {
+    if (activeCodes.includes(code)) return;
+    useSettings.getState().set({ activeLangs: [...activeCodes, code] });
+  };
+
+  const dropPack = async (code: string) => {
+    await removePack(code);
+    const dl = await downloadedPacks();
+    setDlPacks(dl);
+    useSettings.getState().set({ activeLangs: activeCodes.filter((c) => c !== code) });
+  };
+
+  const downloadPack = async () => {
+    setPackMsg(null);
+    try {
+      const pack = await fetchAndStashPack(packUrl);
+      setPackUrl("");
+      setPackMsg({ ok: true, text: `${pack.nativeName} pack verified & saved offline ✓` });
+      setDlPacks(await downloadedPacks());
+    } catch (e) {
+      setPackMsg({ ok: false, text: `Could not load that pack: ${e instanceof Error ? e.message : String(e)}` });
+    }
+  };
+
   const clearData = async () => {
-    if (typeof window !== "undefined" && !window.confirm("Clear all learning progress for this device?")) return;
+    const msg = "সব শেখার প্রগ্রেস মুছে ফেলবেন?\nClear all learning progress on this device?";
+    if (typeof window !== "undefined" && !window.confirm(msg)) return;
     await db.progress.clear();
     await db.sessions.clear();
+    await db.lanelog.clear();
     window.location.reload();
   };
+
+  const bn = (str: string) => /[\u0980-\u09FF]/.test(str);
 
   return (
     <main className="min-h-screen px-5 pb-16">
@@ -63,25 +136,71 @@ export default function ParentPage() {
       </header>
 
       <div className="max-w-[560px] mx-auto flex flex-col gap-5">
+        {/* Per-language progress — qualitative tiers, no guilt numbers */}
         <section className="card">
-          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-3">This device · {p.nativeName}</h2>
-          {ready && stats ? (
-            <ul className="flex justify-around gap-2 text-center" aria-live="polite">
-              <li><span className="text-2xl font-bold">{stats.touched}</span><span className="block text-xs text-muted">things tried</span></li>
-              <li><span className="text-2xl font-bold">{stats.mastered}</span><span className="block text-xs text-muted">mastered</span></li>
-              <li><span className="text-2xl font-bold">{Math.round(stats.accuracy * 100)}%</span><span className="block text-xs text-muted">listening taps</span></li>
-              <li><span className="text-2xl font-bold">{fmtDayMinutes(minutes)}</span><span className="block text-xs text-muted">screen time</span></li>
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-3">
+            Progress <span className="font-bengali font-normal">· অগ্রগতি</span>
+          </h2>
+          {ready ? (
+            <ul className="flex flex-col gap-3">
+              {laneRows.map((r) => (
+                <li key={r.code} className="flex items-center justify-between gap-3">
+                  <span className={`font-semibold ${bn(r.name) ? "font-bengali" : ""}`}>{r.name}</span>
+                  <span className="flex items-center gap-4 text-sm">
+                    <span><span className="font-bold">{r.tried}</span> <span className="text-muted">tried · চেষ্টা</span></span>
+                    <span><span className="font-bold">{r.solid}</span> <span className="text-muted">solid · পারা হয়েছে</span></span>
+                    {s.showMinutes && (
+                      <span className={`text-xs ${r.wk >= r.target ? "text-success" : "text-muted"}`}>
+                        {dayMinutes(r.wk)}/{r.target}w
+                      </span>
+                    )}
+                  </span>
+                </li>
+              ))}
             </ul>
           ) : (
             <p className="text-sm text-muted">Loading…</p>
           )}
+          {ready && (
+            <p className="text-xs text-muted mt-3">
+              Dose guide: home language daily, others lighter — the app plants seeds, your home waters them.
+              <span className="font-bengali"> অ্যাপটি শুধু বীজ; ঘরের ভাষা হলো মাটি।</span>
+            </p>
+          )}
         </section>
 
+        {s.showMinutes && (
+          <section className="card" aria-label="learning minutes today">
+            <p className="text-sm text-muted">Learning minutes so far today</p>
+            <p className="text-2xl font-bold">{Math.round(minutes)}</p>
+          </section>
+        )}
+
+        {/* Use it today — the bridge card that carries learning into family life */}
+        {ready && useToday && (
+          <section className="card">
+            <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-2">
+              Use it today <span className="font-bengali font-normal">· আজ বলুন</span>
+            </h2>
+            <p className="text-2xl font-bold">
+              <span aria-hidden className="align-middle">{useToday.emoji }</span>{" "}
+              <span className="font-bengali">{useToday.word}</span>
+            </p>
+            {useToday.mirrors.length > 0 && (
+              <p className="text-sm text-muted mt-1">
+                <span className="font-bengali">এটাকে আরেক বাড়িতে বলে: </span>{useToday.mirrors.join(" · ")}
+              </p>
+            )}
+            <p className="text-xs text-muted mt-2">Bring it into a meal or bath time — twice, warmly.</p>
+          </section>
+        )}
+
+        {/* Settings */}
         <section className="card">
-          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-3">Play nicely (settings)</h2>
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-3">Play nicely <span className="font-bengali font-normal">· সেটিংস</span></h2>
 
           <div className="flex items-center justify-between py-2">
-            <span id="lbl-sound" className="text-base">Sounds</span>
+            <span id="lbl-sound" className="text-base">Sounds <span className="font-bengali text-muted">· শব্দ</span></span>
             <button
               role="switch"
               aria-checked={s.sound}
@@ -93,8 +212,21 @@ export default function ParentPage() {
             </button>
           </div>
 
+          <div className="flex items-center justify-between py-2">
+            <span id="lbl-min" className="text-base">Show learning minutes <span className="font-bengali text-muted">· সময় দেখান</span></span>
+            <button
+              role="switch"
+              aria-checked={s.showMinutes}
+              aria-labelledby="lbl-min"
+              onClick={() => s.set({ showMinutes: !s.showMinutes })}
+              className={`w-14 h-9 rounded-full transition duration-gentle ${s.showMinutes ? "bg-primary" : "bg-text/20"} relative`}
+            >
+              <span className={`absolute top-1 w-7 h-7 rounded-full bg-white transition-all duration-gentle ${s.showMinutes ? "left-6" : "left-1"}`} />
+            </button>
+          </div>
+
           <div className="py-2">
-            <span className="text-base block mb-2">Child age</span>
+            <span className="text-base block mb-2">Child age <span className="font-bengali text-muted">· সন্তানের বয়স</span></span>
             <div className="flex gap-2 flex-wrap">
               {[2, 3, 4, 5, 6, 8, 10].map((a) => (
                 <button
@@ -111,11 +243,11 @@ export default function ParentPage() {
                 </button>
               ))}
             </div>
-            <p className="text-xs text-muted mt-1">Stage from age. Nothing is locked — children can choose anything.</p>
+            <p className="text-xs text-muted mt-1">Stage suggests — nothing is locked. <span className="font-bengali">কোনো কিছু বন্ধ হয় না।</span></p>
           </div>
 
           <div className="py-2">
-            <label htmlFor="cap" className="text-base block">Daily gentle limit</label>
+            <label htmlFor="cap" className="text-base block">Daily gentle limit <span className="font-bengali text-muted">· দৈনিক সীমা</span></label>
             <input
               id="cap"
               type="range"
@@ -132,30 +264,75 @@ export default function ParentPage() {
             </p>
           </div>
 
+          {/* Language lanes (languages as people — rename family lanes) */}
           <div className="py-2">
-            <span className="text-base block mb-2">Language</span>
-            <div className="flex gap-2 flex-wrap">
-              {LANGS.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => s.set({ lang: l.code })}
-                  className={`px-4 min-h-[48px] rounded-2xl transition duration-gentle ${
-                    s.lang === l.code ? "bg-primary text-white" : "bg-bg text-text ring-1 ring-text/10"
-                  }`}
-                >
-                  {l.nativeName}
-                </button>
-              ))}
+            <span className="text-base block mb-2">Language lanes <span className="font-bengali text-muted">· ভাষা</span></span>
+            <div className="flex flex-col gap-2">
+              {activeCodes.map((code, i) => {
+                const p = packets()[code] ?? dlPacks.find((x) => x.code === code);
+                return (
+                  <div key={code} className="flex items-center gap-2">
+                    <span className="text-xs text-muted w-16">{i === 0 ? "home" : `#${i + 1}`}</span>
+                    <input
+                      className="flex-1 min-h-[48px] px-3 rounded-2xl bg-bg ring-1 ring-text/10 text-base"
+                      value={s.laneNames[code] ?? p?.nativeName ?? code}
+                      onChange={(e) => s.set({ laneNames: { ...s.laneNames, [code]: e.target.value } })}
+                      aria-label={`name for ${code} lane`}
+                      maxLength={24}
+                    />
+                    {!packs[code] && <button onClick={() => dropPack(code)} className="text-danger text-sm px-2" aria-label={`remove ${code}`}>✕</button>}
+                  </div>
+                );
+              })}
             </div>
+            <p className="text-xs text-muted mt-1">Try মা&apos;s ভাষা, Baba&apos;s — a language belongs to a person. First lane is the home language.</p>
           </div>
 
           <button onClick={clearData} className="text-sm text-danger underline underline-offset-4 py-3">
-            Erase progress on this device
+            Erase progress on this device <span className="font-bengali">· সব মুছুন</span>
           </button>
         </section>
 
+        {/* Community packs — parent-gated downloads, offline after save */}
         <section className="card">
-          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-2">Play together</h2>
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-3">Community language packs</h2>
+          <p className="text-xs text-muted mb-2">
+            Paste a pack URL (https://…pack.json). It&apos;s checked, saved on this device, and works offline after. No accounts, nothing uploaded.
+          </p>
+          <div className="flex gap-2">
+            <input
+              className="flex-1 min-h-[48px] px-3 rounded-2xl bg-bg ring-1 ring-text/10 text-sm"
+              placeholder="https://example.com/shishu/pack.json"
+              value={packUrl}
+              onChange={(e) => setPackUrl(e.target.value)}
+              aria-label="pack URL"
+              inputMode="url"
+            />
+            <button onClick={downloadPack} className="bg-primary text-white px-4 rounded-2xl min-h-[48px] active:scale-95 transition duration-gentle">
+              Add
+            </button>
+          </div>
+          {packMsg && (
+            <p role="status" className={`text-sm mt-2 ${packMsg.ok ? "text-success" : "text-danger"}`}>{packMsg.text}</p>
+          )}
+          {dlPacks.length > 0 && (
+            <ul className="mt-3 flex flex-col gap-2">
+              {dlPacks.map((p) => (
+                <li key={p.code} className="flex items-center justify-between gap-2 bg-bg rounded-2xl px-3 py-2">
+                  <span className="font-bengali">{p.nativeName}</span>
+                  {activeCodes.includes(p.code) ? (
+                    <span className="text-xs text-muted">in your lanes ✓</span>
+                  ) : (
+                    <button onClick={() => addLane(p.code)} className="text-primary text-sm underline underline-offset-4">add as lane</button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="card">
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-2">Play together <span className="font-bengali font-normal">· একসাথে</span></h2>
           <p className="text-base">{CO_PLAY[tip]}</p>
           <button onClick={rotateTip} className="mt-3 text-sm text-primary underline underline-offset-4">
             another idea
@@ -169,6 +346,7 @@ export default function ParentPage() {
             (only if someone contacts us directly) show after a level ends — never on top of play.
           </p>
           <p className="mt-2">Progress stays on this device unless you choose to sync. No accounts required.</p>
+          <p className="mt-2">Want to add your language? Read <span className="font-mono">docs/PACKS.md</span> in the repo — one JSON file per language.</p>
         </section>
       </div>
     </main>

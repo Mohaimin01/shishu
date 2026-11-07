@@ -6,7 +6,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ColorCanvas from "@/components/ColorCanvas";
 import TapSound from "@/components/activities/TapSound";
 import MatchPictureWord from "@/components/activities/MatchPictureWord";
-import { findCard, listForStage, nextAfter, TYPE_TITLE, type ActivityCard } from "@/lib/activities";
+import ConceptBridge from "@/components/activities/ConceptBridge";
+import {
+  bridgeCards, findCard, listForStage, nextAfter, TYPE_TITLE,
+  resolveBundled, type ActivityCard, type Lane,
+} from "@/lib/activities";
 import { getPack } from "@/lib/packs";
 import { addMinutes, todayMinutes } from "@/lib/db";
 import { useSettings } from "@/store";
@@ -63,18 +67,30 @@ function ActivityBody({ card, lang, onDone }: { card: ActivityCard; lang: string
   if (card.type === "match-picture-word") {
     return <MatchPictureWord lang={lang} itemId={card.itemId} onAnswer={() => onDone()} />;
   }
+  if (card.type === "concept-bridge") {
+    const lanes = useSettings.getState().activeLangs
+      .map((code) => {
+        const pack = resolveBundled(code);
+        return pack ? { code, pack, name: pack.nativeName, bundled: true } : null;
+      })
+      .filter((l): l is Lane => l !== null);
+    const bridge = bridgeCards(lanes).find((b) => b.conceptId === card.itemId);
+    if (bridge) return <ConceptBridge card={bridge} onDone={onDone} />;
+  }
   return <p className="text-muted">Coming soon</p>;
 }
 
 function RunnerInner() {
   const params = useSearchParams();
   const router = useRouter();
-  const lang = params.get("lang") ?? useSettings.getState().lang;
-  const stage = params.get("stage") ?? useSettings.getState().stage;
+  const settings = useSettings();
+  const lang = params.get("lang") ?? settings.activeLangs[0] ?? settings.lang;
+  const stage = (params.get("stage") ?? settings.stage) as Stage;
   const type = params.get("type");
   const item = params.get("item");
 
   const card = useMemo<ActivityCard | undefined>(() => {
+    if (type === "concept-bridge" && item) return { key: `concept-bridge:${item}`, type: "concept-bridge", itemId: item, label: "together", glyph: "◑" };
     if (type && item) return findCard(lang, type, item);
     return listForStage(lang)[0];
   }, [type, item, lang]);
@@ -83,14 +99,20 @@ function RunnerInner() {
   const [windDown, setWindDown] = useState(false);
   const mountedRef = useRef(Date.now());
 
+  // one-tap Continue memory (board verdict #8): home recalls this later
   useEffect(() => {
+    if (card) {
+      useSettings.getState().set({
+        lastActivity: { lang, stage, type: card.type, itemId: card.itemId },
+      });
+    }
     setComplete(false);
-  }, [type, item]);
+  }, [lang, stage, card]);
 
   const flushMinutes = async () => {
     const mins = (Date.now() - mountedRef.current) / 60000;
     mountedRef.current = Date.now();
-    if (mins > 0.2) await addMinutes(mins);
+    if (mins > 0.2) await addMinutes(mins, lang);
   };
 
   useEffect(() => {
@@ -118,25 +140,29 @@ function RunnerInner() {
   };
 
   const next = () => {
+    if (card?.type === "concept-bridge") {
+      router.push(`/learn?lane=together&stage=${stage}`);
+      return;
+    }
     const n = card ? nextAfter(lang, card) : undefined;
     if (n) router.push(`/play?lang=${lang}&stage=${stage}&type=${n.type}&item=${n.itemId}`);
-    else router.push(`/learn?lang=${lang}&stage=${stage}`);
+    else router.push(`/learn?lane=${lang}&stage=${stage}`);
   };
 
-  const p = getPack(lang);
+  const laneName = settings.laneNames[lang] ?? getPack(lang).nativeName;
 
   return (
     <main className="min-h-screen flex flex-col px-5 pb-10">
       <header className="flex items-center justify-between pt-4 pb-2">
         <Link
-          href={`/learn?lang=${lang}&stage=${stage}`}
+          href={`/learn?lane=${card?.type === "concept-bridge" ? "together" : lang}&stage=${stage}`}
           className="w-12 h-12 rounded-2xl bg-surface shadow-sm flex items-center justify-center text-xl text-text active:scale-95 transition duration-gentle"
           aria-label="back to activities"
         >
           ←
         </Link>
         <div className="text-center">
-          <p className="text-sm text-muted">{p.nativeName}</p>
+          <p className={`text-sm text-muted ${laneName.match(/[\u0980-\u09FF]/) ? "font-bengali" : ""}`}>{laneName}</p>
           <h1 className="text-lg font-bold text-text">
             {card ? TYPE_TITLE[card.type] : "Shishu"}
           </h1>

@@ -22,6 +22,30 @@ try {
   ok("learn lists letters section", (await page.getByRole("heading", { name: /color the letters/i }).count()) > 0);
   ok("language switch visible", await page.getByRole("link", { name: "বাংলা" }).isVisible());
 
+  // language lanes: second language lane + Together bridge lane
+  await page.click('a[href*="lane=bn"]');
+  await page.waitForTimeout(400);
+  ok("bn lane shows letter অ", (await page.getByRole("link", { name: /অ/ }).count()) > 0);
+  await page.click('a[href*="lane=together"]');
+  await page.waitForTimeout(400);
+  ok("together lane shows bridge card", (await page.locator('a[aria-label^="concept"]').count()) >= 1);
+
+  // bridge activity: one idea, many languages
+  await page.locator('a[aria-label^="concept"]').first().click();
+  await page.waitForURL("**/shishu/play/**");
+  await page.waitForTimeout(2600); // first word + second word timing
+  ok("bridge shows first language word", (await page.locator(".card p.font-bold").count()) >= 1);
+  ok("bridge has hear-again", await page.getByRole("button", { name: /hear every language again/i }).isVisible());
+
+  // one-tap Continue memory: leaving play should leave a trail home
+  await page.goto(`${BASE}/shishu/`, { waitUntil: "networkidle" });
+  ok("home shows ▶ Continue", await page.getByRole("link", { name: "▶ Continue" }).isVisible().catch(() => false));
+  await page.getByRole("link", { name: "▶ Continue" }).click();
+  await page.waitForURL("**/shishu/play/**");
+
+  // back to the home-language lane for the canvas checks
+  await page.goto(`${BASE}/shishu/learn/?lane=en`, { waitUntil: "networkidle" });
+
   // open first color-letter activity
   await page.locator('a[aria-label^="Color the letters: A"]').click();
   await page.waitForURL("**/shishu/play/**");
@@ -96,9 +120,11 @@ try {
   // parent dashboard
   await page.goto(`${BASE}/shishu/parent/`, { waitUntil: "networkidle" });
   ok("parent shows Grown-ups", await page.getByRole("heading", { name: "Grown-ups" }).isVisible());
+  ok("parent has pack URL input", (await page.locator('input[aria-label="pack URL"]').count()) === 1);
+  ok("parent shows per-lane progress", (await page.locator('li span.font-semibold').count()) >= 2);
 
   // bengali learn
-  await page.goto(`${BASE}/shishu/learn/?lang=bn`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}/shishu/learn/?lane=bn`, { waitUntil: "networkidle" });
   ok("bengali pack loads", await page.getByRole("heading", { name: "বাংলা" }).isVisible());
 
   await page.screenshot({ path: "/tmp/opencode/shishu-learn.png", fullPage: true });

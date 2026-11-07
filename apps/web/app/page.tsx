@@ -1,6 +1,28 @@
+"use client";
+
 import Link from "next/link";
-import { LANGS } from "@/lib/packs";
+import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/paths";
+import { useSettings } from "@/store";
+
+/** One-tap resume (board P0): the 4-year-old's first screen action. */
+function ContinueChip() {
+  const [last, setLast] = useState(useSettings.getState().lastActivity);
+  useEffect(() => {
+    // store hydration is async; re-read once after mount
+    const t = setTimeout(() => setLast(useSettings.getState().lastActivity), 50);
+    return () => clearTimeout(t);
+  }, []);
+  if (!last) return null;
+  return (
+    <Link
+      href={`/play?lang=${last.lang}&stage=${last.stage}&type=${last.type}&item=${last.itemId}`}
+      className="bg-surface text-text ring-1 ring-primary/30 rounded-3xl px-6 py-4 text-lg font-semibold text-center min-h-[56px] flex items-center justify-center active:scale-[0.98] transition duration-gentle hover:shadow"
+    >
+      ▶ Continue
+    </Link>
+  );
+}
 
 export default function Home() {
   return (
@@ -20,6 +42,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col gap-3 w-full max-w-xs">
+        <ContinueChip />
         <Link href="/learn" className="bg-primary text-white rounded-3xl px-6 py-4 text-lg font-semibold text-center min-h-[56px] flex items-center justify-center active:scale-[0.98] transition duration-gentle hover:bg-[#4F7064]">
           Start learning
         </Link>
@@ -34,7 +57,7 @@ export default function Home() {
       <p className="text-sm text-muted mt-8 text-center">
         Free &amp; open source · No ads · Works offline
         <br />
-        {LANGS.map((l) => l.nativeName).join(" · ")} — more languages welcome
+        English · বাংলা · more languages by community
       </p>
     </main>
   );
