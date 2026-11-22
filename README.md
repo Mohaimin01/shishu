@@ -14,7 +14,7 @@ Shishu ("child" in Bengali/Sanskrit) is a calm, low-stimulation learning app tha
 - 📱 Android APK available
 - 🚫 No ads by default; no tracking; no accounts required
 - 🎨 Low-stimulation design (muted colors, slow motion, session caps)
-- 🌍 Multilingual: English, Bangla, and growing
+- 🌍 Multilingual: 14 bundled languages — English, বাংলা, हिन्दी, اردو, العربية, Español, Français, Deutsch, Português, Русский, Türkçe, Bahasa Indonesia, 中文, 日本語 — with complete alphabets to trace and colour in every one, plus any community pack
 
 ## Live (free GitHub Pages)
 
