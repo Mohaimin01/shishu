@@ -62,6 +62,8 @@ type GamifyState = {
   lastDay: string | null;
   /** Adds seeds for a completed activity and counts today in the streak. Returns seeds earned. */
   award: (type: ActivityType) => number;
+  /** Adds seeds outside the play activities (e.g. a Word Rows row learned by an older learner). */
+  awardRaw: (n: number) => void;
   /** Counts today as an active day (no seeds — a day of looking still counts as showing up). */
   touchDay: () => void;
 };
@@ -78,6 +80,11 @@ export const useGamify = create<GamifyState>()(
         set((s) => ({ xp: s.xp + n }));
         get().touchDay();
         return n;
+      },
+      awardRaw: (n) => {
+        if (n <= 0) return;
+        set((s) => ({ xp: s.xp + n }));
+        get().touchDay();
       },
       touchDay: () => {
         const today = localDay();

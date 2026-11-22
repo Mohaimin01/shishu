@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { perDayFor, type Row, type ScriptId } from "@shishu/core";
 import type { LangMeta } from "@/lib/lexicon";
 import WordCell from "./WordCell";
 import { fontClassForText } from "@/lib/script";
+import { useGamify } from "@/lib/gamify";
 
 
 /**
@@ -31,6 +32,20 @@ export default function StudyMode({ rows, metas, readable, showRoman, known, row
   const byId = useMemo(() => new Map(rows.map((r) => [r.concept.id, r])), [rows]);
   const row = queue.length ? byId.get(queue[0]) : undefined;
 
+  // BUG FIX: when the learner changes languages/filters, the old queue keeps ids that no longer
+  // exist in the row set and the screen says "learned!" while nothing is shown. Re-seed the queue
+  // from the current rows instead. `rows` is rebuilt by the parent only when the language set or
+  // filters change, so this does not fire on every "I know it".
+  useEffect(() => {
+    const stillHere = queue.filter((id) => byId.has(id));
+    if (stillHere.length === queue.length) return;
+    const fresh = todo.filter((r) => !stillHere.includes(r.concept.id)).slice(0, rowsPerDay).map((r) => r.concept.id);
+    const next = [...stillHere, ...fresh];
+    setQueue(next);
+    setTotal(next.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows]);
+
   const restart = (n = rowsPerDay) => {
     const next = todo.filter((r) => !queue.includes(r.concept.id)).slice(0, n).map((r) => r.concept.id);
     setQueue(next);
@@ -43,6 +58,7 @@ export default function StudyMode({ rows, metas, readable, showRoman, known, row
   const gotIt = () => {
     if (!row) return;
     onKnown(row.concept.id);
+    useGamify.getState().awardRaw(1); // every learned row is a seed in the garden
     setQueue((q) => q.slice(1));
     setFinished((n) => n + 1);
     setRevealed(false);
@@ -112,7 +128,7 @@ export default function StudyMode({ rows, metas, readable, showRoman, known, row
         <div className="bg-surface rounded-3xl shadow-sm p-8 text-center grid gap-3">
           <div aria-hidden className="text-5xl">🌱</div>
           <p className="text-xl font-bold">{total > 0 ? "Today's rows are done!" : "Everything here is learned!"}</p>
-          <p className="text-muted text-sm">Come back tomorrow — a little every day beats a lot once.</p>
+          <p className="text-muted text-sm">Come back tomorrow — a little every day beats a lot once. <span aria-hidden>🌱</span> {useGamify.getState().xp} seeds so far.</p>
           {todo.length > 0 && <button onClick={() => restart()} className="btn-primary min-h-[52px]">Do {Math.min(rowsPerDay, todo.length)} more now</button>}
         </div>
       )}

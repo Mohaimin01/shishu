@@ -28,6 +28,24 @@ describe("friendly contributions", () => {
     expect(p.script).toBe("latin");
   });
 
+  it("accepts a 5-word starter pack with bare letters and numbers (PACKS.md promise)", () => {
+    const p = validatePack({
+      code: "zz", name: "Zish", nativeName: "Zish", script: "latin",
+      letters: [{ id: "zz-a", char: "a" }],
+      numbers: [{ value: 1 }],
+      words: [
+        { id: "w1", conceptId: "water", label: "wata", emoji: "💧" },
+        { id: "w2", conceptId: "mother", label: "mama", emoji: "👩" },
+        { id: "w3", conceptId: "father", label: "papa", emoji: "👨" },
+        { id: "w4", conceptId: "eat", label: "nyam", emoji: "🍽" },
+        { id: "w5", conceptId: "sleep", label: "sudu", emoji: "😴" },
+      ],
+    });
+    expect(p.words).toHaveLength(5);
+    expect(p.letters[0].char).toBe("a");
+    expect(p.numbers[0].value).toBe(1);
+  });
+
   it("explains mistakes with the field path", () => {
     expect(() => validatePack({ code: "x", name: "T", nativeName: "T" })).toThrow(/code: /);
     expect(() => validatePack({ code: "xx", name: "T", nativeName: "T", words: [{ id: "w" }] })).toThrow(/words\[0\]\.conceptId/);

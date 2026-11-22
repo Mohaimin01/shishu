@@ -29,7 +29,9 @@ Android APK: push a tag like `v0.1.0` and GitHub Actions publishes an installabl
 meanings first, every synonym grouped in its cell (Bengali *water*: পানি, বারি, জল). Choose any number of
 languages, choose which letters you can read (Bengali, English, Hindi… words are shown in letters you
 understand), study a few rows a day, and **print** the tables (many languages are split across sheets).
-Add any language with a spreadsheet-style worksheet — see [docs/WORDS.md](./docs/WORDS.md).
+Add any language with a spreadsheet-style worksheet — see [docs/WORDS.md](./docs/WORDS.md). Study
+a few rows a day (🌱 seeds and 🔥 streaks included) and the words you meet will click when you then
+watch a film or listen to a speaker of the language.
 
 ## Quick start
 
@@ -55,7 +57,15 @@ Content checks: `npm run validate:content` (pack schema) and `npm run validate:l
 
 ## Contributing
 
-We welcome language packs! See [docs/PACKS.md](./docs/PACKS.md). Adding a language = a JSON file (+ optional audio) + a PR — or paste a hosted `pack.json` URL right in the app (Grown-ups → Community language packs).
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** — start at "add your language". One children's pack =
+one JSON file (a few letters and 5 words is enough to begin). Word rows for older learners = one
+spreadsheet-style TSV. No coding needed; CI checks your file and explains any fix in plain words.
+
+## Progress stays on your device
+
+No accounts, no tracking. Moving to a new phone? **Grown-ups → Backup & restore** saves one file
+with everything — garden, learned words, family voices. Our position on optional Google Play
+Games / Game Center sign-in: [docs/ROADMAP.md](./docs/ROADMAP.md).
 
 ## Guides
 

@@ -2,6 +2,8 @@
 
 One language = **one JSON file**. No app code, no builds, no permission needed.
 
+New to the repo? Start at **[CONTRIBUTING.md](../CONTRIBUTING.md)** — it ties both sections together.
+
 ## Easiest way (no code)
 
 ```bash
@@ -33,9 +35,10 @@ Adding words for older learners and adults? See [WORDS.md](./WORDS.md).
   "letters": [              // 4–12 to start; grow later
     { "id": "bn-a", "char": "অ", "name": "অ", "sound": "aw", "audioUrl": "/packs/bn/a.mp3?" }
     // audioUrl optional — device voice is the fallback; your recording wins
+    // name and sound are ALSO optional (device voice speaks the letter) — { "id": "x-a", "char": "a" } is valid
   ],
   "numbers": [
-    { "value": 1, "char": "১", "word": "এক" }   // char = the digit glyph in YOUR script
+    { "value": 1, "char": "১", "word": "এক" }   // char = the digit glyph in YOUR script; word optional
   ],
   "words": [
     // conceptId is the shared idea across ALL languages — keep the canonical ids

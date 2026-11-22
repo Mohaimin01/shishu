@@ -9,8 +9,10 @@ export const PhonemeSchema = z.object({
 export const LetterSchema = z.object({
   id: z.string(),
   char: z.string(),
-  name: z.string(),
-  sound: z.string(),
+  /** what the letter is called — device TTS speaks this (falls back to the character) */
+  name: z.string().optional(),
+  /** not used by the app yet (kept for future recorded audio); optional so first packs stay tiny */
+  sound: z.string().optional(),
   audioUrl: z.string().optional(),
   tracePath: z.string().optional(),
 });
@@ -18,7 +20,8 @@ export const LetterSchema = z.object({
 export const NumberSchema = z.object({
   value: z.number().int().nonnegative(),
   char: z.string().optional(), // digit glyph in the pack's script; falls back to value
-  word: z.string(),
+  /** the number said aloud — optional; device TTS reads the value when missing */
+  word: z.string().optional(),
   audioUrl: z.string().optional(),
 });
 

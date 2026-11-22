@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSettings, weeklyTargetFor } from "@/store";
 import { useGamify, levelOf } from "@/lib/gamify";
+import { applyBackup, buildBackup, downloadBackup, parseBackup } from "@/lib/backup";
 import { packs, LANGS } from "@/lib/packs";
 import { fontClassForText } from "@/lib/script";
 import { langProgress } from "@/lib/progress";
@@ -36,6 +37,8 @@ export default function ParentPage() {
   const [dlPacks, setDlPacks] = useState<LanguagePack[]>([]);
   const [packUrl, setPackUrl] = useState("");
   const [packMsg, setPackMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const [backupMsg, setBackupMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const backupFileRef = useRef<HTMLInputElement>(null);
 
   const activeCodes = s.activeLangs;
 
@@ -305,6 +308,66 @@ const downloadPack = async () => {
           <p className="text-xs text-muted mt-2">
             Seeds and streaks are celebration, never pressure — nothing expires, nothing is lost.
           </p>
+        </section>
+
+        {/* Backup & restore — no accounts, no server: progress travels in one file you control */}
+        <section className="card" aria-label="backup and restore">
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-2">
+            Backup &amp; restore <span className="font-bengali font-normal">· ব্যাকআপ</span>
+          </h2>
+          <p className="text-xs text-muted mb-3">
+            No accounts, no server: everything stays on this device. Save one file and carry it to a
+            new phone — the garden, learned words, and family voices come with it.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={async () => {
+                setBackupMsg(null);
+                try {
+                  const b = await buildBackup();
+                  downloadBackup(b);
+                  setBackupMsg({ ok: true, text: "Backup file saved ✓ Keep it somewhere safe (email it to yourself)." });
+                } catch {
+                  setBackupMsg({ ok: false, text: "Could not read this device's data to build the file." });
+                }
+              }}
+              className="min-h-[48px] px-5 rounded-2xl bg-primary text-white font-semibold active:scale-95 transition duration-gentle"
+            >
+              ⬇ Save my progress file
+            </button>
+            <input
+              ref={backupFileRef}
+              type="file"
+              accept=".json,application/json"
+              className="hidden"
+              onChange={async (e) => {
+                const f = e.target.files?.[0];
+                e.target.value = "";
+                setBackupMsg(null);
+                if (!f) return;
+                try {
+                  const b = parseBackup(JSON.parse(await f.text()));
+                  const restored = await applyBackup(b);
+                  setBackupMsg({
+                    ok: true,
+                    text: restored.length ? `Restored: ${restored.join(" · ")}. Reloading…` : "Backup restored (it was empty). Reloading…",
+                  });
+                  setTimeout(() => window.location.reload(), 1200);
+                } catch (err) {
+                  setBackupMsg({ ok: false, text: err instanceof Error ? err.message : "Could not restore that file." });
+                }
+              }}
+            />
+            <button
+              onClick={() => backupFileRef.current?.click()}
+              className="min-h-[48px] px-5 rounded-2xl bg-bg ring-1 ring-text/10 active:scale-95 transition duration-gentle"
+            >
+              ⬆ Restore from file
+            </button>
+          </div>
+          {backupMsg && (
+            <p role="status" className={`text-sm mt-2 ${backupMsg.ok ? "text-success" : "text-danger"}`}>{backupMsg.text}</p>
+          )}
         </section>
 
         {/* Use it today — the bridge card that carries learning into family life */}

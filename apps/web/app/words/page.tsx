@@ -7,6 +7,7 @@ import {
 } from "@shishu/core";
 import { loadCatalogue, loadLanguage, type LangMeta } from "@/lib/lexicon";
 import { useWords } from "@/lib/wordsStore";
+import { useGamify, levelOf } from "@/lib/gamify";
 import SetupPanel from "@/components/words/SetupPanel";
 import WordTable from "@/components/words/WordTable";
 import StudyMode from "@/components/words/StudyMode";
@@ -17,6 +18,8 @@ type Mode = "table" | "study" | "print";
 
 export default function WordsPage() {
   const w = useWords();
+  const g = useGamify();
+  const lv = levelOf(g.xp);
   const [metas, setMetas] = useState<LangMeta[]>([]);
   const [concepts, setConcepts] = useState<Concept[]>([]);
   const [langs, setLangs] = useState<Record<string, LexiconLanguage>>({});
@@ -104,7 +107,14 @@ export default function WordsPage() {
           <h1 className="text-xl font-bold">Word Rows</h1>
           <p className="text-xs text-muted">one meaning · many languages · side by side</p>
         </div>
-        <div className="w-12" aria-hidden />
+        <div className="w-12 flex flex-col items-center justify-center" aria-label="garden progress">
+          <span className="text-sm font-bold" aria-label={`${g.xp} seeds`}><span aria-hidden>🌱</span> {g.xp}</span>
+          {g.streak > 0 && (
+            <span className="text-[11px] font-semibold text-muted" aria-label={`${g.streak} day streak`}>
+              <span aria-hidden>🔥</span> {g.streak}d
+            </span>
+          )}
+        </div>
       </header>
 
       {error && <p role="alert" className="text-red-700 text-center py-3 print:hidden">{error}</p>}
@@ -131,7 +141,10 @@ export default function WordsPage() {
               {t.label}
             </button>
           ))}
-          <span className="text-xs text-muted ml-auto">{columns.length} languages · {allRows.length} rows · {w.known.length} learned</span>
+          <span className="text-xs text-muted ml-auto">
+            {columns.length} languages · {allRows.length} rows · {w.known.length} learned
+            <span title={`garden: ${lv.level.emoji} ${lv.level.name}`}> · <span aria-hidden>🌱</span> {g.xp}</span>
+          </span>
         </div>
 
         {mode !== "study" && (
