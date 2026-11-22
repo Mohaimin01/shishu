@@ -19,7 +19,7 @@ jobs:
       - run: npm run lint --workspaces --if-present
       - run: npm run typecheck --workspaces --if-present
       - run: npm test --workspaces --if-present
-      - run: npm run validate:content --workspace content-schema 2>/dev/null || npx tsx packages/content-schema/src/validate.ts
+      - run: npx tsx packages/content-schema/src/validate.ts
       - run: npx tsx scripts/validate-lexicon.ts
       - name: Build web
         run: npm run build --workspace web

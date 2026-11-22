@@ -7,7 +7,7 @@ Thank you for helping children learn gently. 🌱
 1. Create `content-packs/{code}/` (ISO 639-1 code, e.g. `es`).
 2. Add `pack.json` following the schema in `packages/content-schema/src/pack.ts`.
 3. Add audio files under `content-packs/{code}/audio/` (native speakers preferred).
-4. Run `pnpm validate:content`.
+4. Run `npm run validate:content`.
 5. Open a PR. A native-speaker maintainer will review.
 
 ## Content guidelines
@@ -20,7 +20,7 @@ Thank you for helping children learn gently. 🌱
 
 ## Code contributions
 
-- `pnpm lint && pnpm typecheck && pnpm test` must pass.
+- `npm run lint && npm run typecheck && npm test` must pass.
 - Follow the low-stimulation design rules (muted palette, slow motion, no flashing).
 - Add tests for new logic in `packages/`.
 
