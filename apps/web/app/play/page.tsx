@@ -12,9 +12,9 @@ import ListenRepeat from "@/components/activities/ListenRepeat";
 import ConceptTable from "@/components/activities/ConceptTable";
 import {
   bridgeCards, findCard, listForStage, nextAfter, TYPE_TITLE,
-  resolveBundled, type ActivityCard, type Lane,
+  type ActivityCard,
 } from "@/lib/activities";
-import { getPack, loadDownloadedPacks } from "@/lib/packs";
+import { BUNDLED_CODES, getPack, hasPack, loadDownloadedPacks } from "@/lib/packs";
 import { addMinutes, todayMinutes } from "@/lib/db";
 import { useSettings } from "@/store";
 import type { Stage } from "@shishu/core";
@@ -80,12 +80,15 @@ function ActivityBody({ card, lang, onDone }: { card: ActivityCard; lang: string
     return <ConceptTable lang={lang} itemId={card.itemId} onDone={() => onDone()} />;
   }
   if (card.type === "concept-bridge") {
+    // hasPack/getPack read the packs map, which already holds downloaded community packs
+    // at this point (loadDownloadedPacks ran before packsReady turned true) — so bridges
+    // shown on the Learn screen stay playable here too, not only bundled ones.
     const lanes = useSettings.getState().activeLangs
+      .filter(hasPack)
       .map((code) => {
-        const pack = resolveBundled(code);
-        return pack ? { code, pack, name: pack.nativeName, bundled: true } : null;
-      })
-      .filter((l): l is Lane => l !== null);
+        const pack = getPack(code);
+        return { code, pack, name: pack.nativeName, bundled: BUNDLED_CODES.includes(code) };
+      });
     const bridge = bridgeCards(lanes).find((b) => b.conceptId === card.itemId);
     if (bridge) return <ConceptBridge card={bridge} onDone={onDone} />;
   }
