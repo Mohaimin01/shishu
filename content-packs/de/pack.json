@@ -1,0 +1,94 @@
+{
+  "code": "de",
+  "name": "German",
+  "nativeName": "Deutsch",
+  "script": "latin",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "de-a", "char": "A", "name": "A", "sound": "a" },
+    { "id": "de-b", "char": "B", "name": "B", "sound": "be" },
+    { "id": "de-c", "char": "C", "name": "C", "sound": "ce" },
+    { "id": "de-d", "char": "D", "name": "D", "sound": "de" },
+    { "id": "de-e", "char": "E", "name": "E", "sound": "e" },
+    { "id": "de-f", "char": "F", "name": "F", "sound": "eff" },
+    { "id": "de-g", "char": "G", "name": "G", "sound": "ge" },
+    { "id": "de-h", "char": "H", "name": "H", "sound": "ha" },
+    { "id": "de-i", "char": "I", "name": "I", "sound": "i" },
+    { "id": "de-j", "char": "J", "name": "J", "sound": "jot" },
+    { "id": "de-k", "char": "K", "name": "K", "sound": "ka" },
+    { "id": "de-l", "char": "L", "name": "L", "sound": "el" },
+    { "id": "de-m", "char": "M", "name": "M", "sound": "em" },
+    { "id": "de-n", "char": "N", "name": "N", "sound": "en" },
+    { "id": "de-o", "char": "O", "name": "O", "sound": "o" },
+    { "id": "de-p", "char": "P", "name": "P", "sound": "pe" },
+    { "id": "de-q", "char": "Q", "name": "Q", "sound": "ku" },
+    { "id": "de-r", "char": "R", "name": "R", "sound": "err" },
+    { "id": "de-s", "char": "S", "name": "S", "sound": "es" },
+    { "id": "de-t", "char": "T", "name": "T", "sound": "te" },
+    { "id": "de-u", "char": "U", "name": "U", "sound": "u" },
+    { "id": "de-v", "char": "V", "name": "V", "sound": "fau" },
+    { "id": "de-w", "char": "W", "name": "W", "sound": "we" },
+    { "id": "de-x", "char": "X", "name": "X", "sound": "iks" },
+    { "id": "de-y", "char": "Y", "name": "Y", "sound": "üpsilon" },
+    { "id": "de-z", "char": "Z", "name": "Z", "sound": "zett" },
+    { "id": "de-ae", "char": "Ä", "name": "Ä", "sound": "ä" },
+    { "id": "de-oe", "char": "Ö", "name": "Ö", "sound": "ö" },
+    { "id": "de-ue", "char": "Ü", "name": "Ü", "sound": "ü" },
+    { "id": "de-sz", "char": "ß", "name": "ß", "sound": "esszett" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "0", "word": "null" },
+    { "value": 1, "char": "1", "word": "eins" },
+    { "value": 2, "char": "2", "word": "zwei" },
+    { "value": 3, "char": "3", "word": "drei" },
+    { "value": 4, "char": "4", "word": "vier" },
+    { "value": 5, "char": "5", "word": "fünf" },
+    { "value": 6, "char": "6", "word": "sechs" },
+    { "value": 7, "char": "7", "word": "sieben" },
+    { "value": 8, "char": "8", "word": "acht" },
+    { "value": 9, "char": "9", "word": "neun" }
+  ],
+  "words": [
+    { "id": "de-w-water", "conceptId": "water", "label": "Wasser", "emoji": "💧" },
+    { "id": "de-w-apple", "conceptId": "apple", "label": "Apfel", "emoji": "🍎" },
+    { "id": "de-w-sun", "conceptId": "sun", "label": "Sonne", "emoji": "☀️" },
+    { "id": "de-w-mother", "conceptId": "mother", "label": "Mama", "emoji": "👩" },
+    { "id": "de-w-eat", "conceptId": "eat", "label": "essen", "emoji": "🍽️" },
+    { "id": "de-w-father", "conceptId": "father", "label": "Papa", "emoji": "👨" },
+    { "id": "de-w-home", "conceptId": "home", "label": "Haus", "emoji": "🏠" },
+    { "id": "de-w-rice", "conceptId": "rice", "label": "Reis", "emoji": "🍚" },
+    { "id": "de-w-mango", "conceptId": "mango", "label": "Mango", "emoji": "🥭" },
+    { "id": "de-w-milk", "conceptId": "milk", "label": "Milch", "emoji": "🥛" },
+    { "id": "de-w-ball", "conceptId": "ball", "label": "Ball", "emoji": "⚽" },
+    { "id": "de-w-book", "conceptId": "book", "label": "Buch", "emoji": "📖" },
+    { "id": "de-w-sleep", "conceptId": "sleep", "label": "schlafen", "emoji": "🌙" },
+    { "id": "de-w-tree", "conceptId": "tree", "label": "Baum", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "de", "label": "Wasser" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "de", "label": "essen" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "de-p-hello", "text": "Hallo!", "translation": "Hello", "tokens": ["Hallo"], "emoji": "👋" },
+    { "id": "de-p-thankyou", "text": "Danke", "translation": "Thank you", "tokens": ["Danke"], "emoji": "🙏" },
+    { "id": "de-p-water-please", "text": "Wasser, bitte", "translation": "Water, please", "tokens": ["Wasser", "bitte"], "emoji": "💧" },
+    { "id": "de-p-i-love-you", "text": "Ich liebe dich", "translation": "I love you", "tokens": ["Ich", "liebe", "dich"], "emoji": "❤️" },
+    { "id": "de-p-goodnight", "text": "Gute Nacht", "translation": "Good night", "tokens": ["Gute", "Nacht"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

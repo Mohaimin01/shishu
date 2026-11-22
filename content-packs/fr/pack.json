@@ -1,0 +1,90 @@
+{
+  "code": "fr",
+  "name": "French",
+  "nativeName": "Français",
+  "script": "latin",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "fr-a", "char": "A", "name": "A", "sound": "a" },
+    { "id": "fr-b", "char": "B", "name": "B", "sound": "bé" },
+    { "id": "fr-c", "char": "C", "name": "C", "sound": "cé" },
+    { "id": "fr-d", "char": "D", "name": "D", "sound": "dé" },
+    { "id": "fr-e", "char": "E", "name": "E", "sound": "e" },
+    { "id": "fr-f", "char": "F", "name": "F", "sound": "effe" },
+    { "id": "fr-g", "char": "G", "name": "G", "sound": "gé" },
+    { "id": "fr-h", "char": "H", "name": "H", "sound": "hache" },
+    { "id": "fr-i", "char": "I", "name": "I", "sound": "i" },
+    { "id": "fr-j", "char": "J", "name": "J", "sound": "ji" },
+    { "id": "fr-k", "char": "K", "name": "K", "sound": "ka" },
+    { "id": "fr-l", "char": "L", "name": "L", "sound": "elle" },
+    { "id": "fr-m", "char": "M", "name": "M", "sound": "emme" },
+    { "id": "fr-n", "char": "N", "name": "N", "sound": "enne" },
+    { "id": "fr-o", "char": "O", "name": "O", "sound": "o" },
+    { "id": "fr-p", "char": "P", "name": "P", "sound": "pé" },
+    { "id": "fr-q", "char": "Q", "name": "Q", "sound": "ku" },
+    { "id": "fr-r", "char": "R", "name": "R", "sound": "erre" },
+    { "id": "fr-s", "char": "S", "name": "S", "sound": "esse" },
+    { "id": "fr-t", "char": "T", "name": "T", "sound": "té" },
+    { "id": "fr-u", "char": "U", "name": "U", "sound": "u" },
+    { "id": "fr-v", "char": "V", "name": "V", "sound": "vé" },
+    { "id": "fr-w", "char": "W", "name": "W", "sound": "double vé" },
+    { "id": "fr-x", "char": "X", "name": "X", "sound": "ixe" },
+    { "id": "fr-y", "char": "Y", "name": "Y", "sound": "i grec" },
+    { "id": "fr-z", "char": "Z", "name": "Z", "sound": "zède" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "0", "word": "zéro" },
+    { "value": 1, "char": "1", "word": "un" },
+    { "value": 2, "char": "2", "word": "deux" },
+    { "value": 3, "char": "3", "word": "trois" },
+    { "value": 4, "char": "4", "word": "quatre" },
+    { "value": 5, "char": "5", "word": "cinq" },
+    { "value": 6, "char": "6", "word": "six" },
+    { "value": 7, "char": "7", "word": "sept" },
+    { "value": 8, "char": "8", "word": "huit" },
+    { "value": 9, "char": "9", "word": "neuf" }
+  ],
+  "words": [
+    { "id": "fr-w-water", "conceptId": "water", "label": "eau", "emoji": "💧" },
+    { "id": "fr-w-apple", "conceptId": "apple", "label": "pomme", "emoji": "🍎" },
+    { "id": "fr-w-sun", "conceptId": "sun", "label": "soleil", "emoji": "☀️" },
+    { "id": "fr-w-mother", "conceptId": "mother", "label": "maman", "emoji": "👩" },
+    { "id": "fr-w-eat", "conceptId": "eat", "label": "manger", "emoji": "🍽️" },
+    { "id": "fr-w-father", "conceptId": "father", "label": "papa", "emoji": "👨" },
+    { "id": "fr-w-home", "conceptId": "home", "label": "maison", "emoji": "🏠" },
+    { "id": "fr-w-rice", "conceptId": "rice", "label": "riz", "emoji": "🍚" },
+    { "id": "fr-w-mango", "conceptId": "mango", "label": "mangue", "emoji": "🥭" },
+    { "id": "fr-w-milk", "conceptId": "milk", "label": "lait", "emoji": "🥛" },
+    { "id": "fr-w-ball", "conceptId": "ball", "label": "ballon", "emoji": "⚽" },
+    { "id": "fr-w-book", "conceptId": "book", "label": "livre", "emoji": "📖" },
+    { "id": "fr-w-sleep", "conceptId": "sleep", "label": "dormir", "emoji": "🌙" },
+    { "id": "fr-w-tree", "conceptId": "tree", "label": "arbre", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "fr", "label": "eau" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "fr", "label": "manger" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "fr-p-hello", "text": "Bonjour !", "translation": "Hello", "tokens": ["Bonjour"], "emoji": "👋" },
+    { "id": "fr-p-thankyou", "text": "Merci", "translation": "Thank you", "tokens": ["Merci"], "emoji": "🙏" },
+    { "id": "fr-p-water-please", "text": "L'eau, s'il te plaît", "translation": "Water, please", "tokens": ["L'eau", "s'il", "te", "plaît"], "emoji": "💧" },
+    { "id": "fr-p-i-love-you", "text": "Je t'aime", "translation": "I love you", "tokens": ["Je", "t'aime"], "emoji": "❤️" },
+    { "id": "fr-p-goodnight", "text": "Bonne nuit", "translation": "Good night", "tokens": ["Bonne", "nuit"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

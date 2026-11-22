@@ -1,0 +1,91 @@
+{
+  "code": "es",
+  "name": "Spanish",
+  "nativeName": "Español",
+  "script": "latin",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "es-a", "char": "A", "name": "A", "sound": "a" },
+    { "id": "es-b", "char": "B", "name": "B", "sound": "be" },
+    { "id": "es-c", "char": "C", "name": "C", "sound": "ce" },
+    { "id": "es-d", "char": "D", "name": "D", "sound": "de" },
+    { "id": "es-e", "char": "E", "name": "E", "sound": "e" },
+    { "id": "es-f", "char": "F", "name": "F", "sound": "efe" },
+    { "id": "es-g", "char": "G", "name": "G", "sound": "ge" },
+    { "id": "es-h", "char": "H", "name": "H", "sound": "hache" },
+    { "id": "es-i", "char": "I", "name": "I", "sound": "i" },
+    { "id": "es-j", "char": "J", "name": "J", "sound": "jota" },
+    { "id": "es-k", "char": "K", "name": "K", "sound": "ka" },
+    { "id": "es-l", "char": "L", "name": "L", "sound": "ele" },
+    { "id": "es-m", "char": "M", "name": "M", "sound": "eme" },
+    { "id": "es-n", "char": "N", "name": "N", "sound": "ene" },
+    { "id": "es-nie", "char": "Ñ", "name": "Ñ", "sound": "eñe" },
+    { "id": "es-o", "char": "O", "name": "O", "sound": "o" },
+    { "id": "es-p", "char": "P", "name": "P", "sound": "pe" },
+    { "id": "es-q", "char": "Q", "name": "Q", "sound": "cu" },
+    { "id": "es-r", "char": "R", "name": "R", "sound": "erre" },
+    { "id": "es-s", "char": "S", "name": "S", "sound": "ese" },
+    { "id": "es-t", "char": "T", "name": "T", "sound": "te" },
+    { "id": "es-u", "char": "U", "name": "U", "sound": "u" },
+    { "id": "es-v", "char": "V", "name": "V", "sound": "uve" },
+    { "id": "es-w", "char": "W", "name": "W", "sound": "uve doble" },
+    { "id": "es-x", "char": "X", "name": "X", "sound": "equis" },
+    { "id": "es-y", "char": "Y", "name": "Y", "sound": "i griega" },
+    { "id": "es-z", "char": "Z", "name": "Z", "sound": "zeta" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "0", "word": "cero" },
+    { "value": 1, "char": "1", "word": "uno" },
+    { "value": 2, "char": "2", "word": "dos" },
+    { "value": 3, "char": "3", "word": "tres" },
+    { "value": 4, "char": "4", "word": "cuatro" },
+    { "value": 5, "char": "5", "word": "cinco" },
+    { "value": 6, "char": "6", "word": "seis" },
+    { "value": 7, "char": "7", "word": "siete" },
+    { "value": 8, "char": "8", "word": "ocho" },
+    { "value": 9, "char": "9", "word": "nueve" }
+  ],
+  "words": [
+    { "id": "es-w-water", "conceptId": "water", "label": "agua", "emoji": "💧" },
+    { "id": "es-w-apple", "conceptId": "apple", "label": "manzana", "emoji": "🍎" },
+    { "id": "es-w-sun", "conceptId": "sun", "label": "sol", "emoji": "☀️" },
+    { "id": "es-w-mother", "conceptId": "mother", "label": "mamá", "emoji": "👩" },
+    { "id": "es-w-eat", "conceptId": "eat", "label": "comer", "emoji": "🍽️" },
+    { "id": "es-w-father", "conceptId": "father", "label": "papá", "emoji": "👨" },
+    { "id": "es-w-home", "conceptId": "home", "label": "casa", "emoji": "🏠" },
+    { "id": "es-w-rice", "conceptId": "rice", "label": "arroz", "emoji": "🍚" },
+    { "id": "es-w-mango", "conceptId": "mango", "label": "mango", "emoji": "🥭" },
+    { "id": "es-w-milk", "conceptId": "milk", "label": "leche", "emoji": "🥛" },
+    { "id": "es-w-ball", "conceptId": "ball", "label": "pelota", "emoji": "⚽" },
+    { "id": "es-w-book", "conceptId": "book", "label": "libro", "emoji": "📖" },
+    { "id": "es-w-sleep", "conceptId": "sleep", "label": "dormir", "emoji": "🌙" },
+    { "id": "es-w-tree", "conceptId": "tree", "label": "árbol", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "es", "label": "agua" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "es", "label": "comer" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "es-p-hello", "text": "¡Hola!", "translation": "Hello", "tokens": ["Hola"], "emoji": "👋" },
+    { "id": "es-p-thankyou", "text": "Gracias", "translation": "Thank you", "tokens": ["Gracias"], "emoji": "🙏" },
+    { "id": "es-p-water-please", "text": "Agua, por favor", "translation": "Water, please", "tokens": ["Agua", "por", "favor"], "emoji": "💧" },
+    { "id": "es-p-i-love-you", "text": "Te quiero", "translation": "I love you", "tokens": ["Te", "quiero"], "emoji": "❤️" },
+    { "id": "es-p-goodnight", "text": "Buenas noches", "translation": "Good night", "tokens": ["Buenas", "noches"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

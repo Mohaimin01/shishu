@@ -1,0 +1,90 @@
+{
+  "code": "id",
+  "name": "Indonesian",
+  "nativeName": "Bahasa Indonesia",
+  "script": "latin",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "id-a", "char": "A", "name": "A", "sound": "a" },
+    { "id": "id-b", "char": "B", "name": "B", "sound": "be" },
+    { "id": "id-c", "char": "C", "name": "C", "sound": "ce" },
+    { "id": "id-d", "char": "D", "name": "D", "sound": "de" },
+    { "id": "id-e", "char": "E", "name": "E", "sound": "e" },
+    { "id": "id-f", "char": "F", "name": "F", "sound": "ef" },
+    { "id": "id-g", "char": "G", "name": "G", "sound": "ge" },
+    { "id": "id-h", "char": "H", "name": "H", "sound": "ha" },
+    { "id": "id-i", "char": "I", "name": "I", "sound": "i" },
+    { "id": "id-j", "char": "J", "name": "J", "sound": "je" },
+    { "id": "id-k", "char": "K", "name": "K", "sound": "ka" },
+    { "id": "id-l", "char": "L", "name": "L", "sound": "el" },
+    { "id": "id-m", "char": "M", "name": "M", "sound": "em" },
+    { "id": "id-n", "char": "N", "name": "N", "sound": "en" },
+    { "id": "id-o", "char": "O", "name": "O", "sound": "o" },
+    { "id": "id-p", "char": "P", "name": "P", "sound": "pe" },
+    { "id": "id-q", "char": "Q", "name": "Q", "sound": "ki" },
+    { "id": "id-r", "char": "R", "name": "R", "sound": "er" },
+    { "id": "id-s", "char": "S", "name": "S", "sound": "es" },
+    { "id": "id-t", "char": "T", "name": "T", "sound": "te" },
+    { "id": "id-u", "char": "U", "name": "U", "sound": "u" },
+    { "id": "id-v", "char": "V", "name": "V", "sound": "ve" },
+    { "id": "id-w", "char": "W", "name": "W", "sound": "we" },
+    { "id": "id-x", "char": "X", "name": "X", "sound": "eks" },
+    { "id": "id-y", "char": "Y", "name": "Y", "sound": "ye" },
+    { "id": "id-z", "char": "Z", "name": "Z", "sound": "zet" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "0", "word": "nol" },
+    { "value": 1, "char": "1", "word": "satu" },
+    { "value": 2, "char": "2", "word": "dua" },
+    { "value": 3, "char": "3", "word": "tiga" },
+    { "value": 4, "char": "4", "word": "empat" },
+    { "value": 5, "char": "5", "word": "lima" },
+    { "value": 6, "char": "6", "word": "enam" },
+    { "value": 7, "char": "7", "word": "tujuh" },
+    { "value": 8, "char": "8", "word": "delapan" },
+    { "value": 9, "char": "9", "word": "sembilan" }
+  ],
+  "words": [
+    { "id": "id-w-water", "conceptId": "water", "label": "air", "emoji": "💧" },
+    { "id": "id-w-apple", "conceptId": "apple", "label": "apel", "emoji": "🍎" },
+    { "id": "id-w-sun", "conceptId": "sun", "label": "matahari", "emoji": "☀️" },
+    { "id": "id-w-mother", "conceptId": "mother", "label": "ibu", "emoji": "👩" },
+    { "id": "id-w-eat", "conceptId": "eat", "label": "makan", "emoji": "🍽️" },
+    { "id": "id-w-father", "conceptId": "father", "label": "ayah", "emoji": "👨" },
+    { "id": "id-w-home", "conceptId": "home", "label": "rumah", "emoji": "🏠" },
+    { "id": "id-w-rice", "conceptId": "rice", "label": "nasi", "emoji": "🍚" },
+    { "id": "id-w-mango", "conceptId": "mango", "label": "mangga", "emoji": "🥭" },
+    { "id": "id-w-milk", "conceptId": "milk", "label": "susu", "emoji": "🥛" },
+    { "id": "id-w-ball", "conceptId": "ball", "label": "bola", "emoji": "⚽" },
+    { "id": "id-w-book", "conceptId": "book", "label": "buku", "emoji": "📖" },
+    { "id": "id-w-sleep", "conceptId": "sleep", "label": "tidur", "emoji": "🌙" },
+    { "id": "id-w-tree", "conceptId": "tree", "label": "pohon", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "id", "label": "air" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "id", "label": "makan" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "id-p-hello", "text": "Halo!", "translation": "Hello", "tokens": ["Halo"], "emoji": "👋" },
+    { "id": "id-p-thankyou", "text": "Terima kasih", "translation": "Thank you", "tokens": ["Terima", "kasih"], "emoji": "🙏" },
+    { "id": "id-p-water-please", "text": "Air, tolong", "translation": "Water, please", "tokens": ["Air", "tolong"], "emoji": "💧" },
+    { "id": "id-p-i-love-you", "text": "Aku sayang kamu", "translation": "I love you", "tokens": ["Aku", "sayang", "kamu"], "emoji": "❤️" },
+    { "id": "id-p-goodnight", "text": "Selamat tidur", "translation": "Good night", "tokens": ["Selamat", "tidur"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

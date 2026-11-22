@@ -1,0 +1,110 @@
+{
+  "code": "hi",
+  "name": "Hindi",
+  "nativeName": "हिन्दी",
+  "script": "devanagari",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "hi-a", "char": "अ", "name": "अ", "sound": "a" },
+    { "id": "hi-aa", "char": "आ", "name": "आ", "sound": "aa" },
+    { "id": "hi-i", "char": "इ", "name": "इ", "sound": "i" },
+    { "id": "hi-ii", "char": "ई", "name": "ई", "sound": "ii" },
+    { "id": "hi-u", "char": "उ", "name": "उ", "sound": "u" },
+    { "id": "hi-uu", "char": "ऊ", "name": "ऊ", "sound": "uu" },
+    { "id": "hi-ri", "char": "ऋ", "name": "ऋ", "sound": "ri" },
+    { "id": "hi-e", "char": "ए", "name": "ए", "sound": "e" },
+    { "id": "hi-ai", "char": "ऐ", "name": "ऐ", "sound": "ai" },
+    { "id": "hi-o", "char": "ओ", "name": "ओ", "sound": "o" },
+    { "id": "hi-au", "char": "औ", "name": "औ", "sound": "au" },
+    { "id": "hi-an", "char": "अं", "name": "अं", "sound": "an" },
+    { "id": "hi-ah", "char": "अः", "name": "अः", "sound": "ah" },
+    { "id": "hi-ka", "char": "क", "name": "क", "sound": "ka" },
+    { "id": "hi-kha", "char": "ख", "name": "ख", "sound": "kha" },
+    { "id": "hi-ga", "char": "ग", "name": "ग", "sound": "ga" },
+    { "id": "hi-gha", "char": "घ", "name": "घ", "sound": "gha" },
+    { "id": "hi-nga", "char": "ङ", "name": "ङ", "sound": "ṅa" },
+    { "id": "hi-cha", "char": "च", "name": "च", "sound": "cha" },
+    { "id": "hi-chha", "char": "छ", "name": "छ", "sound": "chha" },
+    { "id": "hi-ja", "char": "ज", "name": "ज", "sound": "ja" },
+    { "id": "hi-jha", "char": "झ", "name": "झ", "sound": "jha" },
+    { "id": "hi-nya", "char": "ञ", "name": "ञ", "sound": "ña" },
+    { "id": "hi-ta", "char": "ट", "name": "ट", "sound": "ṭa" },
+    { "id": "hi-tha", "char": "ठ", "name": "ठ", "sound": "ṭha" },
+    { "id": "hi-da", "char": "ड", "name": "ड", "sound": "ḍa" },
+    { "id": "hi-dha", "char": "ढ", "name": "ढ", "sound": "ḍha" },
+    { "id": "hi-na", "char": "ण", "name": "ण", "sound": "ṇa" },
+    { "id": "hi-ta-dental", "char": "त", "name": "त", "sound": "ta" },
+    { "id": "hi-tha-dental", "char": "थ", "name": "थ", "sound": "tha" },
+    { "id": "hi-da-dental", "char": "द", "name": "द", "sound": "da" },
+    { "id": "hi-dha-dental", "char": "ध", "name": "ध", "sound": "dha" },
+    { "id": "hi-na-dental", "char": "न", "name": "न", "sound": "na" },
+    { "id": "hi-pa", "char": "प", "name": "प", "sound": "pa" },
+    { "id": "hi-pha", "char": "फ", "name": "फ", "sound": "pha" },
+    { "id": "hi-ba", "char": "ब", "name": "ब", "sound": "ba" },
+    { "id": "hi-bha", "char": "भ", "name": "भ", "sound": "bha" },
+    { "id": "hi-ma", "char": "म", "name": "म", "sound": "ma" },
+    { "id": "hi-ya", "char": "य", "name": "य", "sound": "ya" },
+    { "id": "hi-ra", "char": "र", "name": "र", "sound": "ra" },
+    { "id": "hi-la", "char": "ल", "name": "ल", "sound": "la" },
+    { "id": "hi-va", "char": "व", "name": "व", "sound": "va" },
+    { "id": "hi-sha", "char": "श", "name": "श", "sound": "śa" },
+    { "id": "hi-ssa", "char": "ष", "name": "ष", "sound": "ṣa" },
+    { "id": "hi-sa", "char": "स", "name": "स", "sound": "sa" },
+    { "id": "hi-ha", "char": "ह", "name": "ह", "sound": "ha" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "०", "word": "शून्य" },
+    { "value": 1, "char": "१", "word": "एक" },
+    { "value": 2, "char": "२", "word": "दो" },
+    { "value": 3, "char": "३", "word": "तीन" },
+    { "value": 4, "char": "४", "word": "चार" },
+    { "value": 5, "char": "५", "word": "पाँच" },
+    { "value": 6, "char": "६", "word": "छह" },
+    { "value": 7, "char": "७", "word": "सात" },
+    { "value": 8, "char": "८", "word": "आठ" },
+    { "value": 9, "char": "९", "word": "नौ" }
+  ],
+  "words": [
+    { "id": "hi-w-water", "conceptId": "water", "label": "पानी", "emoji": "💧" },
+    { "id": "hi-w-apple", "conceptId": "apple", "label": "सेब", "emoji": "🍎" },
+    { "id": "hi-w-sun", "conceptId": "sun", "label": "सूरज", "emoji": "☀️" },
+    { "id": "hi-w-mother", "conceptId": "mother", "label": "माँ", "emoji": "👩" },
+    { "id": "hi-w-eat", "conceptId": "eat", "label": "खाना", "emoji": "🍽️" },
+    { "id": "hi-w-father", "conceptId": "father", "label": "पापा", "emoji": "👨" },
+    { "id": "hi-w-home", "conceptId": "home", "label": "घर", "emoji": "🏠" },
+    { "id": "hi-w-rice", "conceptId": "rice", "label": "चावल", "emoji": "🍚" },
+    { "id": "hi-w-mango", "conceptId": "mango", "label": "आम", "emoji": "🥭" },
+    { "id": "hi-w-milk", "conceptId": "milk", "label": "दूध", "emoji": "🥛" },
+    { "id": "hi-w-ball", "conceptId": "ball", "label": "गेंद", "emoji": "⚽" },
+    { "id": "hi-w-book", "conceptId": "book", "label": "किताब", "emoji": "📖" },
+    { "id": "hi-w-sleep", "conceptId": "sleep", "label": "सोना", "emoji": "🌙" },
+    { "id": "hi-w-tree", "conceptId": "tree", "label": "पेड़", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "hi", "label": "पानी" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "hi", "label": "खाना" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "hi-p-hello", "text": "नमस्ते!", "translation": "Hello", "tokens": ["नमस्ते"], "emoji": "👋" },
+    { "id": "hi-p-thankyou", "text": "धन्यवाद", "translation": "Thank you", "tokens": ["धन्यवाद"], "emoji": "🙏" },
+    { "id": "hi-p-water-please", "text": "पानी दीजिए", "translation": "Water, please", "tokens": ["पानी", "दीजिए"], "emoji": "💧" },
+    { "id": "hi-p-i-love-you", "text": "मैं तुमसे प्यार करता हूँ", "translation": "I love you", "tokens": ["मैं", "तुमसे", "प्यार", "करता", "हूँ"], "emoji": "❤️" },
+    { "id": "hi-p-goodnight", "text": "शुभ रात्रि", "translation": "Good night", "tokens": ["शुभ", "रात्रि"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

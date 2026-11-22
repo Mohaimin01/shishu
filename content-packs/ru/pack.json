@@ -1,0 +1,97 @@
+{
+  "code": "ru",
+  "name": "Russian",
+  "nativeName": "Русский",
+  "script": "cyrillic",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "ru-a", "char": "А", "name": "А", "sound": "а" },
+    { "id": "ru-be", "char": "Б", "name": "Б", "sound": "бэ" },
+    { "id": "ru-ve", "char": "В", "name": "В", "sound": "вэ" },
+    { "id": "ru-ge", "char": "Г", "name": "Г", "sound": "гэ" },
+    { "id": "ru-de", "char": "Д", "name": "Д", "sound": "дэ" },
+    { "id": "ru-ye", "char": "Е", "name": "Е", "sound": "е" },
+    { "id": "ru-yo", "char": "Ё", "name": "Ё", "sound": "ё" },
+    { "id": "ru-zhe", "char": "Ж", "name": "Ж", "sound": "же" },
+    { "id": "ru-ze", "char": "З", "name": "З", "sound": "зэ" },
+    { "id": "ru-i", "char": "И", "name": "И", "sound": "и" },
+    { "id": "ru-i-kratkoe", "char": "Й", "name": "Й", "sound": "и краткое" },
+    { "id": "ru-ka", "char": "К", "name": "К", "sound": "ка" },
+    { "id": "ru-el", "char": "Л", "name": "Л", "sound": "эль" },
+    { "id": "ru-em", "char": "М", "name": "М", "sound": "эм" },
+    { "id": "ru-en", "char": "Н", "name": "Н", "sound": "эн" },
+    { "id": "ru-o", "char": "О", "name": "О", "sound": "о" },
+    { "id": "ru-pe", "char": "П", "name": "П", "sound": "пэ" },
+    { "id": "ru-er", "char": "Р", "name": "Р", "sound": "эр" },
+    { "id": "ru-es", "char": "С", "name": "С", "sound": "эс" },
+    { "id": "ru-te", "char": "Т", "name": "Т", "sound": "тэ" },
+    { "id": "ru-u", "char": "У", "name": "У", "sound": "у" },
+    { "id": "ru-ef", "char": "Ф", "name": "Ф", "sound": "эф" },
+    { "id": "ru-ha", "char": "Х", "name": "Х", "sound": "ха" },
+    { "id": "ru-tse", "char": "Ц", "name": "Ц", "sound": "цэ" },
+    { "id": "ru-che", "char": "Ч", "name": "Ч", "sound": "че" },
+    { "id": "ru-sha", "char": "Ш", "name": "Ш", "sound": "ша" },
+    { "id": "ru-shcha", "char": "Щ", "name": "Щ", "sound": "ща" },
+    { "id": "ru-tv-znak", "char": "Ъ", "name": "Ъ", "sound": "твёрдый знак" },
+    { "id": "ru-y", "char": "Ы", "name": "Ы", "sound": "ы" },
+    { "id": "ru-myagk-znak", "char": "Ь", "name": "Ь", "sound": "мягкий знак" },
+    { "id": "ru-e", "char": "Э", "name": "Э", "sound": "э" },
+    { "id": "ru-yu", "char": "Ю", "name": "Ю", "sound": "ю" },
+    { "id": "ru-ya", "char": "Я", "name": "Я", "sound": "я" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "0", "word": "ноль" },
+    { "value": 1, "char": "1", "word": "один" },
+    { "value": 2, "char": "2", "word": "два" },
+    { "value": 3, "char": "3", "word": "три" },
+    { "value": 4, "char": "4", "word": "четыре" },
+    { "value": 5, "char": "5", "word": "пять" },
+    { "value": 6, "char": "6", "word": "шесть" },
+    { "value": 7, "char": "7", "word": "семь" },
+    { "value": 8, "char": "8", "word": "восемь" },
+    { "value": 9, "char": "9", "word": "девять" }
+  ],
+  "words": [
+    { "id": "ru-w-water", "conceptId": "water", "label": "вода", "emoji": "💧" },
+    { "id": "ru-w-apple", "conceptId": "apple", "label": "яблоко", "emoji": "🍎" },
+    { "id": "ru-w-sun", "conceptId": "sun", "label": "солнце", "emoji": "☀️" },
+    { "id": "ru-w-mother", "conceptId": "mother", "label": "мама", "emoji": "👩" },
+    { "id": "ru-w-eat", "conceptId": "eat", "label": "есть", "emoji": "🍽️" },
+    { "id": "ru-w-father", "conceptId": "father", "label": "папа", "emoji": "👨" },
+    { "id": "ru-w-home", "conceptId": "home", "label": "дом", "emoji": "🏠" },
+    { "id": "ru-w-rice", "conceptId": "rice", "label": "рис", "emoji": "🍚" },
+    { "id": "ru-w-mango", "conceptId": "mango", "label": "манго", "emoji": "🥭" },
+    { "id": "ru-w-milk", "conceptId": "milk", "label": "молоко", "emoji": "🥛" },
+    { "id": "ru-w-ball", "conceptId": "ball", "label": "мяч", "emoji": "⚽" },
+    { "id": "ru-w-book", "conceptId": "book", "label": "книга", "emoji": "📖" },
+    { "id": "ru-w-sleep", "conceptId": "sleep", "label": "спать", "emoji": "🌙" },
+    { "id": "ru-w-tree", "conceptId": "tree", "label": "дерево", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "ru", "label": "вода" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "ru", "label": "есть" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "ru-p-hello", "text": "Привет!", "translation": "Hello", "tokens": ["Привет"], "emoji": "👋" },
+    { "id": "ru-p-thankyou", "text": "Спасибо", "translation": "Thank you", "tokens": ["Спасибо"], "emoji": "🙏" },
+    { "id": "ru-p-water-please", "text": "Дай воды", "translation": "Give me water", "tokens": ["Дай", "воды"], "emoji": "💧" },
+    { "id": "ru-p-i-love-you", "text": "Я тебя люблю", "translation": "I love you", "tokens": ["Я", "тебя", "люблю"], "emoji": "❤️" },
+    { "id": "ru-p-goodnight", "text": "Доброй ночи", "translation": "Good night", "tokens": ["Доброй", "ночи"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

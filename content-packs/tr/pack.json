@@ -1,0 +1,93 @@
+{
+  "code": "tr",
+  "name": "Turkish",
+  "nativeName": "Türkçe",
+  "script": "latin",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "tr-a", "char": "A", "name": "A", "sound": "a" },
+    { "id": "tr-b", "char": "B", "name": "B", "sound": "be" },
+    { "id": "tr-c", "char": "C", "name": "C", "sound": "ce" },
+    { "id": "tr-c-ced", "char": "Ç", "name": "Ç", "sound": "çe" },
+    { "id": "tr-d", "char": "D", "name": "D", "sound": "de" },
+    { "id": "tr-e", "char": "E", "name": "E", "sound": "e" },
+    { "id": "tr-f", "char": "F", "name": "F", "sound": "fe" },
+    { "id": "tr-g", "char": "G", "name": "G", "sound": "ge" },
+    { "id": "tr-g-breve", "char": "Ğ", "name": "Ğ", "sound": "yumuşak ge" },
+    { "id": "tr-h", "char": "H", "name": "H", "sound": "ha" },
+    { "id": "tr-i-dotless", "char": "I", "name": "I", "sound": "ı" },
+    { "id": "tr-i", "char": "İ", "name": "İ", "sound": "i" },
+    { "id": "tr-j", "char": "J", "name": "J", "sound": "je" },
+    { "id": "tr-k", "char": "K", "name": "K", "sound": "ke" },
+    { "id": "tr-l", "char": "L", "name": "L", "sound": "le" },
+    { "id": "tr-m", "char": "M", "name": "M", "sound": "me" },
+    { "id": "tr-n", "char": "N", "name": "N", "sound": "ne" },
+    { "id": "tr-o", "char": "O", "name": "O", "sound": "o" },
+    { "id": "tr-o-uml", "char": "Ö", "name": "Ö", "sound": "ö" },
+    { "id": "tr-p", "char": "P", "name": "P", "sound": "pe" },
+    { "id": "tr-r", "char": "R", "name": "R", "sound": "re" },
+    { "id": "tr-s", "char": "S", "name": "S", "sound": "se" },
+    { "id": "tr-s-ced", "char": "Ş", "name": "Ş", "sound": "şe" },
+    { "id": "tr-t", "char": "T", "name": "T", "sound": "te" },
+    { "id": "tr-u", "char": "U", "name": "U", "sound": "u" },
+    { "id": "tr-u-uml", "char": "Ü", "name": "Ü", "sound": "ü" },
+    { "id": "tr-v", "char": "V", "name": "V", "sound": "ve" },
+    { "id": "tr-y", "char": "Y", "name": "Y", "sound": "ye" },
+    { "id": "tr-z", "char": "Z", "name": "Z", "sound": "ze" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "0", "word": "sıfır" },
+    { "value": 1, "char": "1", "word": "bir" },
+    { "value": 2, "char": "2", "word": "iki" },
+    { "value": 3, "char": "3", "word": "üç" },
+    { "value": 4, "char": "4", "word": "dört" },
+    { "value": 5, "char": "5", "word": "beş" },
+    { "value": 6, "char": "6", "word": "altı" },
+    { "value": 7, "char": "7", "word": "yedi" },
+    { "value": 8, "char": "8", "word": "sekiz" },
+    { "value": 9, "char": "9", "word": "dokuz" }
+  ],
+  "words": [
+    { "id": "tr-w-water", "conceptId": "water", "label": "su", "emoji": "💧" },
+    { "id": "tr-w-apple", "conceptId": "apple", "label": "elma", "emoji": "🍎" },
+    { "id": "tr-w-sun", "conceptId": "sun", "label": "güneş", "emoji": "☀️" },
+    { "id": "tr-w-mother", "conceptId": "mother", "label": "anne", "emoji": "👩" },
+    { "id": "tr-w-eat", "conceptId": "eat", "label": "yemek", "emoji": "🍽️" },
+    { "id": "tr-w-father", "conceptId": "father", "label": "baba", "emoji": "👨" },
+    { "id": "tr-w-home", "conceptId": "home", "label": "ev", "emoji": "🏠" },
+    { "id": "tr-w-rice", "conceptId": "rice", "label": "pirinç", "emoji": "🍚" },
+    { "id": "tr-w-mango", "conceptId": "mango", "label": "mango", "emoji": "🥭" },
+    { "id": "tr-w-milk", "conceptId": "milk", "label": "süt", "emoji": "🥛" },
+    { "id": "tr-w-ball", "conceptId": "ball", "label": "top", "emoji": "⚽" },
+    { "id": "tr-w-book", "conceptId": "book", "label": "kitap", "emoji": "📖" },
+    { "id": "tr-w-sleep", "conceptId": "sleep", "label": "uyumak", "emoji": "🌙" },
+    { "id": "tr-w-tree", "conceptId": "tree", "label": "ağaç", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "tr", "label": "su" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "tr", "label": "yemek" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "tr-p-hello", "text": "Merhaba!", "translation": "Hello", "tokens": ["Merhaba"], "emoji": "👋" },
+    { "id": "tr-p-thankyou", "text": "Teşekkürler", "translation": "Thank you", "tokens": ["Teşekkürler"], "emoji": "🙏" },
+    { "id": "tr-p-water-please", "text": "Su, lütfen", "translation": "Water, please", "tokens": ["Su", "lütfen"], "emoji": "💧" },
+    { "id": "tr-p-i-love-you", "text": "Seni seviyorum", "translation": "I love you", "tokens": ["Seni", "seviyorum"], "emoji": "❤️" },
+    { "id": "tr-p-goodnight", "text": "İyi geceler", "translation": "Good night", "tokens": ["İyi", "geceler"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

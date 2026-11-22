@@ -1,0 +1,84 @@
+{
+  "code": "zh",
+  "name": "Chinese (Mandarin)",
+  "nativeName": "中文",
+  "script": "han",
+  "direction": "ltr",
+  "phonemes": [],
+  "letters": [
+    { "id": "zh-yi", "char": "一", "name": "一", "sound": "yī" },
+    { "id": "zh-er", "char": "二", "name": "二", "sound": "èr" },
+    { "id": "zh-san", "char": "三", "name": "三", "sound": "sān" },
+    { "id": "zh-shi", "char": "十", "name": "十", "sound": "shí" },
+    { "id": "zh-ren", "char": "人", "name": "人", "sound": "rén" },
+    { "id": "zh-kou", "char": "口", "name": "口", "sound": "kǒu" },
+    { "id": "zh-da", "char": "大", "name": "大", "sound": "dà" },
+    { "id": "zh-xiao", "char": "小", "name": "小", "sound": "xiǎo" },
+    { "id": "zh-shang", "char": "上", "name": "上", "sound": "shàng" },
+    { "id": "zh-xia", "char": "下", "name": "下", "sound": "xià" },
+    { "id": "zh-zhong", "char": "中", "name": "中", "sound": "zhōng" },
+    { "id": "zh-ri", "char": "日", "name": "日", "sound": "rì" },
+    { "id": "zh-yue", "char": "月", "name": "月", "sound": "yuè" },
+    { "id": "zh-shui", "char": "水", "name": "水", "sound": "shuǐ" },
+    { "id": "zh-huo", "char": "火", "name": "火", "sound": "huǒ" },
+    { "id": "zh-shan", "char": "山", "name": "山", "sound": "shān" },
+    { "id": "zh-mu", "char": "木", "name": "木", "sound": "mù" },
+    { "id": "zh-tian", "char": "天", "name": "天", "sound": "tiān" },
+    { "id": "zh-xin", "char": "心", "name": "心", "sound": "xīn" },
+    { "id": "zh-hao", "char": "好", "name": "好", "sound": "hǎo" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "〇", "word": "líng" },
+    { "value": 1, "char": "一", "word": "yī" },
+    { "value": 2, "char": "二", "word": "èr" },
+    { "value": 3, "char": "三", "word": "sān" },
+    { "value": 4, "char": "四", "word": "sì" },
+    { "value": 5, "char": "五", "word": "wǔ" },
+    { "value": 6, "char": "六", "word": "liù" },
+    { "value": 7, "char": "七", "word": "qī" },
+    { "value": 8, "char": "八", "word": "bā" },
+    { "value": 9, "char": "九", "word": "jiǔ" }
+  ],
+  "words": [
+    { "id": "zh-w-water", "conceptId": "water", "label": "水", "emoji": "💧" },
+    { "id": "zh-w-apple", "conceptId": "apple", "label": "苹果", "emoji": "🍎" },
+    { "id": "zh-w-sun", "conceptId": "sun", "label": "太阳", "emoji": "☀️" },
+    { "id": "zh-w-mother", "conceptId": "mother", "label": "妈妈", "emoji": "👩" },
+    { "id": "zh-w-eat", "conceptId": "eat", "label": "吃", "emoji": "🍽️" },
+    { "id": "zh-w-father", "conceptId": "father", "label": "爸爸", "emoji": "👨" },
+    { "id": "zh-w-home", "conceptId": "home", "label": "家", "emoji": "🏠" },
+    { "id": "zh-w-rice", "conceptId": "rice", "label": "米饭", "emoji": "🍚" },
+    { "id": "zh-w-mango", "conceptId": "mango", "label": "芒果", "emoji": "🥭" },
+    { "id": "zh-w-milk", "conceptId": "milk", "label": "牛奶", "emoji": "🥛" },
+    { "id": "zh-w-ball", "conceptId": "ball", "label": "球", "emoji": "⚽" },
+    { "id": "zh-w-book", "conceptId": "book", "label": "书", "emoji": "📖" },
+    { "id": "zh-w-sleep", "conceptId": "sleep", "label": "睡觉", "emoji": "🌙" },
+    { "id": "zh-w-tree", "conceptId": "tree", "label": "树", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "zh", "label": "水" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "zh", "label": "吃" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "zh-p-hello", "text": "你好！", "translation": "Hello", "tokens": ["你", "好"], "emoji": "👋" },
+    { "id": "zh-p-thankyou", "text": "谢谢", "translation": "Thank you", "tokens": ["谢谢"], "emoji": "🙏" },
+    { "id": "zh-p-water-please", "text": "我要水", "translation": "Water, please", "tokens": ["我", "要", "水"], "emoji": "💧" },
+    { "id": "zh-p-i-love-you", "text": "我爱你", "translation": "I love you", "tokens": ["我", "爱", "你"], "emoji": "❤️" },
+    { "id": "zh-p-goodnight", "text": "晚安", "translation": "Good night", "tokens": ["晚", "安"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}

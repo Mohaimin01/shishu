@@ -1,0 +1,103 @@
+{
+  "code": "ur",
+  "name": "Urdu",
+  "nativeName": "اردو",
+  "script": "arabic",
+  "direction": "rtl",
+  "phonemes": [],
+  "letters": [
+    { "id": "ur-alif", "char": "ا", "name": "الف", "sound": "alif" },
+    { "id": "ur-be", "char": "ب", "name": "بے", "sound": "be" },
+    { "id": "ur-pe", "char": "پ", "name": "پے", "sound": "pe" },
+    { "id": "ur-te", "char": "ت", "name": "تے", "sound": "te" },
+    { "id": "ur-tte", "char": "ٹ", "name": "ٹے", "sound": "ṭe" },
+    { "id": "ur-se", "char": "ث", "name": "ثے", "sound": "se" },
+    { "id": "ur-jeem", "char": "ج", "name": "جیم", "sound": "jeem" },
+    { "id": "ur-che", "char": "چ", "name": "چے", "sound": "che" },
+    { "id": "ur-hay", "char": "ح", "name": "حے", "sound": "he" },
+    { "id": "ur-khe", "char": "خ", "name": "خے", "sound": "khe" },
+    { "id": "ur-dal", "char": "د", "name": "دال", "sound": "dal" },
+    { "id": "ur-ddal", "char": "ڈ", "name": "ڈال", "sound": "ḍal" },
+    { "id": "ur-zal", "char": "ذ", "name": "ذال", "sound": "zal" },
+    { "id": "ur-re", "char": "ر", "name": "رے", "sound": "re" },
+    { "id": "ur-rre", "char": "ڑ", "name": "ڑے", "sound": "ṛe" },
+    { "id": "ur-ze", "char": "ز", "name": "زے", "sound": "ze" },
+    { "id": "ur-zhe", "char": "ژ", "name": "ژے", "sound": "zhe" },
+    { "id": "ur-seen", "char": "س", "name": "سین", "sound": "seen" },
+    { "id": "ur-sheen", "char": "ش", "name": "شین", "sound": "sheen" },
+    { "id": "ur-saad", "char": "ص", "name": "صاد", "sound": "saad" },
+    { "id": "ur-zaad", "char": "ض", "name": "ضاد", "sound": "zaad" },
+    { "id": "ur-toe", "char": "ط", "name": "طے", "sound": "toe" },
+    { "id": "ur-zoe", "char": "ظ", "name": "ظے", "sound": "zoe" },
+    { "id": "ur-ain", "char": "ع", "name": "عین", "sound": "ain" },
+    { "id": "ur-ghain", "char": "غ", "name": "غین", "sound": "ghain" },
+    { "id": "ur-fe", "char": "ف", "name": "فے", "sound": "fe" },
+    { "id": "ur-qaf", "char": "ق", "name": "قاف", "sound": "qaf" },
+    { "id": "ur-kaaf", "char": "ک", "name": "کاف", "sound": "kaaf" },
+    { "id": "ur-gaaf", "char": "گ", "name": "گاف", "sound": "gaaf" },
+    { "id": "ur-laam", "char": "ل", "name": "لام", "sound": "laam" },
+    { "id": "ur-meem", "char": "م", "name": "میم", "sound": "meem" },
+    { "id": "ur-noon", "char": "ن", "name": "نون", "sound": "noon" },
+    { "id": "ur-noon-gunnah", "char": "ں", "name": "نون غنہ", "sound": "nasal-n" },
+    { "id": "ur-wao", "char": "و", "name": "واؤ", "sound": "wao" },
+    { "id": "ur-he", "char": "ہ", "name": "ہے", "sound": "he" },
+    { "id": "ur-he-dochashmi", "char": "ھ", "name": "ہے دوچشمی", "sound": "he" },
+    { "id": "ur-hamza", "char": "ء", "name": "ہمزہ", "sound": "hamza" },
+    { "id": "ur-ye", "char": "ی", "name": "یے", "sound": "ye" },
+    { "id": "ur-bari-ye", "char": "ے", "name": "بڑی یے", "sound": "bari-ye" }
+  ],
+  "numbers": [
+    { "value": 0, "char": "٠", "word": "صفر" },
+    { "value": 1, "char": "١", "word": "ایک" },
+    { "value": 2, "char": "٢", "word": "دو" },
+    { "value": 3, "char": "٣", "word": "تین" },
+    { "value": 4, "char": "٤", "word": "چار" },
+    { "value": 5, "char": "٥", "word": "پانچ" },
+    { "value": 6, "char": "٦", "word": "چھہ" },
+    { "value": 7, "char": "٧", "word": "سات" },
+    { "value": 8, "char": "٨", "word": "آٹھ" },
+    { "value": 9, "char": "٩", "word": "نو" }
+  ],
+  "words": [
+    { "id": "ur-w-water", "conceptId": "water", "label": "پانی", "emoji": "💧" },
+    { "id": "ur-w-apple", "conceptId": "apple", "label": "سیب", "emoji": "🍎" },
+    { "id": "ur-w-sun", "conceptId": "sun", "label": "سورج", "emoji": "☀️" },
+    { "id": "ur-w-mother", "conceptId": "mother", "label": "ماں", "emoji": "👩" },
+    { "id": "ur-w-eat", "conceptId": "eat", "label": "کھانا", "emoji": "🍽️" },
+    { "id": "ur-w-father", "conceptId": "father", "label": "ابو", "emoji": "👨" },
+    { "id": "ur-w-home", "conceptId": "home", "label": "گھر", "emoji": "🏠" },
+    { "id": "ur-w-rice", "conceptId": "rice", "label": "چاول", "emoji": "🍚" },
+    { "id": "ur-w-mango", "conceptId": "mango", "label": "آم", "emoji": "🥭" },
+    { "id": "ur-w-milk", "conceptId": "milk", "label": "دودھ", "emoji": "🥛" },
+    { "id": "ur-w-ball", "conceptId": "ball", "label": "گیند", "emoji": "⚽" },
+    { "id": "ur-w-book", "conceptId": "book", "label": "کتاب", "emoji": "📖" },
+    { "id": "ur-w-sleep", "conceptId": "sleep", "label": "سونا", "emoji": "🌙" },
+    { "id": "ur-w-tree", "conceptId": "tree", "label": "درخت", "emoji": "🌳" }
+  ],
+  "conceptTables": [
+    {
+      "conceptId": "water",
+      "variants": [
+        { "lang": "ur", "label": "پانی" },
+        { "lang": "en", "label": "water" },
+        { "lang": "bn", "label": "পানি" }
+      ]
+    },
+    {
+      "conceptId": "eat",
+      "variants": [
+        { "lang": "ur", "label": "کھانا" },
+        { "lang": "en", "label": "eat" },
+        { "lang": "bn", "label": "খাওয়া" }
+      ]
+    }
+  ],
+  "phrases": [
+    { "id": "ur-p-hello", "text": "سلام!", "translation": "Hello", "tokens": ["سلام"], "emoji": "👋" },
+    { "id": "ur-p-thankyou", "text": "شکریہ", "translation": "Thank you", "tokens": ["شکریہ"], "emoji": "🙏" },
+    { "id": "ur-p-water-please", "text": "پانی دیجیے", "translation": "Water, please", "tokens": ["پانی", "دیجیے"], "emoji": "💧" },
+    { "id": "ur-p-i-love-you", "text": "محبت کرتا ہوں", "translation": "I love you", "tokens": ["محبت", "کرتا", "ہوں"], "emoji": "❤️" },
+    { "id": "ur-p-goodnight", "text": "شب بخیر", "translation": "Good night", "tokens": ["شب", "بخیر"], "emoji": "🌙" }
+  ],
+  "stages": {}
+}
