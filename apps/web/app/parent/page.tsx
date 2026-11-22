@@ -60,7 +60,7 @@ export default function ParentPage() {
       phrase: ph ? { id: ph.id, text: ph.text, audioUrl: ph.audioUrl } : null,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready]);
+  }, [ready, activeCodes.join(","), dlPacks]);
 
   function packets() {
     return packs as unknown as Record<string, LanguagePack>;

@@ -3,15 +3,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/paths";
-import { useSettings } from "@/store";
+import { useSettings, type LastActivity } from "@/store";
 
 /** One-tap resume (board P0): the 4-year-old's first screen action. */
 function ContinueChip() {
-  const [last, setLast] = useState(useSettings.getState().lastActivity);
+  // Never read persisted state during the first render (server HTML would not match).
+  // Read after mount, then stay live via subscribe — no arbitrary timeout needed.
+  const [last, setLast] = useState<LastActivity>(null);
   useEffect(() => {
-    // store hydration is async; re-read once after mount
-    const t = setTimeout(() => setLast(useSettings.getState().lastActivity), 50);
-    return () => clearTimeout(t);
+    const read = () => setLast(useSettings.getState().lastActivity);
+    read();
+    return useSettings.subscribe(read);
   }, []);
   if (!last) return null;
   return (
