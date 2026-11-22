@@ -8,8 +8,10 @@ import {
   type ActivityType, type Lane,
 } from "@/lib/activities";
 import { downloadedPacks } from "@/lib/online-packs";
+import { LANGS } from "@/lib/packs";
 import { fontClassFor, fontClassForText } from "@/lib/script";
 import { useSettings } from "@/store";
+import { useGamify, levelOf } from "@/lib/gamify";
 import { stageForAge, type Stage } from "@shishu/core";
 
 const SECTIONS: { type: ActivityType; title: string }[] = [
@@ -69,6 +71,24 @@ function LearnInner() {
   const activeLane = lanes.find((l) => l.code === activeCode);
   const isTogether = activeCode === TOGETHER && lanes.length >= 2;
 
+  // garden stats — celebration, never pressure
+  const g = useGamify();
+  const lv = levelOf(g.xp);
+
+  // one-tap language picker: every bundled language + downloaded packs not already lanes
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const pickerItems = [
+    ...LANGS.map((l) => ({ code: l.code, name: l.nativeName })),
+    ...Object.keys(dl)
+      .filter((c) => !LANGS.some((l) => l.code === c))
+      .map((c) => ({ code: c, name: dl[c].nativeName })),
+  ];
+  const addLane = (code: string) => {
+    if (!settings.activeLangs.includes(code)) {
+      useSettings.getState().set({ activeLangs: [...settings.activeLangs, code] });
+    }
+  };
+
   return (
     <main className="min-h-screen px-5 pb-12">
       <header className="flex items-center justify-between pt-4 pb-3">
@@ -87,6 +107,25 @@ function LearnInner() {
         </div>
         <div className="w-12" aria-hidden />
       </header>
+
+      {/* garden stats — gentle celebration, no guilt numbers */}
+      <div className="flex items-center justify-center gap-2 pb-4 flex-wrap" aria-label="garden progress">
+        <span className="px-3 py-1.5 min-h-[36px] rounded-2xl bg-surface shadow-sm text-sm font-semibold flex items-center" aria-label={`${g.xp} seeds`}>
+          <span aria-hidden>🌱</span>&nbsp;{g.xp}
+        </span>
+        {g.streak > 0 && (
+          <span className="px-3 py-1.5 min-h-[36px] rounded-2xl bg-surface shadow-sm text-sm font-semibold flex items-center" aria-label={`${g.streak} day streak`}>
+            <span aria-hidden>🔥</span>&nbsp;{g.streak}d
+          </span>
+        )}
+        <span
+          className="px-3 py-1.5 min-h-[36px] rounded-2xl bg-surface shadow-sm text-sm font-semibold flex items-center"
+          aria-label={`level: ${lv.level.name}`}
+          title={lv.next ? `${lv.next.emoji} ${lv.next.name} at ${lv.next.at} seeds` : undefined}
+        >
+          <span aria-hidden>{lv.level.emoji}</span>&nbsp;{lv.level.name}
+        </span>
+      </div>
 
       {/* language lanes — a grown-up switch, calm chips */}
       <div className="flex justify-center gap-2 pb-5 flex-wrap">
@@ -113,7 +152,50 @@ function LearnInner() {
             Together
           </Link>
         )}
+        <button
+          onClick={() => setPickerOpen((v) => !v)}
+          className={`px-4 min-h-[48px] flex items-center rounded-2xl font-semibold transition duration-gentle active:scale-95 ${
+            pickerOpen ? "bg-primary text-white" : "bg-surface text-primary shadow-sm ring-1 ring-primary/30"
+          }`}
+          aria-expanded={pickerOpen}
+          aria-controls="language-picker"
+        >
+          + Language
+        </button>
       </div>
+
+      {/* one-tap language picker — every bundled language, no digging into settings */}
+      {pickerOpen && (
+        <section
+          id="language-picker"
+          className="max-w-[560px] mx-auto bg-surface rounded-3xl shadow-sm p-4 mb-6"
+          aria-label="choose languages"
+        >
+          <p className="text-xs text-muted mb-2">
+            Tap to add a lane — a language is someone&apos;s voice. The first lane is the home language.
+            Remove any time in Grown-ups.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {pickerItems.map((l) => {
+              const on = settings.activeLangs.includes(l.code);
+              return (
+                <button
+                  key={l.code}
+                  onClick={() => addLane(l.code)}
+                  disabled={on}
+                  className={`px-3 min-h-[44px] rounded-2xl text-sm transition duration-gentle active:scale-95 ${
+                    on ? "bg-primary text-white" : "bg-bg text-text ring-1 ring-text/10"
+                  } ${fontClassForText(l.name)}`}
+                  aria-pressed={on}
+                >
+                  {l.name}{on ? " ✓" : ""}
+                </button>
+              );
+            })}
+          </div>
+          <p className="text-xs text-muted mt-2">All {LANGS.length} languages are bundled &amp; work offline.</p>
+        </section>
+      )}
 
       {isTogether ? (
         <nav className="flex flex-col gap-6 max-w-[560px] mx-auto" aria-label="Together activities">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/paths";
 import { useSettings, type LastActivity } from "@/store";
+import { useGamify } from "@/lib/gamify";
 
 /** One-tap resume (board P0): the 4-year-old's first screen action. */
 function ContinueChip() {
@@ -23,6 +24,30 @@ function ContinueChip() {
     >
       ▶ Continue
     </Link>
+  );
+}
+
+/** A quiet line of celebration under the buttons — only shows once there is something to celebrate. */
+function SeedLine() {
+  const [g, setG] = useState<{ xp: number; streak: number }>({ xp: 0, streak: 0 });
+  useEffect(() => {
+    const read = () => {
+      const s = useGamify.getState();
+      setG({ xp: s.xp, streak: s.streak });
+    };
+    read();
+    return useGamify.subscribe(read);
+  }, []);
+  if (g.xp === 0) return null;
+  return (
+    <p className="text-sm text-muted text-center" role="status">
+      <span aria-hidden>🌱</span> {g.xp} seeds
+      {g.streak > 1 && (
+        <>
+          <span aria-hidden> · 🔥</span> {g.streak}-day streak
+        </>
+      )}
+    </p>
   );
 }
 
@@ -61,6 +86,8 @@ export default function Home() {
           For grown-ups
         </Link>
       </div>
+
+      <SeedLine />
 
       <p className="text-sm text-muted mt-8 text-center">
         Free &amp; open source · No ads · Works offline

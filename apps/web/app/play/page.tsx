@@ -15,6 +15,7 @@ import {
   type ActivityCard,
 } from "@/lib/activities";
 import { BUNDLED_CODES, getPack, hasPack, loadDownloadedPacks } from "@/lib/packs";
+import { useGamify } from "@/lib/gamify";
 import { fontClassForText } from "@/lib/script";
 import { addMinutes, todayMinutes } from "@/lib/db";
 import { useSettings } from "@/store";
@@ -121,8 +122,10 @@ function RunnerInner() {
   }, [type, item, lang, stage, packsReady]);
 
   const [complete, setComplete] = useState(false);
+  const [earned, setEarned] = useState<number | null>(null);
   const [windDown, setWindDown] = useState(false);
   const mountedRef = useRef(Date.now());
+  const completeRef = useRef(false);
 
   // one-tap Continue memory (board verdict #8): home recalls this later
   useEffect(() => {
@@ -131,7 +134,9 @@ function RunnerInner() {
         lastActivity: { lang, stage, type: card.type, itemId: card.itemId },
       });
     }
+    completeRef.current = false;
     setComplete(false);
+    setEarned(null);
   }, [lang, stage, card]);
 
   const flushMinutes = async () => {
@@ -160,12 +165,28 @@ function RunnerInner() {
   };
 
   const onDone = () => {
+    if (completeRef.current) return; // some canvases can fire twice — award once
+    completeRef.current = true;
     setComplete(true);
+    if (card) setEarned(useGamify.getState().award(card.type));
     void checkCap();
   };
 
   const next = () => {
     if (card?.type === "concept-bridge") {
+      // "Next" in Together means the NEXT word, not back to the word grid —
+      // walk the bridges in the same order the lane shows them; the grid is the wrap point.
+      const lanes = useSettings.getState().activeLangs.filter(hasPack).map((code) => {
+        const pack = getPack(code);
+        return { code, pack, name: pack.nativeName, bundled: BUNDLED_CODES.includes(code) };
+      });
+      const bridges = bridgeCards(lanes);
+      const i = bridges.findIndex((b) => b.conceptId === card.itemId);
+      const n = i >= 0 ? bridges[i + 1] : undefined;
+      if (n) {
+        router.push(`/play?lang=${lang}&stage=${stage}&type=concept-bridge&item=${n.conceptId}`);
+        return;
+      }
       router.push(`/learn?lane=together&stage=${stage}`);
       return;
     }
@@ -174,7 +195,17 @@ function RunnerInner() {
     else router.push(`/learn?lane=${lang}&stage=${stage}`);
   };
 
+  // Duolingo-style flow: finishing an activity advances on its own (a beat to enjoy it first).
+  const nextRef = useRef(next);
+  nextRef.current = next;
+  useEffect(() => {
+    if (!complete || windDown) return;
+    const t = setTimeout(() => nextRef.current(), 1600);
+    return () => clearTimeout(t);
+  }, [complete, windDown, card]);
+
   const laneName = settings.laneNames[lang] ?? (packsReady ? getPack(lang).nativeName : "");
+  const seeds = useGamify((s) => s.xp);
 
   return (
     <main className="min-h-screen flex flex-col px-5 pb-10">
@@ -192,7 +223,13 @@ function RunnerInner() {
             {card ? TYPE_TITLE[card.type] : "Shishu"}
           </h1>
         </div>
-        <div className="w-12" aria-hidden />
+        <div
+          className="w-12 h-12 rounded-2xl bg-surface shadow-sm flex flex-col items-center justify-center text-[11px] font-bold text-text leading-none"
+          aria-label={`${seeds} seeds`}
+        >
+          <span aria-hidden className="text-base">🌱</span>
+          <span>{seeds}</span>
+        </div>
       </header>
 
       <div className="flex-1 flex items-center justify-center">
@@ -200,6 +237,14 @@ function RunnerInner() {
         {card && <ActivityBody key={`${lang}:${card.key}`} card={card} lang={lang} onDone={onDone} />}
       </div>
 
+      {complete && !windDown && earned !== null && (
+        <div
+          aria-hidden
+          className="xp-float fixed bottom-24 left-1/2 z-40 text-2xl font-bold text-primary bg-surface rounded-full px-5 py-2 shadow-md"
+        >
+          🌱 +{earned}
+        </div>
+      )}
       {complete && !windDown && (
         <div className="fixed inset-x-0 bottom-6 flex justify-center px-6">
           <button onClick={next} className="btn-primary min-h-[56px] px-10 text-xl">

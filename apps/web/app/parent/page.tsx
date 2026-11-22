@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSettings, weeklyTargetFor } from "@/store";
+import { useGamify, levelOf } from "@/lib/gamify";
 import { packs, LANGS } from "@/lib/packs";
 import { fontClassForText } from "@/lib/script";
 import { langProgress } from "@/lib/progress";
@@ -37,6 +38,10 @@ export default function ParentPage() {
   const [packMsg, setPackMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
   const activeCodes = s.activeLangs;
+
+  // garden stats — the child's celebration ledger (local-only, zustand persist)
+  const g = useGamify();
+  const lv = levelOf(g.xp);
 
   // "Use it today" — one word to bring into family life (stable per day)
   const useToday = useMemo(() => {
@@ -276,6 +281,31 @@ const downloadPack = async () => {
             <p className="text-2xl font-bold">{Math.round(minutes)}</p>
           </section>
         )}
+
+        {/* Garden — the child's gentle celebration stats, visible to grown-ups */}
+        <section className="card" aria-label="garden progress">
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-3">
+            Garden <span className="font-bengali font-normal">· বাগান</span>
+          </h2>
+          <div className="flex items-center gap-4">
+            <span aria-hidden className="text-4xl">{lv.level.emoji}</span>
+            <div>
+              <p className="text-xl font-bold">{lv.level.name} <span className="text-sm text-muted font-normal">level</span></p>
+              <p className="text-sm text-muted">
+                <span aria-hidden>🌱</span> {g.xp} seeds
+                {lv.next ? ` · next: ${lv.next.name} at ${lv.next.at}` : " · garden complete 🎉"}
+              </p>
+            </div>
+          </div>
+          {g.streak > 0 && (
+            <p className="text-sm mt-3">
+              <span aria-hidden>🔥</span> {g.streak}-day streak <span className="text-muted">(best {g.bestStreak})</span>
+            </p>
+          )}
+          <p className="text-xs text-muted mt-2">
+            Seeds and streaks are celebration, never pressure — nothing expires, nothing is lost.
+          </p>
+        </section>
 
         {/* Use it today — the bridge card that carries learning into family life */}
         {ready && useToday && (

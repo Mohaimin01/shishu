@@ -41,6 +41,19 @@
   }
 }
 
+/* Celebration seeds float up and fade — one gentle beat before auto-advance.
+   (Reduced-motion users get no animation; the chip simply disappears.) */
+@keyframes float-up {
+  0%   { opacity: 0; transform: translate(-50%, 12px) scale(0.85); }
+  18%  { opacity: 1; transform: translate(-50%, 0) scale(1.06); }
+  70%  { opacity: 1; transform: translate(-50%, -14px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -40px) scale(1); }
+}
+.xp-float {
+  animation: float-up 1.6s ease-out forwards;
+  will-change: opacity, transform;
+}
+
 @media print {
   @page { size: A4 landscape; margin: 10mm; }
   html, body { background: #fff !important; }
