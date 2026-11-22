@@ -2,6 +2,11 @@
 
 **Gentle multilingual learning for children (ages 2–12).**
 
+[![CI](https://github.com/Mohaimin01/shishu/actions/workflows/ci.yml/badge.svg)](https://github.com/Mohaimin01/shishu/actions/workflows/ci.yml)
+[![Deploy to Pages](https://github.com/Mohaimin01/shishu/actions/workflows/deploy.yml/badge.svg)](https://github.com/Mohaimin01/shishu/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/code-MIT-6B9080.svg)](./LICENSE)
+[![Content: CC BY-SA 4.0](https://img.shields.io/badge/content-CC_BY--SA_4.0-lightgrey.svg)](./docs/PACKS.md)
+
 Shishu ("child" in Bengali/Sanskrit) is a calm, low-stimulation learning app that grows with your child — from coloring letters at age 2 to conversational phrases and gentle science at age 12. It supports any mother tongue plus additional languages, and includes a unique **concept-table** method for learning regional variants and synonyms together.
 
 - 🆓 Free & open source (MIT code, CC BY-SA 4.0 content)
@@ -28,16 +33,25 @@ Add any language with a spreadsheet-style worksheet — see [docs/WORDS.md](./do
 
 ## Quick start
 
+Requires Node.js 20+. The package manager is npm (CI and `package-lock.json` are npm-based):
+
 ```bash
-pnpm install
-pnpm dev          # http://localhost:3000
-pnpm test         # run all tests
-pnpm build        # static export to apps/web/out
+npm install
+npm run dev        # http://localhost:3000
+npm test           # run all tests
+npm run build      # static export to apps/web/out
 ```
+
+Content checks: `npm run validate:content` (pack schema) and `npm run validate:lexicon` (word lists).
 
 ## Project structure
 
-See [docs/](./docs) and the plan in `.opencode/plan/`.
+- `apps/web` — the Next.js PWA (App Router, static export, Capacitor shell for Android)
+- `packages/core` — stages, spaced repetition, words logic
+- `packages/content-schema` — zod schema + validation for language packs
+- `content-packs/` — bundled language packs and the Word Rows lexicon
+- `docs/` — guides and expert-board reviews
+- `scripts/` — lexicon copy/validation helpers
 
 ## Contributing
 
