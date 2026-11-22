@@ -1,0 +1,87 @@
+# Japanese (日本語) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	私|watashi ; 僕|boku|male, informal ; 俺|ore|male, casual
+you	あなた|anata ; 君|kimi|casual
+he-she	彼|kare ; 彼女|kanojo
+we	私たち|watashitachi ; 僕ら|bokura
+they	彼ら|karera
+this	これ|kore ; この|kono
+that	それ|sore ; あれ|are ; その|sono
+what	何|nani ; なん|nan|before d, t, n sounds
+who	誰|dare ; どなた|donata|polite
+where	どこ|doko
+yes	はい|hai ; ええ|ee|softer
+no	いいえ|iie ; いや|iya|casual
+hello	こんにちは|konnichiwa ; やあ|yaa|casual
+thank-you	ありがとう|arigatou ; ありがとうございます|arigatou gozaimasu|polite
+please	お願いします|onegaishimasu ; どうぞ|douzo|go ahead
+go	行く|iku
+come	来る|kuru
+want	欲しい|hoshii|want a thing ; したい|shitai|want to do
+know	知る|shiru
+see	見る|miru
+say	言う|iu ; 話す|hanasu
+give	あげる|ageru ; 与える|ataeru|formal ; くれる|kureru|someone gives me
+take	取る|toru ; 持つ|motsu|hold
+eat	食べる|taberu
+drink	飲む|nomu
+water	水|mizu ; お水|omizu|polite
+food	食べ物|tabemono ; ご飯|gohan|meal, rice
+good	良い|yoi ; いい|ii|spoken
+bad	悪い|warui
+big	大きい|ookii
+small	小さい|chiisai
+one	一|ichi
+two	二|ni
+three	三|san
+when	いつ|itsu
+why	なぜ|naze ; どうして|doushite
+how	どう|dou ; どのように|dono you ni
+mother	お母さん|okaasan ; 母|haha|my own mother ; ママ|mama|child talk
+father	お父さん|otousan ; 父|chichi|my own father ; パパ|papa|child talk
+child	子供|kodomo ; 児童|jidou|formal
+man	男|otoko ; 男性|dansei|polite
+woman	女|onna ; 女性|josei|polite
+friend	友達|tomodachi ; 友人|yuujin|formal
+name	名前|namae ; 氏名|shimei|formal
+home	家|ie ; うち|uchi|spoken
+day	日|hi ; 一日|ichinichi|one day
+night	夜|yoru
+time	時間|jikan ; 時|toki|moment
+money	お金|okane ; 金|kane|plain
+love	愛|ai ; 恋|koi|romantic love
+understand	分かる|wakaru ; 理解する|rikai suru|formal
+sleep	寝る|neru ; 眠る|nemuru|formal
+work	働く|hataraku ; 仕事する|shigoto suru
+play	遊ぶ|asobu
+read	読む|yomu
+write	書く|kaku
+learn	学ぶ|manabu ; 習う|narau|take lessons ; 勉強する|benkyou suru|study
+help	助ける|tasukeru ; 手伝う|tetsudau|help out
+buy	買う|kau
+school	学校|gakkou
+book	本|hon ; 書物|shomotsu|formal
+milk	牛乳|gyuunyuu ; ミルク|miruku
+sun	太陽|taiyou ; お日様|ohisama|child-friendly
+moon	月|tsuki ; お月様|otsukisama|child-friendly
+fire	火|hi ; 炎|honoo|flame
+tree	木|ki ; 樹木|jumoku|formal
+hot	熱い|atsui|hot things ; 暑い|atsui|hot weather
+cold	寒い|samui|cold weather ; 冷たい|tsumetai|cold to touch
+new	新しい|atarashii
+old	古い|furui|old things
+beautiful	美しい|utsukushii ; きれい|kirei|pretty or clean
+happy	嬉しい|ureshii ; 幸せ|shiawase|happiness
+four	四|yon ; し|shi
+five	五|go
+six	六|roku
+seven	七|nana ; しち|shichi
+eight	八|hachi
+nine	九|kyuu ; く|ku
+ten	十|juu
+sorry	ごめんなさい|gomennasai ; すみません|sumimasen|excuse me
+goodbye	さようなら|sayounara ; じゃあね|jaa ne|casual

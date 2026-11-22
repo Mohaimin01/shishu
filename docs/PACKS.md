@@ -2,6 +2,17 @@
 
 One language = **one JSON file**. No app code, no builds, no permission needed.
 
+## Easiest way (no code)
+
+```bash
+npm run new:pack -- sw "Swahili" "Kiswahili" latin   # creates content-packs/sw/pack.json
+npm run validate:content                              # explains every mistake in plain words
+```
+Or just edit the file on GitHub's website (pencil icon) and open a pull request — CI checks it and
+leaves friendly advice. A first pack can be tiny: **code, names, a few letters and 5 words** is enough;
+everything else is optional.
+Adding words for older learners and adults? See [WORDS.md](./WORDS.md).
+
 ## Quick start
 
 1. Copy `content-packs/en/pack.json` as your starting point.

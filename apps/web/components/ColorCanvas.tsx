@@ -4,17 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { canvasFontFamily, chime, fontsReady, pop } from "@/lib/audio";
 import { useSettings } from "@/store";
 import { recordExposure } from "@/lib/progress";
+import { isLetterComplete, measureCoverage, progressOf } from "@/lib/coverage";
 import type { Skill } from "@shishu/core";
 
 const PALETTE = ["#6B9080", "#C9A9A6", "#D4A373", "#9BB0C1", "#B9A0B8", "#8FA98F"];
 const SIZE = 320;
-const BRUSH = 20;
+const BRUSH = 18;
 const G = 80; // fine grid (cell = 4px) shared by glyph mask + child strokes
 
-// Forgiveness: how far a stroke may pass from the true shape and still count (px)
-const TOLERANCE = 28;
-// Forgiveness: fraction of the letter's real ink the child must come near to finish
-const TARGET = { paint: 0.72, trace: 0.68 } as const;
+// How much of the letter's real ink the child's own paint must cover (and in every part of
+// the letter — see lib/coverage.ts). Imperfect is fine; a single touch is not "done".
+const TARGET = { paint: 0.7, trace: 0.62 } as const;
 
 type Props = {
   lang: string;
@@ -29,19 +29,18 @@ type Props = {
 
 /**
  * Finger-paint / freehand-trace canvas.
- * Completion = "followed the shape well enough", not "filled a box":
- * we rasterize the true glyph into a fine mask and count how much of the
- * letter's real ink the child's strokes touch within a forgiving radius.
+ * Completion = "painted over the shape well enough", checked only when the child
+ * LIFTS their finger — never in the middle of a stroke — so a child always gets to
+ * finish the letter they are drawing. We rasterize the true glyph into a fine mask
+ * and require real coverage of the whole letter (not a near-miss radius).
  * Starting anywhere, wobbling, or being imperfect is fine — that's the point.
  */
 export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, stage, onDone }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const maskRef = useRef<Uint8Array>(new Uint8Array(G * G));   // where the letter's ink is
   const inkRef = useRef<Uint8Array>(new Uint8Array(G * G));    // where the child has painted
-  const seenRef = useRef<Uint8Array>(new Uint8Array(G * G));   // glyph ink cells already counted as traced
-  const reachedRef = useRef(0);
-  const inkCellsRef = useRef(0);
-  const totalInkRef = useRef(1);
+  const pathRef = useRef(0);                                   // px of finger travel this attempt
+  const strokingRef = useRef(false);
   const doneRef = useRef(false);
   const lastPopRef = useRef(0);
   const lastXRef = useRef(-1);
@@ -54,7 +53,6 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
   const capMin = useSettings((s) => s.capMin);
 
   const target = TARGET[mode];
-  const tolCells = Math.max(1, Math.round(TOLERANCE / (SIZE / G)));
 
   /** Draws the guide + learns where the letter's true shape is (mask). */
   const drawGuide = (learn: boolean) => {
@@ -90,17 +88,14 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
       octx.fillText(glyph, cx * scale, cy * scale + 0.5 * scale);
       const data = octx.getImageData(0, 0, G, G).data;
       const mask = maskRef.current;
-      let total = 0;
       for (let i = 0; i < G * G; i++) {
-        const filled = data[i * 4 + 3] > 100;
-        mask[i] = filled ? 1 : 0;
-        if (filled) total++;
+        mask[i] = data[i * 4 + 3] > 100 ? 1 : 0;
       }
-      totalInkRef.current = Math.max(1, total);
       inkRef.current.fill(0);
-      seenRef.current.fill(0);
-      reachedRef.current = 0;
-      inkCellsRef.current = 0;
+      pathRef.current = 0;
+      strokingRef.current = false;
+      lastXRef.current = -1;
+      lastYRef.current = -1;
     }
 
     if (mode === "paint") {
@@ -132,7 +127,7 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [glyph, mode]);
 
-  /** Marks child ink; grows "reached" = true-ink cells now covered by the dilated stroke. */
+  /** Paints one dab and records which grid cells the child has covered. */
   const stamp = (x: number, y: number) => {
     const cvs = canvasRef.current;
     const ctx = cvs?.getContext("2d");
@@ -148,34 +143,12 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
     const sx = Math.round(x / cell - 0.5);
     const sy = Math.round(y / cell - 0.5);
     const ink = inkRef.current;
-    const mask = maskRef.current;
-    const seen = seenRef.current;
-
     for (let dy = -rCells; dy <= rCells; dy++) {
       for (let dx = -rCells; dx <= rCells; dx++) {
         if (dx * dx + dy * dy > rCells * rCells) continue;
         const gx = sx + dx, gy = sy + dy;
         if (gx < 0 || gy < 0 || gx >= G || gy >= G) continue;
-        const cellIdx = gy * G + gx;
-        if (!ink[cellIdx]) {
-          ink[cellIdx] = 1;
-          inkCellsRef.current += 1;
-          // dilated neighborhood: any true glyph ink near this stroke counts as traced
-          for (let wy = -tolCells; wy <= tolCells; wy++) {
-            const ty = gy + wy;
-            if (ty < 0 || ty >= G) continue;
-            for (let wx = -tolCells; wx <= tolCells; wx++) {
-              const tx = gx + wx;
-              if (tx < 0 || tx >= G) continue;
-              if (wx * wx + wy * wy > tolCells * tolCells) continue;
-              const mi = ty * G + tx;
-              if (mask[mi] && !seen[mi]) {
-                seen[mi] = 1; // count each true-ink cell once, even if painted directly
-                reachedRef.current += 1;
-              }
-            }
-          }
-        }
+        ink[gy * G + gx] = 1;
       }
     }
 
@@ -186,20 +159,25 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
         pop();
       }
     }
+  };
 
-    const ratio = reachedRef.current / totalInkRef.current;
-    if (ratio - shownRatioRef.current >= 0.03) {
-      shownRatioRef.current = ratio;
-      setProgress(Math.min(1, ratio / target));
+  /** Called only when the finger lifts: update the calm bar and decide if the letter is done. */
+  const evaluate = () => {
+    if (doneRef.current) return;
+    const cov = measureCoverage(maskRef.current, inkRef.current, G);
+    const prog = progressOf(cov, target);
+    if (prog - shownRatioRef.current >= 0.02) {
+      shownRatioRef.current = prog;
+      setProgress(prog);
     }
-    if (ratio >= target && !doneRef.current) {
+    if (isLetterComplete(cov, pathRef.current, target)) {
       doneRef.current = true;
       setDone(true);
       setProgress(1);
       if (sound) chime(true);
       const childId = useSettings.getState().childId;
       void recordExposure(childId || "anon", lang, skill, itemId);
-      onDone?.(ratio);
+      onDone?.(cov.ratio);
     }
   };
 
@@ -218,6 +196,8 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
     const lastY = lastYRef.current;
     // interpolate stamps between events to avoid gaps on fast swipes
     const dist = lastX < 0 ? BRUSH : Math.hypot(x - lastX, y - lastY);
+    if (lastX >= 0) pathRef.current += dist;
+    strokingRef.current = true;
     const steps = Math.max(1, Math.ceil(dist / (BRUSH * 0.6)));
     for (let i = 1; i <= steps; i++) {
       const t = i / steps;
@@ -225,6 +205,16 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
     }
     lastXRef.current = x;
     lastYRef.current = y;
+  };
+
+  const endStroke = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    try { e.currentTarget.releasePointerCapture(e.pointerId); } catch { /* not captured */ }
+    lastXRef.current = -1;
+    lastYRef.current = -1;
+    if (strokingRef.current) {
+      strokingRef.current = false;
+      evaluate();
+    }
   };
 
   const clear = () => {
@@ -244,6 +234,8 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
           style={{ aspectRatio: "1 / 1", display: "block" }}
           onPointerDown={(e) => { lastXRef.current = -1; lastYRef.current = -1; onMove(e); }}
           onPointerMove={onMove}
+          onPointerUp={endStroke}
+          onPointerCancel={endStroke}
         />
         {done && (
           <div

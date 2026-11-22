@@ -1,0 +1,87 @@
+# Chinese (Mandarin) (中文) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	我|wǒ
+you	你|nǐ ; 您|nín|polite
+he-she	他|tā ; 她|tā
+we	我们|wǒmen
+they	他们|tāmen ; 她们|tāmen
+this	这|zhè ; 这个|zhège
+that	那|nà ; 那个|nàge
+what	什么|shénme
+who	谁|shéi
+where	哪里|nǎlǐ ; 哪儿|nǎr|spoken
+yes	是|shì ; 对|duì|that's right
+no	不|bù ; 没|méi|did not / have not
+hello	你好|nǐ hǎo
+thank-you	谢谢|xièxie
+please	请|qǐng
+go	去|qù
+come	来|lái
+want	想要|xiǎng yào ; 要|yào
+know	知道|zhīdào ; 认识|rènshi|a person
+see	看|kàn ; 看见|kànjiàn
+say	说|shuō ; 讲|jiǎng
+give	给|gěi
+take	拿|ná ; 取|qǔ
+eat	吃|chī
+drink	喝|hē
+water	水|shuǐ
+food	食物|shíwù ; 吃的|chī de|spoken
+good	好|hǎo
+bad	坏|huài ; 不好|bù hǎo
+big	大|dà
+small	小|xiǎo
+one	一|yī
+two	二|èr ; 两|liǎng|two of something
+three	三|sān
+when	什么时候|shénme shíhou ; 何时|héshí|formal
+why	为什么|wèishénme
+how	怎么|zěnme ; 怎么样|zěnmeyàng
+mother	妈妈|māma ; 母亲|mǔqīn|formal
+father	爸爸|bàba ; 父亲|fùqīn|formal
+child	孩子|háizi ; 小孩|xiǎohái
+man	男人|nánrén ; 男的|nán de|spoken
+woman	女人|nǚrén ; 女的|nǚ de|spoken
+friend	朋友|péngyou
+name	名字|míngzi ; 姓名|xìngmíng|full name
+home	家|jiā
+day	天|tiān ; 日|rì|formal
+night	夜晚|yèwǎn ; 晚上|wǎnshang|evening or night
+time	时间|shíjiān
+money	钱|qián
+love	爱|ài ; 爱情|àiqíng|romantic love
+understand	懂|dǒng ; 明白|míngbai
+sleep	睡觉|shuìjiào ; 睡|shuì
+work	工作|gōngzuò ; 上班|shàngbān|go to work
+play	玩|wán
+read	读|dú ; 看书|kàn shū|to read a book
+write	写|xiě
+learn	学|xué ; 学习|xuéxí
+help	帮助|bāngzhù ; 帮|bāng|spoken
+buy	买|mǎi
+school	学校|xuéxiào
+book	书|shū ; 书本|shūběn
+milk	牛奶|niúnǎi ; 奶|nǎi
+sun	太阳|tàiyáng
+moon	月亮|yuèliang ; 月|yuè|formal
+fire	火|huǒ
+tree	树|shù ; 树木|shùmù
+hot	热|rè ; 烫|tàng|burning hot
+cold	冷|lěng ; 凉|liáng|cool
+new	新|xīn
+old	老|lǎo ; 旧|jiù|old things
+beautiful	漂亮|piàoliang ; 美丽|měilì|formal
+happy	高兴|gāoxìng ; 快乐|kuàilè|joyful
+four	四|sì
+five	五|wǔ
+six	六|liù
+seven	七|qī
+eight	八|bā
+nine	九|jiǔ
+ten	十|shí
+sorry	对不起|duìbuqǐ ; 不好意思|bù hǎo yìsi|polite apology
+goodbye	再见|zàijiàn

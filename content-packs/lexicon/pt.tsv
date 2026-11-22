@@ -1,0 +1,87 @@
+# Portuguese (Português) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	eu
+you	você ; tu
+he-she	ele ; ela
+we	nós
+they	eles ; elas
+this	este ; isto
+that	esse ; isso ; aquele
+what	o que ; que
+who	quem
+where	onde
+yes	sim
+no	não
+hello	olá ; oi|informal
+thank-you	obrigado|said by a man ; obrigada|said by a woman
+please	por favor
+go	ir
+come	vir
+want	querer
+know	saber ; conhecer|a person or place
+see	ver ; olhar|look
+say	dizer ; falar
+give	dar
+take	pegar ; tomar
+eat	comer
+drink	beber
+water	água
+food	comida ; alimento|formal
+good	bom ; bem|well
+bad	mau ; ruim
+big	grande
+small	pequeno
+one	um
+two	dois
+three	três
+when	quando
+why	por que ; por quê
+how	como
+mother	mãe ; mamãe|informal
+father	pai ; papai|informal
+child	criança
+man	homem
+woman	mulher
+friend	amigo ; amiga
+name	nome
+home	casa ; lar|home life
+day	dia
+night	noite
+time	tempo ; hora|clock time
+money	dinheiro
+love	amor
+understand	entender ; compreender|formal
+sleep	dormir
+work	trabalhar
+play	brincar|children's play ; jogar|a game or sport
+read	ler
+write	escrever
+learn	aprender ; estudar|study
+help	ajudar
+buy	comprar
+school	escola ; colégio
+book	livro
+milk	leite
+sun	sol
+moon	lua
+fire	fogo
+tree	árvore
+hot	quente
+cold	frio
+new	novo
+old	velho ; antigo
+beautiful	bonito ; lindo
+happy	feliz ; contente
+four	quatro
+five	cinco
+six	seis
+seven	sete
+eight	oito
+nine	nove
+ten	dez
+sorry	desculpa ; sinto muito|deeply sorry
+goodbye	tchau ; adeus|formal

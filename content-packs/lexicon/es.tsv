@@ -1,0 +1,87 @@
+# Spanish (Español) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	yo
+you	tú ; usted|formal
+he-she	él ; ella
+we	nosotros ; nosotras
+they	ellos ; ellas
+this	este ; esto
+that	ese ; eso ; aquel
+what	qué
+who	quién ; quiénes
+where	dónde
+yes	sí
+no	no
+hello	hola ; buenos días
+thank-you	gracias
+please	por favor
+go	ir
+come	venir
+want	querer
+know	saber ; conocer|a person or place
+see	ver ; mirar|look
+say	decir ; hablar
+give	dar
+take	tomar ; llevar
+eat	comer
+drink	beber ; tomar|Latin America
+water	agua
+food	comida ; alimento|formal
+good	bueno ; bien|well
+bad	malo
+big	grande
+small	pequeño ; chico|spoken
+one	uno
+two	dos
+three	tres
+when	cuándo
+why	por qué
+how	cómo
+mother	madre ; mamá|informal
+father	padre ; papá|informal
+child	niño|boy ; niña|girl
+man	hombre
+woman	mujer
+friend	amigo ; amiga
+name	nombre
+home	casa ; hogar|home life
+day	día
+night	noche
+time	tiempo ; hora|clock time
+money	dinero ; plata|Latin America
+love	amor
+understand	entender ; comprender|formal
+sleep	dormir
+work	trabajar
+play	jugar
+read	leer
+write	escribir
+learn	aprender ; estudiar|study
+help	ayudar
+buy	comprar
+school	escuela ; colegio
+book	libro
+milk	leche
+sun	sol
+moon	luna
+fire	fuego
+tree	árbol
+hot	caliente
+cold	frío
+new	nuevo
+old	viejo ; antiguo|ancient
+beautiful	hermoso ; bonito|pretty
+happy	feliz ; contento
+four	cuatro
+five	cinco
+six	seis
+seven	siete
+eight	ocho
+nine	nueve
+ten	diez
+sorry	lo siento ; perdón|excuse me
+goodbye	adiós ; hasta luego|see you later

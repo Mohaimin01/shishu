@@ -1,0 +1,87 @@
+# Bengali (বাংলা) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	আমি|ami
+you	তুমি|tumi ; আপনি|apni|polite ; তুই|tui|very close
+he-she	সে|se ; উনি|uni|polite ; তিনি|tini|formal
+we	আমরা|amra
+they	তারা|tara ; ওরা|ora|informal
+this	এই|ei ; এটা|eta|this thing ; এটি|eti|formal
+that	ওই|oi ; ওটা|ota
+what	কী|ki ; কি|ki|short spelling, very common
+who	কে|ke ; কারা|kara|who (plural)
+where	কোথায়|kothay ; কোথা|kotha|literary
+yes	হ্যাঁ|hyan ; জি|ji|polite
+no	না|na ; নয়|noy|is not
+hello	নমস্কার|nomoshkar|Hindu greeting ; আসসালামু আলাইকুম|assalamu alaikum|Muslim greeting ; হ্যালো|hyalo|casual
+thank-you	ধন্যবাদ|dhonnobad ; শুকরিয়া|shukriya|Muslim families
+please	দয়া করে|doya kore ; প্লিজ|pliz|borrowed from English
+go	যাওয়া|jawa
+come	আসা|asha
+want	চাওয়া|chaowa
+know	জানা|jana
+see	দেখা|dekha
+say	বলা|bola ; কথা বলা|kotha bola|to speak
+give	দেওয়া|deoa
+take	নেওয়া|neoa
+eat	খাওয়া|khaoa
+drink	পান করা|pan kora ; খাওয়া|khaoa|spoken: "pani khawa"
+water	পানি|pani ; বারি|bari|Sylhet ; জল|jol|formal, West Bengal
+food	খাবার|khabar ; খাদ্য|khaddo|formal
+good	ভালো|bhalo ; উত্তম|uttom|formal
+bad	খারাপ|kharap ; মন্দ|mondo|literary
+big	বড়|boro ; বিশাল|bishal|huge
+small	ছোট|chhoto ; ক্ষুদ্র|kshudro|tiny, formal
+one	এক|ek
+two	দুই|dui
+three	তিন|tin
+when	কখন|kokhon ; কবে|kobe|on which day
+why	কেন|keno ; কী জন্য|ki jonno|for what reason
+how	কীভাবে|kibhabe ; কেমন|kemon|how is it / what like
+mother	মা|ma ; আম্মা|amma|Muslim families ; মাতা|mata|formal
+father	বাবা|baba ; আব্বা|abba|Muslim families ; পিতা|pita|formal
+child	শিশু|shishu ; বাচ্চা|bachcha|informal
+man	পুরুষ|purush ; লোক|lok|informal ; ভদ্রলোক|bhodrolok|gentleman
+woman	মহিলা|mohila ; নারী|nari|formal ; মেয়ে|meye|girl, informal
+friend	বন্ধু|bondhu ; দোস্ত|dost|informal
+name	নাম|nam
+home	বাড়ি|bari ; ঘর|ghor|room or home ; গৃহ|grihe|formal
+day	দিন|din
+night	রাত|rat ; রাত্রি|ratri|formal
+time	সময়|shomoy ; বেলা|bela|time of day
+money	টাকা|taka ; পয়সা|poysha|coins, money ; অর্থ|ortho|formal
+love	ভালোবাসা|bhalobasha ; প্রেম|prem|romantic
+understand	বোঝা|bojha
+sleep	ঘুমানো|ghumano
+work	কাজ করা|kaj kora
+play	খেলা|khela
+read	পড়া|pora
+write	লেখা|lekha
+learn	শেখা|shekha ; পড়া|pora|study
+help	সাহায্য করা|shahajjo kora ; হেল্প করা|help kora|spoken
+buy	কেনা|kena
+school	স্কুল|skul ; বিদ্যালয়|biddaloy|formal
+book	বই|boi ; পুস্তক|pustok|formal ; গ্রন্থ|grontho|literary
+milk	দুধ|dudh
+sun	সূর্য|surjo ; রবি|robi|poetic
+moon	চাঁদ|chand ; চন্দ্র|chondro|literary
+fire	আগুন|agun ; অগ্নি|ogni|formal
+tree	গাছ|gach ; বৃক্ষ|brikkho|literary
+hot	গরম|gorom ; উষ্ণ|ushno|formal
+cold	ঠান্ডা|thanda ; শীতল|shitol|formal
+new	নতুন|notun ; নূতন|nutan|literary
+old	পুরনো|purono ; বুড়ো|burho|old person, informal
+beautiful	সুন্দর|shundor ; রূপসী|rupshi|beautiful woman
+happy	খুশি|khushi ; সুখী|sukhi|lasting happiness ; আনন্দিত|anondito|joyful
+four	চার|char
+five	পাঁচ|panch
+six	ছয়|chhoy ; ছ|chho|spoken
+seven	সাত|shat
+eight	আট|at
+nine	নয়|noy
+ten	দশ|dosh
+sorry	দুঃখিত|dukkhito|formal ; সরি|sori|spoken ; মাফ করবেন|maf korben|excuse me
+goodbye	বিদায়|biday|formal ; আবার দেখা হবে|abar dekha hobe|see you again

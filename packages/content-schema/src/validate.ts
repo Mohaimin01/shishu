@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { validatePack } from "./pack";
+import { lintPack, validatePack } from "./pack";
 
 const root = path.resolve(__dirname, "..", "..", "..");
 const packsDir = path.join(root, "content-packs");
@@ -16,11 +16,12 @@ for (const code of fs.readdirSync(packsDir)) {
   }
   try {
     const data = JSON.parse(fs.readFileSync(file, "utf8"));
-    validatePack(data);
+    const pack = validatePack(data);
     console.log(`OK   ${code}`);
+    for (const tip of lintPack(pack)) console.log(`     tip: ${tip}`);
   } catch (e) {
     failed++;
-    console.error(`FAIL ${code}:`, (e as Error).message);
+    console.error(`FAIL ${code}:\n${(e as Error).message}`);
   }
 }
 if (failed > 0) process.exit(1);

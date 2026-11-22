@@ -1,0 +1,87 @@
+# French (Français) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	je ; moi
+you	tu ; vous|formal
+he-she	il ; elle
+we	nous
+they	ils ; elles
+this	ce ; ça ; ceci
+that	ça ; cela
+what	quoi ; que ; qu'est-ce que
+who	qui
+where	où
+yes	oui
+no	non
+hello	bonjour ; salut|informal
+thank-you	merci
+please	s'il vous plaît ; s'il te plaît|informal
+go	aller
+come	venir
+want	vouloir
+know	savoir ; connaître|a person or place
+see	voir ; regarder|look
+say	dire ; parler
+give	donner
+take	prendre
+eat	manger
+drink	boire
+water	eau
+food	nourriture ; repas|meal
+good	bon ; bien|well
+bad	mauvais
+big	grand ; gros|fat or thick
+small	petit
+one	un
+two	deux
+three	trois
+when	quand
+why	pourquoi
+how	comment
+mother	mère ; maman|informal
+father	père ; papa|informal
+child	enfant
+man	homme
+woman	femme
+friend	ami ; amie ; copain|informal
+name	nom ; prénom|first name
+home	maison ; foyer|home life
+day	jour ; journée|whole day
+night	nuit
+time	temps ; heure|clock time
+money	argent
+love	amour
+understand	comprendre
+sleep	dormir
+work	travailler
+play	jouer
+read	lire
+write	écrire
+learn	apprendre ; étudier|study
+help	aider
+buy	acheter
+school	école
+book	livre
+milk	lait
+sun	soleil
+moon	lune
+fire	feu
+tree	arbre
+hot	chaud
+cold	froid
+new	nouveau ; neuf|brand new
+old	vieux ; ancien|former or ancient
+beautiful	beau ; joli|pretty
+happy	heureux ; content
+four	quatre
+five	cinq
+six	six
+seven	sept
+eight	huit
+nine	neuf
+ten	dix
+sorry	désolé ; pardon|excuse me
+goodbye	au revoir

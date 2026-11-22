@@ -1,0 +1,87 @@
+# Turkish (Türkçe) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	ben
+you	sen ; siz|polite
+he-she	o
+we	biz
+they	onlar
+this	bu
+that	şu ; o
+what	ne
+who	kim
+where	nerede
+yes	evet ; he|informal
+no	hayır ; yok|there isn't
+hello	merhaba ; selam|informal
+thank-you	teşekkürler ; sağ ol|informal
+please	lütfen
+go	gitmek
+come	gelmek
+want	istemek
+know	bilmek
+see	görmek ; bakmak|look
+say	söylemek ; konuşmak
+give	vermek
+take	almak
+eat	yemek
+drink	içmek
+water	su
+food	yemek ; yiyecek
+good	iyi
+bad	kötü
+big	büyük
+small	küçük
+one	bir
+two	iki
+three	üç
+when	ne zaman
+why	neden ; niye|spoken
+how	nasıl
+mother	anne ; ana
+father	baba
+child	çocuk
+man	adam ; erkek|male
+woman	kadın
+friend	arkadaş ; dost|literary
+name	isim ; ad|spoken
+home	ev
+day	gün
+night	gece
+time	zaman ; vakit
+money	para
+love	aşk ; sevgi|affection
+understand	anlamak
+sleep	uyumak
+work	çalışmak
+play	oynamak
+read	okumak
+write	yazmak
+learn	öğrenmek
+help	yardım etmek
+buy	satın almak
+school	okul
+book	kitap
+milk	süt
+sun	güneş
+moon	ay
+fire	ateş ; yangın|big fire
+tree	ağaç
+hot	sıcak
+cold	soğuk
+new	yeni
+old	eski|old things ; yaşlı|old person
+beautiful	güzel
+happy	mutlu
+four	dört
+five	beş
+six	altı
+seven	yedi
+eight	sekiz
+nine	dokuz
+ten	on
+sorry	özür dilerim ; pardon
+goodbye	hoşça kal|to someone staying ; güle güle|to someone leaving

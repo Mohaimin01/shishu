@@ -1,0 +1,13 @@
+name: Add or fix words (Word Rows)
+description: A new language column, a missing synonym, a wrong word
+title: "words: <language>"
+labels: ["word-rows"]
+body:
+  - type: input
+    id: lang
+    attributes: { label: Language }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What should change?, description: "e.g. 'water' in Bengali should also list জল (formal). Or paste your filled worksheet." }
+    validations: { required: true }

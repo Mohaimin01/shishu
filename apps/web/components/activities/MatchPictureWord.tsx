@@ -5,7 +5,8 @@ import { chime } from "@/lib/audio";
 import { playWordAudio } from "@/lib/wordaudio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
-import { packs } from "@/lib/packs";
+import { shuffle } from "@/lib/shuffle";
+import { getPack, langName } from "@/lib/packs";
 import { TYPE_TITLE } from "@/lib/activities";
 
 /**
@@ -18,17 +19,14 @@ export default function MatchPictureWord({ lang, itemId, onAnswer }: {
   itemId: string;
   onAnswer: (correct: boolean) => void;
 }) {
-  const p = packs[lang] ?? packs.en;
+  const p = getPack(lang);
   const sound = useSettings((s) => s.sound);
   const childId = useSettings((s) => s.childId);
 
   const { target, options } = useMemo(() => {
     const t = p.words.find((w) => w.id === itemId) ?? p.words[0];
-    const others: typeof t[] = [];
-    for (const w of p.words) {
-      if (w.id !== t.id && others.length < 2) others.push(w);
-    }
-    return { target: t, options: [t, ...others].sort(() => Math.random() - 0.5) };
+    const others: typeof t[] = shuffle(p.words.filter((w) => w.id !== t.id)).slice(0, 2);
+    return { target: t, options: shuffle([t, ...others]) };
   }, [p, itemId]);
 
   const wrongCountRef = useRef(0);

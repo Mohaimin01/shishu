@@ -5,7 +5,7 @@ import { chime } from "@/lib/audio";
 import { playWordAudio } from "@/lib/wordaudio";
 import { recordExposure } from "@/lib/progress";
 import { useSettings } from "@/store";
-import { packs } from "@/lib/packs";
+import { getPack, langName } from "@/lib/packs";
 
 /**
  * One word, many homes — the concept-table, shown the board's way:
@@ -17,7 +17,7 @@ export default function ConceptTable({ lang, itemId, onDone }: {
   itemId: string;
   onDone?: () => void;
 }) {
-  const p = packs[lang] ?? packs.en;
+  const p = getPack(lang);
   const sound = useSettings((s) => s.sound);
   const childId = useSettings((s) => s.childId);
 

@@ -96,20 +96,25 @@ export function listForPack(p: LanguagePack, stage?: Stage): ActivityCard[] {
   return cards;
 }
 
-export function listForStage(lang: string): ActivityCard[] {
-  const p = bundledPacks[lang];
-  if (p) return listForPack(p);
-  // unknown (downloaded) lang: fall back to first bundled pack's layout
-  return listForPack(bundledPacks.en);
+/** The cards a child sees in this language at this stage (same list the Learn screen shows). */
+export function listForStage(lang: string, stage?: Stage): ActivityCard[] {
+  const p = bundledPacks[lang] ?? bundledPacks.en; // downloaded packs are registered into this map
+  return listForPack(p, stage);
 }
 
+/** Finds a card by id. Not stage-filtered: a link someone already has must keep working. */
 export function findCard(lang: string, type: string, itemId: string): ActivityCard | undefined {
   return listForStage(lang).find((c) => c.type === type && c.itemId === itemId);
 }
 
-export function nextAfter(lang: string, card: ActivityCard): ActivityCard | undefined {
-  const list = listForStage(lang);
-  return list[list.findIndex((c) => c.key === card.key) + 1];
+export function nextAfter(lang: string, card: ActivityCard, stage?: Stage): ActivityCard | undefined {
+  const list = listForStage(lang, stage);
+  const i = list.findIndex((c) => c.key === card.key);
+  if (i >= 0) return list[i + 1];
+  // the current card isn't in this stage's list (old link / higher stage): carry on from the full list
+  const full = listForStage(lang);
+  const j = full.findIndex((c) => c.key === card.key);
+  return j >= 0 ? full.slice(j + 1).find((c) => list.some((x) => x.key === c.key)) : undefined;
 }
 
 export const TYPE_TITLE: Record<ActivityType, string> = {

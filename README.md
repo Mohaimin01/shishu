@@ -18,6 +18,14 @@ Shishu ("child" in Bengali/Sanskrit) is a calm, low-stimulation learning app tha
 Deploys automatically on every push to `main` (static export, no server, no cost).
 Android APK: push a tag like `v0.1.0` and GitHub Actions publishes an installable APK to Releases.
 
+## Word Rows — for older children and adults 🌍
+
+**/words** shows one meaning per row in many languages side by side — your own language first, most used
+meanings first, every synonym grouped in its cell (Bengali *water*: পানি, বারি, জল). Choose any number of
+languages, choose which letters you can read (Bengali, English, Hindi… words are shown in letters you
+understand), study a few rows a day, and **print** the tables (many languages are split across sheets).
+Add any language with a spreadsheet-style worksheet — see [docs/WORDS.md](./docs/WORDS.md).
+
 ## Quick start
 
 ```bash
