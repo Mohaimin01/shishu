@@ -1,0 +1,15 @@
+name: Add a language for children
+description: Letters, numbers, first words and sentences for little ones
+title: "pack: <language>"
+labels: ["language-pack"]
+body:
+  - type: input
+    id: lang
+    attributes: { label: Language and its own name, placeholder: "Swahili / Kiswahili" }
+    validations: { required: true }
+  - type: textarea
+    id: who
+    attributes: { label: Are you a native speaker?, description: "Tell us about yourself and who can review it." }
+  - type: textarea
+    id: help
+    attributes: { label: What can you share?, description: "Even 5 words and a few letters is a great start. Paste them here and we will turn them into a pack." }

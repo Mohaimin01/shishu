@@ -14,7 +14,7 @@ import {
   bridgeCards, findCard, listForStage, nextAfter, TYPE_TITLE,
   resolveBundled, type ActivityCard, type Lane,
 } from "@/lib/activities";
-import { getPack } from "@/lib/packs";
+import { getPack, loadDownloadedPacks } from "@/lib/packs";
 import { addMinutes, todayMinutes } from "@/lib/db";
 import { useSettings } from "@/store";
 import type { Stage } from "@shishu/core";
@@ -101,11 +101,20 @@ function RunnerInner() {
   const type = params.get("type");
   const item = params.get("item");
 
+  // downloaded community packs must be registered before any activity reads them
+  const [packsReady, setPacksReady] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    void loadDownloadedPacks().then(() => { if (alive) setPacksReady(true); });
+    return () => { alive = false; };
+  }, []);
+
   const card = useMemo<ActivityCard | undefined>(() => {
+    if (!packsReady) return undefined;
     if (type === "concept-bridge" && item) return { key: `concept-bridge:${item}`, type: "concept-bridge", itemId: item, label: "together", glyph: "◑" };
     if (type && item) return findCard(lang, type, item);
-    return listForStage(lang)[0];
-  }, [type, item, lang]);
+    return listForStage(lang, stage)[0];
+  }, [type, item, lang, stage, packsReady]);
 
   const [complete, setComplete] = useState(false);
   const [windDown, setWindDown] = useState(false);
@@ -156,12 +165,12 @@ function RunnerInner() {
       router.push(`/learn?lane=together&stage=${stage}`);
       return;
     }
-    const n = card ? nextAfter(lang, card) : undefined;
+    const n = card ? nextAfter(lang, card, stage) : undefined;
     if (n) router.push(`/play?lang=${lang}&stage=${stage}&type=${n.type}&item=${n.itemId}`);
     else router.push(`/learn?lane=${lang}&stage=${stage}`);
   };
 
-  const laneName = settings.laneNames[lang] ?? getPack(lang).nativeName;
+  const laneName = settings.laneNames[lang] ?? (packsReady ? getPack(lang).nativeName : "");
 
   return (
     <main className="min-h-screen flex flex-col px-5 pb-10">
@@ -183,7 +192,8 @@ function RunnerInner() {
       </header>
 
       <div className="flex-1 flex items-center justify-center">
-        {card && <ActivityBody card={card} lang={lang} onDone={onDone} />}
+        {/* key = fresh state for every activity (stale state carried between cards was a bug) */}
+        {card && <ActivityBody key={`${lang}:${card.key}`} card={card} lang={lang} onDone={onDone} />}
       </div>
 
       {complete && !windDown && (

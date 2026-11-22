@@ -9,7 +9,9 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "predev": "node ../../scripts/copy-lexicon.mjs",
+    "prebuild": "node ../../scripts/copy-lexicon.mjs"
   },
   "dependencies": {
     "next": "^15.0.0",

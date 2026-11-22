@@ -1,0 +1,87 @@
+# English (English) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	I|bengali=আই
+you	you|bengali=ইউ
+he-she	he|bengali=হি ; she|bengali=শি
+we	we|bengali=উই
+they	they|bengali=দে
+this	this|bengali=দিস
+that	that|bengali=ড্যাট
+what	what|bengali=হোয়াট
+who	who|bengali=হু
+where	where|bengali=হোয়ার
+yes	yes|bengali=ইয়েস ; yeah|bengali=ইয়াহ|informal
+no	no|bengali=নো
+hello	hello|bengali=হ্যালো ; hi|bengali=হাই|informal
+thank-you	thank you|bengali=থ্যাঙ্ক ইউ ; thanks|bengali=থ্যাঙ্কস|informal
+please	please|bengali=প্লিজ
+go	go|bengali=গো
+come	come|bengali=কাম
+want	want|bengali=ওয়ান্ট
+know	know|bengali=নো
+see	see|bengali=সি ; look|bengali=লুক
+say	say|bengali=সে ; speak|bengali=স্পিক ; tell|bengali=টেল
+give	give|bengali=গিভ
+take	take|bengali=টেক
+eat	eat|bengali=ইট
+drink	drink|bengali=ড্রিংক
+water	water|bengali=ওয়াটার
+food	food|bengali=ফুড
+good	good|bengali=গুড
+bad	bad|bengali=ব্যাড
+big	big|bengali=বিগ ; large|bengali=লার্জ
+small	small|bengali=স্মল ; little|bengali=লিটল
+one	one|bengali=ওয়ান
+two	two|bengali=টু
+three	three|bengali=থ্রি
+when	when|bengali=হোয়েন
+why	why|bengali=হোয়াই
+how	how|bengali=হাউ
+mother	mother|bengali=মাদার ; mom|bengali=মম|informal
+father	father|bengali=ফাদার ; dad|bengali=ড্যাড|informal
+child	child|bengali=চাইল্ড ; kid|bengali=কিড|informal
+man	man|bengali=ম্যান
+woman	woman|bengali=উইমেন
+friend	friend|bengali=ফ্রেন্ড
+name	name|bengali=নেম
+home	home|bengali=হোম ; house|bengali=হাউস
+day	day|bengali=ডে
+night	night|bengali=নাইট
+time	time|bengali=টাইম
+money	money|bengali=মানি
+love	love|bengali=লাভ
+understand	understand|bengali=আন্ডারস্ট্যান্ড
+sleep	sleep|bengali=স্লিপ
+work	work|bengali=ওয়ার্ক
+play	play|bengali=প্লে
+read	read|bengali=রিড
+write	write|bengali=রাইট
+learn	learn|bengali=লার্ন ; study|bengali=স্টাডি
+help	help|bengali=হেল্প
+buy	buy|bengali=বাই
+school	school|bengali=স্কুল
+book	book|bengali=বুক
+milk	milk|bengali=মিল্ক
+sun	sun|bengali=সান
+moon	moon|bengali=মুন
+fire	fire|bengali=ফায়ার
+tree	tree|bengali=ট্রি
+hot	hot|bengali=হট
+cold	cold|bengali=কোল্ড
+new	new|bengali=নিউ
+old	old|bengali=ওল্ড
+beautiful	beautiful|bengali=বিউটিফুল ; pretty|bengali=প্রিটি
+happy	happy|bengali=হ্যাপি
+four	four|bengali=ফোর
+five	five|bengali=ফাইভ
+six	six|bengali=সিক্স
+seven	seven|bengali=সেভেন
+eight	eight|bengali=এইট
+nine	nine|bengali=নাইন
+ten	ten|bengali=টেন
+sorry	sorry|bengali=সরি
+goodbye	goodbye|bengali=গুডবাই ; bye|bengali=বাই|informal

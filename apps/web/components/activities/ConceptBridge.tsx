@@ -5,7 +5,7 @@ import { chime } from "@/lib/audio";
 import { playWordAudio } from "@/lib/wordaudio";
 import { recordExposure } from "@/lib/progress";
 import { useSettings } from "@/store";
-import { packs } from "@/lib/packs";
+import { getPack, langName } from "@/lib/packs";
 import type { BridgeCard } from "@/lib/activities";
 
 /**
@@ -35,16 +35,18 @@ export default function ConceptBridge({ card, onDone }: {
           void recordExposure(childId || "anon", l.code, "concept", card.conceptId);
         }
         onDone?.();
+        if (sound) chime(true);
       }
-      if (sound) chime(true);
       return;
     }
-    if (sound) {
-      const t = setTimeout(() => {
-        void playWordAudio(childId || "anon", step.code, card.conceptId, step.label, step.audioUrl);
-      }, idx === 0 ? 450 : 1500);
-      return () => clearTimeout(t);
-    }
+    // speak this language's word, then move on to the next language by itself
+    // (before, nothing ever advanced `idx`, so the round never finished and "Next" never appeared)
+    const lead = idx === 0 ? 450 : 300;
+    const speakTimer = setTimeout(() => {
+      if (sound) void playWordAudio(childId || "anon", step.code, card.conceptId, step.label, step.audioUrl);
+    }, lead);
+    const nextTimer = setTimeout(() => setIdx((i) => i + 1), lead + 1700);
+    return () => { clearTimeout(speakTimer); clearTimeout(nextTimer); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idx, round]);
 
@@ -54,7 +56,7 @@ export default function ConceptBridge({ card, onDone }: {
     setRound((r) => r + 1);
   };
 
-  const nativeName = (code: string) => packs[code]?.nativeName ?? code;
+  const nativeName = (code: string) => langName(code);
 
   return (
     <div className="flex flex-col items-center gap-6 w-full max-w-[420px]">

@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { chime, pop, speakOrPlay } from "@/lib/audio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
-import { packs } from "@/lib/packs";
+import { getPack } from "@/lib/packs";
+import { shuffleUnsolved } from "@/lib/shuffle";
 import type { Phrase } from "@shishu/content-schema";
 
 /**
@@ -12,13 +13,15 @@ import type { Phrase } from "@shishu/content-schema";
  * Board verdict: sentences, not just words. 2 words at 3, 3 at 4, 4 at 5.
  * Two-strike rule here too: wrong tap → hear the sentence again (no shame),
  * second miss → the right next tile glows gently.
+ * Every placement can be undone ("↩ back"), and the whole sentence can be restarted.
+ * All state is keyed to the sentence, so the next sentence always starts clean.
  */
 export default function SentenceStrip({ lang, itemId, onAnswer }: {
   lang: string;
   itemId: string;
   onAnswer: (correct: boolean) => void;
 }) {
-  const p = packs[lang] ?? packs.en;
+  const p = getPack(lang);
   const sound = useSettings((s) => s.sound);
   const childId = useSettings((s) => s.childId);
 
@@ -32,18 +35,28 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
     [phrase],
   );
 
-  // stable shuffle, re-dealt per activity
+  // fair shuffle, re-dealt per sentence (never already in the solved order)
   const tiles = useMemo(
-    () => tokens.map((token, i) => ({ token, i })).sort(() => Math.random() - 0.5),
+    () => shuffleUnsolved(tokens.map((token, i) => ({ token, i })), (a, b) => a.token === b.token),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [phrase.id],
   );
 
-  const [placed, setPlaced] = useState(0);
-  const [hidden, setHidden] = useState<number[]>([]);
+  // indices into `tiles`, in the order the child placed them
+  const [placedTiles, setPlacedTiles] = useState<number[]>([]);
   const wrongCountRef = useRef(0);
   const wrongLoggedRef = useRef(false);
   const [glowToken, setGlowToken] = useState<string | null>(null);
+  const placed = placedTiles.length;
+
+  // a different sentence ALWAYS starts from zero (this was the "second sentence is already
+  // half done and stuck" bug: state used to survive navigation between sentences)
+  useEffect(() => {
+    setPlacedTiles([]);
+    setGlowToken(null);
+    wrongCountRef.current = 0;
+    wrongLoggedRef.current = false;
+  }, [phrase.id]);
 
   const play = () => {
     if (sound) speakOrPlay(phrase.text, lang, phrase.audioUrl);
@@ -55,7 +68,7 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phrase.id]);
 
-  const done = placed >= tokens.length;
+  const done = tokens.length > 0 && placed >= tokens.length;
 
   useEffect(() => {
     if (!done) return;
@@ -67,15 +80,12 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
   }, [done]);
 
   const tap = (tileIdx: number) => {
-    if (done) return;
+    if (done || placedTiles.includes(tileIdx)) return;
     const expected = tokens[placed];
     const tile = tiles[tileIdx];
     if (tile.token === expected) {
       if (sound) pop();
-      // spend the first unspent tile of this token
-      const idx = tiles.findIndex((t, i) => t.token === expected && !hidden.includes(i));
-      setHidden((h) => [...h, idx >= 0 ? idx : tileIdx]);
-      setPlaced((n) => n + 1);
+      setPlacedTiles((list) => [...list, tileIdx]);
       return;
     }
     // wrong tap — gentle, never punitive
@@ -91,6 +101,9 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
       setTimeout(() => setGlowToken(null), 1000);
     }
   };
+
+  const undo = () => setPlacedTiles((list) => list.slice(0, -1));
+  const restart = () => setPlacedTiles([]);
 
   const bnText = (s: string) => /[\u0980-\u09FF]/.test(s);
 
@@ -132,12 +145,14 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
       <div className="flex gap-3 flex-wrap justify-center" aria-label="word tiles">
         {tiles.map((tile, idx) => (
           <button
-            key={`${tile.token}-${tile.i}`}
+            key={`${phrase.id}-${tile.token}-${tile.i}`}
             onClick={() => tap(idx)}
             disabled={done}
             className={`card px-5 py-4 text-xl font-bold text-text active:scale-95 transition duration-gentle ${
               glowToken === tile.token ? "ring-4 ring-primary/40" : ""
-            } ${hidden.includes(idx) ? "opacity-0 pointer-events-none" : ""}`}
+            } ${placedTiles.includes(idx) ? "opacity-0 pointer-events-none" : ""}`}
+            tabIndex={placedTiles.includes(idx) ? -1 : 0}
+            aria-hidden={placedTiles.includes(idx)}
             aria-label={`word tile ${tile.token}`}
           >
             <span className={bnText(tile.token) ? "font-bengali" : ""}>{tile.token}</span>
@@ -145,13 +160,31 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
         ))}
       </div>
 
-      <button
-        onClick={play}
-        className="min-h-[48px] px-6 text-base text-text bg-surface rounded-2xl shadow-sm active:scale-95 transition duration-gentle"
-        aria-label="hear the sentence again"
-      >
-        🔊 hear again
-      </button>
+      <div className="flex gap-3 flex-wrap justify-center">
+        <button
+          onClick={undo}
+          disabled={placed === 0 || done}
+          className="min-h-[48px] px-6 text-base text-text bg-surface rounded-2xl shadow-sm active:scale-95 transition duration-gentle disabled:opacity-40"
+          aria-label="undo the last word"
+        >
+          ↩ back
+        </button>
+        <button
+          onClick={restart}
+          disabled={placed === 0 || done}
+          className="min-h-[48px] px-6 text-base text-text bg-surface rounded-2xl shadow-sm active:scale-95 transition duration-gentle disabled:opacity-40"
+          aria-label="start the sentence over"
+        >
+          ⟲ start over
+        </button>
+        <button
+          onClick={play}
+          className="min-h-[48px] px-6 text-base text-text bg-surface rounded-2xl shadow-sm active:scale-95 transition duration-gentle"
+          aria-label="hear the sentence again"
+        >
+          🔊 hear again
+        </button>
+      </div>
     </div>
   );
 }

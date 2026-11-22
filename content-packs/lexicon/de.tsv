@@ -1,0 +1,87 @@
+# German (Deutsch) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	ich
+you	du ; Sie|formal
+he-she	er ; sie
+we	wir
+they	sie
+this	dies ; das
+that	das ; jenes
+what	was
+who	wer
+where	wo
+yes	ja
+no	nein
+hello	hallo ; guten Tag
+thank-you	danke
+please	bitte
+go	gehen
+come	kommen
+want	wollen ; möchten|politer
+know	wissen ; kennen|a person or place
+see	sehen ; schauen|look
+say	sagen ; sprechen
+give	geben
+take	nehmen
+eat	essen
+drink	trinken
+water	Wasser
+food	Essen ; Nahrung|formal
+good	gut
+bad	schlecht ; schlimm|serious
+big	groß
+small	klein
+one	eins
+two	zwei
+three	drei
+when	wann
+why	warum ; wieso
+how	wie
+mother	Mutter ; Mama|informal
+father	Vater ; Papa|informal
+child	Kind
+man	Mann
+woman	Frau
+friend	Freund ; Freundin
+name	Name
+home	Haus ; Zuhause|home
+day	Tag
+night	Nacht
+time	Zeit
+money	Geld
+love	Liebe
+understand	verstehen
+sleep	schlafen
+work	arbeiten
+play	spielen
+read	lesen
+write	schreiben
+learn	lernen ; studieren|study at university
+help	helfen
+buy	kaufen
+school	Schule
+book	Buch
+milk	Milch
+sun	Sonne
+moon	Mond
+fire	Feuer
+tree	Baum
+hot	heiß ; warm|warm
+cold	kalt
+new	neu
+old	alt
+beautiful	schön
+happy	glücklich ; froh
+four	vier
+five	fünf
+six	sechs
+seven	sieben
+eight	acht
+nine	neun
+ten	zehn
+sorry	Entschuldigung ; Tut mir leid|I'm sorry
+goodbye	auf Wiedersehen ; tschüss|informal

@@ -1,0 +1,87 @@
+# Urdu (اردو) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	میں|main
+you	تم|tum ; آپ|aap|polite ; تو|tu|very close
+he-she	وہ|woh
+we	ہم|ham
+they	وہ لوگ|woh log
+this	یہ|yeh
+that	وہ|woh
+what	کیا|kya
+who	کون|kaun
+where	کہاں|kahaan
+yes	ہاں|haan ; جی|ji|polite
+no	نہیں|nahin ; نا|na|informal
+hello	السلام علیکم|assalam alaikum ; آداب|aadaab
+thank-you	شکریہ|shukriya ; مہربانی|meharbani
+please	براہ مہربانی|barah-e-meharbani ; پلیز|pleez
+go	جانا|jaana
+come	آنا|aana
+want	چاہنا|chaahna
+know	جاننا|jaanna
+see	دیکھنا|dekhna
+say	بولنا|bolna ; کہنا|kehna|to say
+give	دینا|dena
+take	لینا|lena
+eat	کھانا|khaana
+drink	پینا|peena
+water	پانی|paani ; آب|aab|formal
+food	کھانا|khaana ; غذا|ghiza|formal
+good	اچھا|achha ; بہتر|behtar|better
+bad	برا|bura ; خراب|kharaab
+big	بڑا|bara
+small	چھوٹا|chhota
+one	ایک|ek
+two	دو|do
+three	تین|teen
+when	کب|kab
+why	کیوں|kyun
+how	کیسے|kaise
+mother	ماں|maan ; امی|ammi
+father	ابو|abbu ; والد|walid|formal
+child	بچہ|bachcha
+man	آدمی|aadmi ; مرد|mard
+woman	عورت|aurat ; خاتون|khatoon|polite
+friend	دوست|dost ; یار|yaar|informal
+name	نام|naam
+home	گھر|ghar ; مکان|makaan
+day	دن|din
+night	رات|raat
+time	وقت|waqt
+money	پیسہ|paisa ; رقم|raqam|an amount
+love	محبت|mohabbat ; پیار|pyaar ; عشق|ishq|deep passion
+understand	سمجھنا|samajhna
+sleep	سونا|sona
+work	کام کرنا|kaam karna
+play	کھیلنا|khelna
+read	پڑھنا|parhna
+write	لکھنا|likhna
+learn	سیکھنا|seekhna
+help	مدد کرنا|madad karna
+buy	خریدنا|khareedna
+school	اسکول|school ; مدرسہ|madrasa
+book	کتاب|kitaab
+milk	دودھ|doodh
+sun	سورج|sooraj ; شمس|shams|literary
+moon	چاند|chaand ; قمر|qamar|literary
+fire	آگ|aag
+tree	درخت|darakht ; پیڑ|ped
+hot	گرم|garam
+cold	ٹھنڈا|thanda
+new	نیا|naya
+old	پرانا|puraana ; بوڑھا|boorha|old person
+beautiful	خوبصورت|khoobsoorat ; حسین|haseen|literary
+happy	خوش|khush
+four	چار|chaar
+five	پانچ|paanch
+six	چھ|chhe
+seven	سات|saat
+eight	آٹھ|aath
+nine	نو|nau
+ten	دس|das
+sorry	معاف کیجیے|maaf kijiye ; معذرت|maazrat|formal
+goodbye	خدا حافظ|khuda hafiz

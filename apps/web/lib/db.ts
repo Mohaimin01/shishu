@@ -3,6 +3,7 @@
 import Dexie, { type Table } from "dexie";
 import type { ProgressEntry } from "@shishu/core";
 import type { LanguagePack } from "@shishu/content-schema";
+import type { LexiconLanguage } from "@shishu/core";
 
 export type SessionRow = {
   day: string; // YYYY-MM-DD local (total, all lanes)
@@ -29,6 +30,7 @@ export class ShishuDB extends Dexie {
   lanelog!: Table<LaneSession, string>;
   packs!: Table<LanguagePack, string>; // downloaded community packs
   familyaudio!: Table<FamilyAudio, string>;
+  lexicons!: Table<LexiconLanguage, string>; // word-list languages added by the learner / community
 
   constructor() {
     super("shishu");
@@ -50,6 +52,15 @@ export class ShishuDB extends Dexie {
       lanelog: "key, day, lang",
       packs: "code",
       familyaudio: "key",
+    });
+    // v4: Word Rows languages imported on this device (any language in the world)
+    this.version(4).stores({
+      progress: "id, childId, lang, updatedAt",
+      sessions: "day",
+      lanelog: "key, day, lang",
+      packs: "code",
+      familyaudio: "key",
+      lexicons: "code",
     });
   }
 }
@@ -79,16 +90,17 @@ export async function addMinutes(min: number, lang?: string) {
   }
 }
 
-export function localDay(): string {
-  const d = new Date();
+export function localDay(d: Date = new Date()): string {
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
 /** Sum of a language's learning minutes across the last 7 days (inclusive of today). */
 export async function laneMinutesLast7(lang: string): Promise<number> {
-  const cut = new Date(Date.now() - 6 * 86400000);
-  const cutoffDay = cut.toISOString().slice(0, 10);
+  // local calendar days, same as localDay() (toISOString() is UTC and skews a day near midnight)
+  const cut = new Date();
+  cut.setDate(cut.getDate() - 6);
+  const cutoffDay = localDay(cut);
   const rows = await db.lanelog.where("lang").equals(lang).toArray();
   return rows.filter((r) => r.day >= cutoffDay).reduce((s, r) => s + r.minutes, 0);
 }

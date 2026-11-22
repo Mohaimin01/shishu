@@ -1,0 +1,87 @@
+# Indonesian (Bahasa Indonesia) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	saya ; aku|informal
+you	kamu ; Anda|formal
+he-she	dia ; ia|formal
+we	kami|not including you ; kita|including you
+they	mereka
+this	ini
+that	itu
+what	apa
+who	siapa
+where	di mana ; mana
+yes	ya ; iya
+no	tidak ; bukan|is not ; tak|informal
+hello	halo ; selamat pagi|good morning
+thank-you	terima kasih ; makasih|informal
+please	tolong|asking for help ; silakan|go ahead
+go	pergi ; jalan|informal
+come	datang
+want	mau ; ingin|formal
+know	tahu ; kenal|a person
+see	lihat ; melihat
+say	bilang|informal ; berkata ; berbicara
+give	memberi ; kasih|informal
+take	ambil ; mengambil
+eat	makan
+drink	minum
+water	air
+food	makanan
+good	bagus ; baik
+bad	buruk ; jelek|informal
+big	besar ; gede|informal
+small	kecil
+one	satu
+two	dua
+three	tiga
+when	kapan
+why	kenapa ; mengapa|formal
+how	bagaimana ; gimana|informal
+mother	ibu ; mama|informal
+father	ayah ; bapak ; papa|informal
+child	anak ; bocah|informal
+man	pria ; laki-laki|male
+woman	wanita ; perempuan
+friend	teman ; sahabat|close friend
+name	nama
+home	rumah
+day	hari
+night	malam
+time	waktu
+money	uang ; duit|informal
+love	cinta ; sayang|affection
+understand	mengerti ; paham
+sleep	tidur
+work	bekerja ; kerja|informal
+play	bermain ; main|informal
+read	baca ; membaca
+write	tulis ; menulis
+learn	belajar
+help	membantu ; tolong|help (me)
+buy	beli ; membeli
+school	sekolah
+book	buku
+milk	susu
+sun	matahari ; surya|literary
+moon	bulan
+fire	api ; kebakaran|big fire
+tree	pohon
+hot	panas
+cold	dingin
+new	baru
+old	tua ; lama|old things, long
+beautiful	cantik|for women ; indah|scenic
+happy	senang ; bahagia|formal
+four	empat
+five	lima
+six	enam
+seven	tujuh
+eight	delapan
+nine	sembilan
+ten	sepuluh
+sorry	maaf
+goodbye	selamat tinggal ; sampai jumpa|see you

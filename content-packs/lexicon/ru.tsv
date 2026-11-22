@@ -1,0 +1,87 @@
+# Russian (Русский) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	я|ya
+you	ты|ty ; вы|vy|polite
+he-she	он|on ; она|ona
+we	мы|my
+they	они|oni
+this	это|eto ; этот|etot
+that	то|to ; тот|tot
+what	что|chto
+who	кто|kto
+where	где|gde
+yes	да|da
+no	нет|net
+hello	здравствуйте|zdravstvuyte ; привет|privet|informal
+thank-you	спасибо|spasibo
+please	пожалуйста|pozhaluysta
+go	идти|idti ; ехать|yekhat'|by vehicle
+come	приходить|prikhodit'
+want	хотеть|khotet'
+know	знать|znat'
+see	видеть|videt' ; смотреть|smotret'|look or watch
+say	говорить|govorit' ; сказать|skazat'|say once
+give	давать|davat' ; дать|dat'|give once
+take	брать|brat' ; взять|vzyat'|take once
+eat	есть|yest' ; кушать|kushat'|polite or to kids
+drink	пить|pit'
+water	вода|voda
+food	еда|yeda ; пища|pishcha|formal
+good	хороший|khoroshiy ; добрый|dobryy|kind
+bad	плохой|plokhoy
+big	большой|bolshoy
+small	маленький|malenkiy
+one	один|odin
+two	два|dva
+three	три|tri
+when	когда|kogda
+why	почему|pochemu
+how	как|kak
+mother	мама|mama ; мать|mat'|formal
+father	папа|papa ; отец|otets|formal
+child	ребёнок|rebyonok
+man	мужчина|muzhchina
+woman	женщина|zhenshchina
+friend	друг|drug ; подруга|podruga|female friend
+name	имя|imya
+home	дом|dom
+day	день|den'
+night	ночь|noch'
+time	время|vremya
+money	деньги|den'gi
+love	любовь|lyubov'
+understand	понимать|ponimat'
+sleep	спать|spat'
+work	работать|rabotat'
+play	играть|igrat'
+read	читать|chitat'
+write	писать|pisat'
+learn	учиться|uchit'sya ; учить|uchit'|learn a thing
+help	помогать|pomogat' ; помочь|pomoch'|help once
+buy	покупать|pokupat' ; купить|kupit'|buy once
+school	школа|shkola
+book	книга|kniga
+milk	молоко|moloko
+sun	солнце|solntse
+moon	луна|luna ; месяц|mesyats|crescent
+fire	огонь|ogon' ; пожар|pozhar|big fire
+tree	дерево|derevo
+hot	горячий|goryachiy ; жаркий|zharkiy|hot weather
+cold	холодный|kholodnyy
+new	новый|noviy
+old	старый|stariy
+beautiful	красивый|krasivyy
+happy	счастливый|schastlivyy ; радостный|radostnyy|joyful
+four	четыре|chetyre
+five	пять|pyat'
+six	шесть|shest'
+seven	семь|sem'
+eight	восемь|vosem'
+nine	девять|devyat'
+ten	десять|desyat'
+sorry	извините|izvinite ; прости|prosti|informal
+goodbye	до свидания|do svidaniya ; пока|poka|informal

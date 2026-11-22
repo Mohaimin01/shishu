@@ -1,0 +1,85 @@
+# Shishu Word Rows — the list of meanings (rows), most used first.
+# rank<TAB>id<TAB>part of speech<TAB>short English hint
+# Add new meanings at the END (or insert with a rank between neighbours) and then add a cell for them in each language file.
+rank	id	pos	gloss
+1	i	pron	I (me)
+2	you	pron	you (one person)
+3	he-she	pron	he / she (another person)
+4	we	pron	we
+5	they	pron	they
+6	this	pron	this
+7	that	pron	that
+8	what	pron	what
+9	who	pron	who
+10	where	adv	where
+11	yes	interj	yes
+12	no	interj	no
+13	hello	greeting	hello
+14	thank-you	phrase	thank you
+15	please	phrase	please
+16	go	verb	to go
+17	come	verb	to come
+18	want	verb	to want
+19	know	verb	to know
+20	see	verb	to see / to look
+21	say	verb	to say / to speak
+22	give	verb	to give
+23	take	verb	to take
+24	eat	verb	to eat
+25	drink	verb	to drink
+26	water	noun	water
+27	food	noun	food
+28	good	adj	good
+29	bad	adj	bad
+30	big	adj	big
+31	small	adj	small
+32	one	num	1
+33	two	num	2
+34	three	num	3
+35	when	adv	when
+36	why	adv	why
+37	how	adv	how
+38	mother	noun	mother
+39	father	noun	father
+40	child	noun	child
+41	man	noun	man
+42	woman	noun	woman
+43	friend	noun	friend
+44	name	noun	name
+45	home	noun	home / house
+46	day	noun	day
+47	night	noun	night
+48	time	noun	time
+49	money	noun	money
+50	love	noun	love
+51	understand	verb	to understand
+52	sleep	verb	to sleep
+53	work	verb	to work
+54	play	verb	to play
+55	read	verb	to read
+56	write	verb	to write
+57	learn	verb	to learn / to study
+58	help	verb	to help
+59	buy	verb	to buy
+60	school	noun	school
+61	book	noun	book
+62	milk	noun	milk
+63	sun	noun	sun
+64	moon	noun	moon
+65	fire	noun	fire
+66	tree	noun	tree
+67	hot	adj	hot
+68	cold	adj	cold
+69	new	adj	new
+70	old	adj	old
+71	beautiful	adj	beautiful
+72	happy	adj	happy
+73	four	num	4
+74	five	num	5
+75	six	num	6
+76	seven	num	7
+77	eight	num	8
+78	nine	num	9
+79	ten	num	10
+80	sorry	phrase	sorry / excuse me
+81	goodbye	phrase	goodbye

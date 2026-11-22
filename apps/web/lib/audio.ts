@@ -56,18 +56,22 @@ export function pop() {
 }
 
 const SPEECH_LANG: Record<string, string> = {
-  en: "en-US",
-  bn: "bn-IN",
-  es: "es-ES",
-  ar: "ar-SA",
+  en: "en-US", bn: "bn-IN", hi: "hi-IN", ur: "ur-PK", ar: "ar-SA", es: "es-ES", fr: "fr-FR",
+  de: "de-DE", pt: "pt-BR", ru: "ru-RU", tr: "tr-TR", id: "id-ID", zh: "zh-CN", ja: "ja-JP",
+  ko: "ko-KR", it: "it-IT", ta: "ta-IN", te: "te-IN", mr: "mr-IN", gu: "gu-IN", pa: "pa-IN",
+  ne: "ne-NP", si: "si-LK", th: "th-TH", vi: "vi-VN", fa: "fa-IR", sw: "sw-KE", nl: "nl-NL",
+  pl: "pl-PL", uk: "uk-UA", el: "el-GR", he: "he-IL", ms: "ms-MY", fil: "fil-PH",
 };
 
 /** Speaks using device speech synthesis; returns false when no voice exists for the language. */
 export function speak(text: string, langCode: string, rate = 0.8): boolean {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return false;
   const target = SPEECH_LANG[langCode] ?? langCode;
-  const voices = window.speechSynthesis.getVoices().filter((v) => v.lang.startsWith(target.split("-")[0]));
-  if (voices.length === 0 && langCode !== "en") return false;
+  const all = window.speechSynthesis.getVoices();
+  const voices = all.filter((v) => v.lang.toLowerCase().startsWith(target.split("-")[0].toLowerCase()));
+  // Browsers load their voice list lazily: an EMPTY list means "not loaded yet", so let the
+  // browser pick by lang instead of staying silent. Only give up when voices are loaded and none fit.
+  if (all.length > 0 && voices.length === 0 && langCode !== "en") return false;
   const u = new SpeechSynthesisUtterance(text);
   if (voices.length > 0) u.voice = voices[0];
   u.lang = target;

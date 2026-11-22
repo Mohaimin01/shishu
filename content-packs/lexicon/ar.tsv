@@ -1,0 +1,87 @@
+# Arabic (العربية) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	أنا|ana
+you	أنت|anta|to a man ; أنتِ|anti|to a woman
+he-she	هو|huwa|he ; هي|hiya|she
+we	نحن|nahnu
+they	هم|hum
+this	هذا|hadha|masculine ; هذه|hadhihi|feminine
+that	ذلك|dhalika|masculine ; تلك|tilka|feminine
+what	ما|ma ; ماذا|madha
+who	من|man
+where	أين|ayna
+yes	نعم|na'am
+no	لا|la
+hello	مرحبا|marhaba ; السلام عليكم|assalamu alaykum
+thank-you	شكرا|shukran
+please	من فضلك|min fadlak
+go	ذهب|dhahaba
+come	جاء|jaa'a ; أتى|ata|formal
+want	أراد|araada
+know	عرف|'arafa
+see	رأى|ra'a
+say	قال|qaala ; تكلم|takallama|speak
+give	أعطى|a'taa
+take	أخذ|akhadha
+eat	أكل|akala
+drink	شرب|shariba
+water	ماء|maa' ; مياه|miyaah|plural
+food	طعام|ta'aam ; أكل|akl
+good	جيد|jayyid ; حسن|hasan|formal
+bad	سيء|sayyi' ; رديء|radi'
+big	كبير|kabir
+small	صغير|saghir
+one	واحد|wahid
+two	اثنان|ithnaan
+three	ثلاثة|thalatha
+when	متى|mata
+why	لماذا|limatha
+how	كيف|kayfa
+mother	أم|umm ; ماما|mama|informal
+father	أب|ab ; بابا|baba|informal
+child	طفل|tifl
+man	رجل|rajul
+woman	امرأة|imra'a
+friend	صديق|sadiq
+name	اسم|ism
+home	بيت|bayt ; منزل|manzil|formal
+day	يوم|yawm
+night	ليل|layl
+time	وقت|waqt
+money	مال|maal ; فلوس|fuloos|spoken
+love	حب|hubb
+understand	فهم|fahima
+sleep	نام|naama
+work	عمل|'amila
+play	لعب|la'iba
+read	قرأ|qara'a
+write	كتب|kataba
+learn	تعلّم|ta'allama
+help	ساعد|saa'ada
+buy	اشترى|ishtaraa
+school	مدرسة|madrasa
+book	كتاب|kitaab
+milk	حليب|halib ; لبن|laban
+sun	شمس|shams
+moon	قمر|qamar
+fire	نار|naar ; حريق|hareeq|blaze
+tree	شجرة|shajara
+hot	حار|haar ; ساخن|sakhin|hot things
+cold	بارد|baarid
+new	جديد|jadid
+old	قديم|qadim ; عجوز|'ajuz|old person
+beautiful	جميل|jamil
+happy	سعيد|sa'id
+four	أربعة|arba'a
+five	خمسة|khamsa
+six	ستة|sitta
+seven	سبعة|sab'a
+eight	ثمانية|thamaniya
+nine	تسعة|tis'a
+ten	عشرة|'ashara
+sorry	آسف|aasif ; عذرا|'udhran|excuse me
+goodbye	مع السلامة|ma'a as-salama

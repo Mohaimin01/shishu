@@ -5,7 +5,8 @@ import { chime } from "@/lib/audio";
 import { playWordAudio } from "@/lib/wordaudio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
-import { packs } from "@/lib/packs";
+import { shuffle } from "@/lib/shuffle";
+import { getPack, langName } from "@/lib/packs";
 import type { Letter } from "@shishu/content-schema";
 
 /**
@@ -20,17 +21,14 @@ export default function TapSound({ lang, itemId, onAnswer }: {
   itemId: string;
   onAnswer: (correct: boolean) => void;
 }) {
-  const p = packs[lang] ?? packs.en;
+  const p = getPack(lang);
   const sound = useSettings((s) => s.sound);
   const childId = useSettings((s) => s.childId);
 
   const { target, options } = useMemo(() => {
     const t = p.letters.find((l) => l.id === itemId) ?? p.letters[0];
-    const others: Letter[] = [];
-    for (const l of p.letters) {
-      if (l.id !== t.id && others.length < 2) others.push(l);
-    }
-    return { target: t, options: [t, ...others].sort(() => Math.random() - 0.5) };
+    const others: Letter[] = shuffle(p.letters.filter((l) => l.id !== t.id)).slice(0, 2);
+    return { target: t, options: shuffle([t, ...others]) };
   }, [p, itemId]);
 
   const wrongCountRef = useRef(0);

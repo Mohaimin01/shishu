@@ -47,6 +47,12 @@ export default function Home() {
           Start learning
         </Link>
         <Link
+          href="/words"
+          className="bg-surface text-text ring-1 ring-primary/30 rounded-3xl px-6 py-4 text-lg font-semibold text-center min-h-[56px] flex items-center justify-center active:scale-[0.98] transition duration-gentle hover:shadow"
+        >
+          Word Rows · older kids &amp; adults
+        </Link>
+        <Link
           href="/parent"
           className="text-center text-muted underline-offset-4 hover:underline px-6 py-4 min-h-[48px] flex items-center justify-center"
         >
@@ -57,7 +63,7 @@ export default function Home() {
       <p className="text-sm text-muted mt-8 text-center">
         Free &amp; open source · No ads · Works offline
         <br />
-        English · বাংলা · more languages by community
+        English · বাংলা · हिन्दी · اردو · العربية · and 10 more — add any language
       </p>
     </main>
   );

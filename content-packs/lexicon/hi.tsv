@@ -1,0 +1,87 @@
+# Hindi (हिन्दी) — Shishu Word Rows
+# concept<TAB>words   |   words separated by ' ; ' — MOST USED word first
+# each word: text|romanisation|note|script=spelling   (everything after the text is optional)
+# example:  পানি|pani ; জল|jol|formal ; বারি|bari|Sylhet
+# Leave a row out (or blank) if you don't know it yet — someone else can add it.
+concept	words
+i	मैं|main
+you	तुम|tum ; आप|aap|polite ; तू|tu|very close
+he-she	वह|vah ; वो|wo|spoken ; वे|ve|polite
+we	हम|ham
+they	वे|ve ; वो लोग|wo log|spoken
+this	यह|yah ; ये|ye|spoken
+that	वह|vah ; वो|wo
+what	क्या|kya
+who	कौन|kaun
+where	कहाँ|kahaan
+yes	हाँ|haan ; जी|ji|polite
+no	नहीं|nahin ; ना|na|informal
+hello	नमस्ते|namaste ; नमस्कार|namaskar|formal
+thank-you	धन्यवाद|dhanyavaad ; शुक्रिया|shukriya
+please	कृपया|kripya ; प्लीज़|pleez|spoken
+go	जाना|jaana
+come	आना|aana
+want	चाहना|chaahna
+know	जानना|jaanna
+see	देखना|dekhna
+say	बोलना|bolna ; कहना|kahna|to say
+give	देना|dena
+take	लेना|lena
+eat	खाना|khaana
+drink	पीना|peena
+water	पानी|paani ; जल|jal|formal
+food	खाना|khaana ; भोजन|bhojan|formal
+good	अच्छा|achchha ; बढ़िया|badhiya|great
+bad	बुरा|bura ; खराब|kharaab
+big	बड़ा|bada
+small	छोटा|chhota
+one	एक|ek
+two	दो|do
+three	तीन|teen
+when	कब|kab
+why	क्यों|kyon
+how	कैसे|kaise
+mother	माँ|maa ; अम्मा|amma ; माता|mata|formal
+father	पापा|papa ; पिताजी|pitaji|polite ; पिता|pita|formal
+child	बच्चा|bachcha ; शिशु|shishu|formal
+man	आदमी|aadmi ; पुरुष|purush|formal
+woman	औरत|aurat ; महिला|mahila|formal
+friend	दोस्त|dost ; मित्र|mitra|formal
+name	नाम|naam
+home	घर|ghar ; मकान|makaan|building
+day	दिन|din
+night	रात|raat
+time	समय|samay ; वक्त|vakt|spoken
+money	पैसा|paisa ; धन|dhan|wealth, formal
+love	प्यार|pyaar ; प्रेम|prem|formal ; मोहब्बत|mohabbat
+understand	समझना|samajhna
+sleep	सोना|sona
+work	काम करना|kaam karna
+play	खेलना|khelna
+read	पढ़ना|padhna
+write	लिखना|likhna
+learn	सीखना|seekhna
+help	मदद करना|madad karna ; सहायता करना|sahayata karna|formal
+buy	खरीदना|khareedna
+school	स्कूल|skool ; विद्यालय|vidyalay|formal ; पाठशाला|paathshala|traditional
+book	किताब|kitaab ; पुस्तक|pustak|formal
+milk	दूध|doodh
+sun	सूरज|sooraj ; सूर्य|surya|formal
+moon	चाँद|chaand ; चंद्रमा|chandrama|formal
+fire	आग|aag ; अग्नि|agni|formal
+tree	पेड़|ped ; वृक्ष|vriksh|literary
+hot	गरम|garam ; गर्म|garm
+cold	ठंडा|thanda
+new	नया|naya
+old	पुराना|puraana ; बूढ़ा|boodha|old person
+beautiful	सुंदर|sundar ; खूबसूरत|khoobsoorat
+happy	खुश|khush ; सुखी|sukhi|formal
+four	चार|chaar
+five	पाँच|paanch
+six	छह|chhah ; छे|chhe|spoken
+seven	सात|saat
+eight	आठ|aath
+nine	नौ|nau
+ten	दस|das
+sorry	माफ़ कीजिए|maaf kijiye ; सॉरी|sorry|spoken
+goodbye	अलविदा|alvida ; फिर मिलेंगे|phir milenge|see you

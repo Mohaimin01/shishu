@@ -2,14 +2,16 @@
   "name": "shishu",
   "version": "0.1.0",
   "private": true,
-  "description": "Shishu — gentle multilingual learning for children (ages 2-12). Open source, free, low-stimulation.",
+  "description": "Shishu \u2014 gentle multilingual learning for children (ages 2-12). Open source, free, low-stimulation.",
   "scripts": {
     "dev": "npm run dev --workspace web",
     "build": "npm run build --workspace web",
     "test": "npm test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "validate:content": "npx tsx packages/content-schema/src/validate.ts"
+    "validate:content": "npx tsx packages/content-schema/src/validate.ts",
+    "validate:lexicon": "npx tsx scripts/validate-lexicon.ts",
+    "new:pack": "node scripts/new-pack.mjs"
   },
   "workspaces": [
     "apps/*",
