@@ -78,11 +78,6 @@ export function readChildId(): string {
   return id;
 }
 
-/** Friendly lane label: parent's alias beats pack's native name. */
-export function laneLabel(activeLangs: string[], i: number, code: string, names: Record<string, string>, nativeNames: Record<string, string>): string {
-  return names[code] ?? nativeNames[code] ?? code;
-}
-
 /** Weekly gentle dose targets (minutes) by lane order: home, second, third+. */
 export function weeklyTargetFor(i: number): number {
   if (i === 0) return 70; // ~10 min/day

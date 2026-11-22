@@ -42,14 +42,13 @@ function LearnInner() {
 
   // downloaded (community) packs join bundled packs as full lanes
   const [dl, setDl] = useState<Record<string, import("@shishu/content-schema").LanguagePack>>({});
-  const [refresh] = useState(0);
   useEffect(() => {
     let alive = true;
     downloadedPacks().then((rows) => {
       if (alive) setDl(Object.fromEntries(rows.map((r) => [r.code, r])));
     });
     return () => { alive = false; };
-  }, [refresh]);
+  }, []);
 
   const lanes = useMemo<Lane[]>(() => {
     return settings.activeLangs
