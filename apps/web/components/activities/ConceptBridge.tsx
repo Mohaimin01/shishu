@@ -6,6 +6,7 @@ import { playWordAudio } from "@/lib/wordaudio";
 import { recordExposure } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { getPack, langName } from "@/lib/packs";
+import { fontClassForText } from "@/lib/script";
 import type { BridgeCard } from "@/lib/activities";
 
 /**
@@ -66,8 +67,8 @@ export default function ConceptBridge({ card, onDone }: {
         aria-live="polite"
         className="card text-center px-8 py-6 min-w-[240px]"
       >
-        <p className="text-xs text-muted mb-1">{nativeName(step.code)}</p>
-        <p className={`text-4xl font-bold text-text ${step.code === "bn" ? "font-bengali" : ""}`}>
+        <p className={`text-xs text-muted mb-1 ${fontClassForText(nativeName(step.code))}`}>{nativeName(step.code)}</p>
+        <p className={`text-4xl font-bold text-text ${fontClassForText(step.label)}`}>
           {step.label}
         </p>
       </div>

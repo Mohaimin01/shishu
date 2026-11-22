@@ -3,8 +3,8 @@
 import { speak } from "@/lib/audio";
 import type { Cell, ScriptId } from "@shishu/core";
 import type { LangMeta } from "@/lib/lexicon";
+import { fontClassForText } from "@/lib/script";
 
-const BN = /[\u0980-\u09FF]/;
 const RTL_SCRIPTS: ScriptId[] = ["arabic", "hebrew"];
 
 /** One language's words for one meaning: every synonym, most used first, each tappable to hear it. */
@@ -32,7 +32,7 @@ export default function WordCell({ cell, meta, showRoman, readable, interactive 
               lang={f.script === "latin" ? undefined : meta?.code}
               dir={rtl ? "rtl" : undefined}
               className={`${i === 0 ? "text-lg font-bold" : "text-base font-semibold text-text/80"} ${
-                BN.test(f.text) ? "font-bengali" : ""
+                fontClassForText(f.text)
               }`}
             >
               {f.text}

@@ -8,6 +8,7 @@ import {
   type ActivityType, type Lane,
 } from "@/lib/activities";
 import { downloadedPacks } from "@/lib/online-packs";
+import { fontClassFor, fontClassForText } from "@/lib/script";
 import { useSettings } from "@/store";
 import { stageForAge, type Stage } from "@shishu/core";
 
@@ -79,7 +80,7 @@ function LearnInner() {
           ←
         </Link>
         <div className="text-center">
-          <h1 className="text-xl font-bold">
+          <h1 className={`text-xl font-bold ${fontClassForText(isTogether ? "Together" : activeLane?.name ?? "")}`}>
             {isTogether ? "Together" : activeLane?.name ?? "Shishu"}
           </h1>
           <p className="text-xs text-muted">{STAGE_LABEL[stage]} · gentle play</p>
@@ -98,7 +99,7 @@ function LearnInner() {
             }`}
             aria-current={activeCode === l.code ? "true" : undefined}
           >
-            {l.name}
+            <span className={fontClassForText(l.name)}>{l.name}</span>
           </Link>
         ))}
         {lanes.length >= 2 && (
@@ -157,7 +158,7 @@ function LearnInner() {
                         aria-label={`${title}: ${c.glyph}`}
                       >
                         <span
-                          className={`block text-4xl font-bold text-text ${c.glyphScript === "bengali" ? "font-bengali" : ""}`}
+                          className={`block text-4xl font-bold text-text ${fontClassFor(c.glyphScript)}`}
                         >
                           {c.glyph}
                         </span>

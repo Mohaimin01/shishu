@@ -6,6 +6,7 @@ import { playWordAudio } from "@/lib/wordaudio";
 import { recordExposure } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { getPack, langName } from "@/lib/packs";
+import { fontClassForText } from "@/lib/script";
 
 /**
  * One word, many homes — the concept-table, shown the board's way:
@@ -65,7 +66,7 @@ export default function ConceptTable({ lang, itemId, onDone }: {
     setRound((r) => r + 1);
   };
 
-  const bnText = (s: string) => /[\u0980-\u09FF]/.test(s);
+  const textClass = (s: string) => fontClassForText(s);
   const active = variants[Math.min(idx, variants.length - 1)];
 
   return (
@@ -76,7 +77,7 @@ export default function ConceptTable({ lang, itemId, onDone }: {
         <div className="card text-center px-8 py-5 min-w-[240px]">
           <p className="text-xs text-muted mb-1">{active.region ?? active.lang}</p>
           <p
-            className={`text-4xl font-bold text-text ${bnText(active.label) ? "font-bengali" : ""}`}
+            className={`text-4xl font-bold text-text ${textClass(active.label)}`}
             aria-live="polite"
           >
             {active.label}
@@ -97,7 +98,7 @@ export default function ConceptTable({ lang, itemId, onDone }: {
             }`}
             aria-label={`hear ${v.region ?? v.lang}: ${v.label}`}
           >
-            <span className={`${bnText(v.label) ? "font-bengali" : ""} ${i === idx ? "" : "text-base"}`}>{v.label}</span>
+            <span className={`${textClass(v.label)} ${i === idx ? "" : "text-base"}`}>{v.label}</span>
             {v.region && <span className="ml-2 text-xs opacity-70">{v.region}</span>}
           </button>
         ))}

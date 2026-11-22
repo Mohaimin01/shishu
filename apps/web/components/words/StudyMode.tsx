@@ -4,8 +4,8 @@ import { useMemo, useState } from "react";
 import { perDayFor, type Row, type ScriptId } from "@shishu/core";
 import type { LangMeta } from "@/lib/lexicon";
 import WordCell from "./WordCell";
+import { fontClassForText } from "@/lib/script";
 
-const BN = /[\u0980-\u09FF]/;
 
 /**
  * Study cards — memorise whole ROWS (one meaning in all your languages at once).
@@ -84,14 +84,14 @@ export default function StudyMode({ rows, metas, readable, showRoman, known, row
           </div>
           <div className="bg-surface rounded-3xl shadow-sm p-6 grid gap-5">
             <div>
-              <p className={`text-xs text-muted mb-1 ${BN.test(label(row.cells[0].langCode)) ? "font-bengali" : ""}`}>{label(row.cells[0].langCode)}</p>
+              <p className={`text-xs text-muted mb-1 ${fontClassForText(label(row.cells[0].langCode))}`}>{label(row.cells[0].langCode)}</p>
               <div className="text-2xl"><WordCell cell={row.cells[0]} meta={metas[row.cells[0].langCode]} showRoman={showRoman} readable={readable} /></div>
             </div>
             {revealed ? (
               <div className="grid gap-4 border-t border-text/10 pt-4">
                 {row.cells.slice(1).map((c) => (
                   <div key={c.langCode}>
-                    <p className={`text-xs text-muted mb-1 ${BN.test(label(c.langCode)) ? "font-bengali" : ""}`}>{label(c.langCode)}</p>
+                    <p className={`text-xs text-muted mb-1 ${fontClassForText(label(c.langCode))}`}>{label(c.langCode)}</p>
                     <WordCell cell={c} meta={metas[c.langCode]} showRoman={showRoman} readable={readable} />
                   </div>
                 ))}

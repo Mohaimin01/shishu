@@ -7,6 +7,7 @@ import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { shuffle } from "@/lib/shuffle";
 import { getPack, langName } from "@/lib/packs";
+import { fontClassFor, glyphScriptOf } from "@/lib/script";
 import type { Letter } from "@shishu/content-schema";
 
 /**
@@ -22,6 +23,7 @@ export default function TapSound({ lang, itemId, onAnswer }: {
   onAnswer: (correct: boolean) => void;
 }) {
   const p = getPack(lang);
+  const letterClass = fontClassFor(glyphScriptOf(p.script));
   const sound = useSettings((s) => s.sound);
   const childId = useSettings((s) => s.childId);
 
@@ -86,7 +88,7 @@ export default function TapSound({ lang, itemId, onAnswer }: {
             }`}
             aria-label={`letter ${l.name}`}
           >
-            {l.char}
+            <span className={letterClass}>{l.char}</span>
           </button>
         ))}
       </div>

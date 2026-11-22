@@ -5,6 +5,7 @@ import { chime, pop, speakOrPlay } from "@/lib/audio";
 import { recordGraded } from "@/lib/progress";
 import { useSettings } from "@/store";
 import { getPack } from "@/lib/packs";
+import { fontClassForText } from "@/lib/script";
 import { shuffleUnsolved } from "@/lib/shuffle";
 import type { Phrase } from "@shishu/content-schema";
 
@@ -105,7 +106,8 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
   const undo = () => setPlacedTiles((list) => list.slice(0, -1));
   const restart = () => setPlacedTiles([]);
 
-  const bnText = (s: string) => /[\u0980-\u09FF]/.test(s);
+  const textClass = (s: string) => fontClassForText(s);
+  const rtl = p.direction === "rtl";
 
   return (
     <div className="flex flex-col items-center gap-6 w-full max-w-[440px]">
@@ -114,7 +116,8 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
       {/* the sentence to build — visible for the grown-up reading along */}
       <p
         data-testid="sentence-text"
-        className={`text-xl text-text text-center font-semibold ${bnText(phrase.text) ? "font-bengali" : ""}`}
+        dir={rtl ? "rtl" : undefined}
+        className={`text-xl text-text text-center font-semibold ${textClass(phrase.text)}`}
         aria-label={`build the sentence ${phrase.text}`}
       >
         {phrase.text}
@@ -122,6 +125,7 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
 
       {/* the strip being built */}
       <div
+        dir={rtl ? "rtl" : undefined}
         className="min-h-[64px] w-full rounded-3xl bg-surface ring-1 ring-text/10 flex items-center justify-center gap-2 px-3 py-2 flex-wrap"
         aria-label="sentence strip"
       >
@@ -130,7 +134,7 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
             key={i}
             className={`px-3 py-1.5 rounded-2xl text-lg font-bold transition duration-gentle ${
               i < placed
-                ? `bg-primary text-white ${bnText(t) ? "font-bengali" : ""}`
+                ? `bg-primary text-white ${textClass(t)}`
                 : i === placed
                   ? "ring-2 ring-primary/50 bg-bg text-text/40"
                   : "bg-bg text-text/25"
@@ -155,7 +159,7 @@ export default function SentenceStrip({ lang, itemId, onAnswer }: {
             aria-hidden={placedTiles.includes(idx)}
             aria-label={`word tile ${tile.token}`}
           >
-            <span className={bnText(tile.token) ? "font-bengali" : ""}>{tile.token}</span>
+            <span className={textClass(tile.token)}>{tile.token}</span>
           </button>
         ))}
       </div>

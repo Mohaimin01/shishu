@@ -65,7 +65,7 @@ export default function Home() {
       <p className="text-sm text-muted mt-8 text-center">
         Free &amp; open source · No ads · Works offline
         <br />
-        English · বাংলা · हिन्दी · اردو · العربية · and 10 more — add any language
+        English · বাংলা · हिन्दी · اردو · العربية · and 9 more — trace their letters in every one
       </p>
     </main>
   );

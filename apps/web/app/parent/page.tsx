@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSettings, weeklyTargetFor } from "@/store";
-import { packs } from "@/lib/packs";
+import { packs, LANGS } from "@/lib/packs";
+import { fontClassForText } from "@/lib/script";
 import { langProgress } from "@/lib/progress";
 import { db, laneMinutesLast7, todayMinutes } from "@/lib/db";
 import { downloadedPacks, fetchAndStashPack, removePack } from "@/lib/online-packs";
@@ -217,7 +218,7 @@ const downloadPack = async () => {
     window.location.reload();
   };
 
-  const bn = (str: string) => /[\u0980-\u09FF]/.test(str);
+  const textClass = (s: string) => fontClassForText(s);
 
   const phrase = useToday?.phrase ?? null;
 
@@ -245,7 +246,7 @@ const downloadPack = async () => {
             <ul className="flex flex-col gap-3">
               {laneRows.map((r) => (
                 <li key={r.code} className="flex items-center justify-between gap-3">
-                  <span className={`font-semibold ${bn(r.name) ? "font-bengali" : ""}`}>{r.name}</span>
+                  <span className={`font-semibold ${textClass(r.name)}`}>{r.name}</span>
                   <span className="flex items-center gap-4 text-sm">
                     <span><span className="font-bold">{r.tried}</span> <span className="text-muted">tried · চেষ্টা</span></span>
                     <span><span className="font-bold">{r.solid}</span> <span className="text-muted">solid · পারা হয়েছে</span></span>
@@ -284,7 +285,7 @@ const downloadPack = async () => {
             </h2>
             <p className="text-2xl font-bold">
               <span aria-hidden className="align-middle">{useToday.emoji }</span>{" "}
-              <span className="font-bengali">{useToday.label}</span>{" "}
+              <span className={textClass(useToday.label)}>{useToday.label}</span>{" "}
               <button
                 onClick={() => void playWordAudio(childIdNow, activeCodes[0], useToday.id, useToday.label, useToday.audioUrl)}
                 className="align-middle text-xl text-primary ml-1"
@@ -301,7 +302,7 @@ const downloadPack = async () => {
             {phrase && (
               <p className="text-base mt-2 flex items-center gap-2">
                 <span className="text-muted text-xs uppercase tracking-wide">In a sentence</span>
-                <span className={`font-semibold ${bn(phrase.text) ? "font-bengali" : ""}`}>{phrase.text}</span>
+                <span className={`font-semibold ${textClass(phrase.text)}`}>{phrase.text}</span>
                 <button
                   onClick={() => speakOrPlay(phrase.text, activeCodes[0], phrase.audioUrl)}
                   className="text-primary"
@@ -405,6 +406,25 @@ const downloadPack = async () => {
                 );
               })}
             </div>
+            {/* every bundled language is one tap away — a language belongs to a person */}
+            <div className="pt-3">
+              <p className="text-xs text-muted mb-2">
+                Add a language ({LANGS.length} bundled · যে ভাষা ঘরে বলো, সেটিই যোগ করো)
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {LANGS.filter((l) => !activeCodes.includes(l.code)).map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => addLane(l.code)}
+                    className="px-3 min-h-[44px] rounded-2xl bg-bg text-text text-sm ring-1 ring-text/10 active:scale-95 transition duration-gentle"
+                    aria-label={`add ${l.nativeName} as a lane`}
+                  >
+                    <span className={textClass(l.nativeName)}>{l.nativeName}</span>
+                    <span aria-hidden className="text-muted"> +</span>
+                  </button>
+                ))}
+              </div>
+            </div>
             <p className="text-xs text-muted mt-1">Try মা&apos;s ভাষা, Baba&apos;s — a language belongs to a person. First lane is the home language.</p>
           </div>
 
@@ -430,7 +450,7 @@ const downloadPack = async () => {
                 <button
                   key={code}
                   onClick={() => setVoiceLane(code)}
-                  className={`px-3 min-h-[44px] rounded-2xl text-sm transition duration-gentle ${bn(label) ? "font-bengali" : ""} ${
+                  className={`px-3 min-h-[44px] rounded-2xl text-sm transition duration-gentle ${textClass(label)} ${
                     voiceLane === code ? "bg-primary text-white" : "bg-bg text-text ring-1 ring-text/10"
                   }`}
                 >
@@ -449,7 +469,7 @@ const downloadPack = async () => {
                 <div key={w.id} className="flex items-center justify-between gap-1 bg-bg rounded-2xl px-2 py-1.5">
                   <span className="text-sm truncate">
                     <span aria-hidden>{w.emoji}</span>{" "}
-                    <span className={bn(w.label) ? "font-bengali" : ""}>{w.label}</span>
+                    <span className={textClass(w.label)}>{w.label}</span>
                     {recorded.has(key) && <span aria-label="has family voice"> ✓</span>}
                   </span>
                   <span className="flex items-center">
@@ -507,7 +527,7 @@ const downloadPack = async () => {
             <ul className="mt-3 flex flex-col gap-2">
               {dlPacks.map((p) => (
                 <li key={p.code} className="flex items-center justify-between gap-2 bg-bg rounded-2xl px-3 py-2">
-                  <span className="font-bengali">{p.nativeName}</span>
+                  <span className={textClass(p.nativeName)}>{p.nativeName}</span>
                   {activeCodes.includes(p.code) ? (
                     <span className="text-xs text-muted">in your lanes ✓</span>
                   ) : (

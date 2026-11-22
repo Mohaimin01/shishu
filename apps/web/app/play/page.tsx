@@ -15,6 +15,7 @@ import {
   type ActivityCard,
 } from "@/lib/activities";
 import { BUNDLED_CODES, getPack, hasPack, loadDownloadedPacks } from "@/lib/packs";
+import { fontClassForText } from "@/lib/script";
 import { addMinutes, todayMinutes } from "@/lib/db";
 import { useSettings } from "@/store";
 import type { Stage } from "@shishu/core";
@@ -41,7 +42,7 @@ function ActivityBody({ card, lang, onDone }: { card: ActivityCard; lang: string
         skill="letter"
         itemId={letter.id}
         glyph={letter.char}
-        script={p.script === "bengali" ? "bengali" : "latin"}
+        script={p.script}
         mode={card.type === "trace-letter" ? "trace" : "paint"}
         stage={card.type}
         onDone={onDone}
@@ -57,7 +58,7 @@ function ActivityBody({ card, lang, onDone }: { card: ActivityCard; lang: string
         skill="number"
         itemId={String(num.value)}
         glyph={num.char ?? String(num.value)}
-        script={p.script === "bengali" ? "bengali" : "latin"}
+        script={p.script}
         mode="paint"
         stage={card.type}
         onDone={onDone}
@@ -186,7 +187,7 @@ function RunnerInner() {
           ←
         </Link>
         <div className="text-center">
-          <p className={`text-sm text-muted ${laneName.match(/[\u0980-\u09FF]/) ? "font-bengali" : ""}`}>{laneName}</p>
+          <p className={`text-sm text-muted ${fontClassForText(laneName)}`}>{laneName}</p>
           <h1 className="text-lg font-bold text-text">
             {card ? TYPE_TITLE[card.type] : "Shishu"}
           </h1>

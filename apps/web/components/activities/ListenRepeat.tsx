@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { chime } from "@/lib/audio";
 import { playWordAudio } from "@/lib/wordaudio";
 import { recordExposure } from "@/lib/progress";
+import { fontClassForText } from "@/lib/script";
 import { useSettings } from "@/store";
 import { getPack, langName } from "@/lib/packs";
 
@@ -105,7 +106,7 @@ export default function ListenRepeat({ lang, itemId, onDone }: {
         className="text-4xl font-bold text-text px-8 py-4 card"
         aria-label={`hear ${word.label}`}
       >
-        <span className={/[\u0980-\u09FF]/.test(word.label) ? "font-bengali" : ""}>{word.label}</span>
+        <span className={fontClassForText(word.label)}>{word.label}</span>
         <span aria-hidden className="ml-2">🔊</span>
       </button>
 

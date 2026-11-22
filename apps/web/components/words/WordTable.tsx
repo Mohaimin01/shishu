@@ -3,8 +3,8 @@
 import type { Row, ScriptId } from "@shishu/core";
 import type { LangMeta } from "@/lib/lexicon";
 import WordCell from "./WordCell";
+import { fontClassForText } from "@/lib/script";
 
-const BN = /[\u0980-\u09FF]/;
 
 /** The side-by-side table. First column = the learner's own language. */
 export default function WordTable({ rows, metas, readable, showRoman, known, onToggleKnown, startRank, interactive = true }: {
@@ -35,7 +35,7 @@ export default function WordTable({ rows, metas, readable, showRoman, known, onT
                   scope="col"
                   className={`px-3 py-3 text-sm font-bold align-bottom ${
                     i === 0 ? "bg-primary/10 text-text" : "text-text"
-                  } ${BN.test(label) ? "font-bengali" : ""}`}
+                  } ${fontClassForText(label)}`}
                 >
                   {label}
                   {i === 0 && <span className="block text-[10px] font-normal text-muted">my language</span>}
