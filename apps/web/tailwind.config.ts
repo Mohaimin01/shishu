@@ -24,6 +24,11 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-nunito)", "Nunito", "system-ui", "sans-serif"],
         bengali: ["var(--font-noto-bengali)", "Noto Sans Bengali", "sans-serif"],
+        devanagari: ["var(--font-noto-devanagari)", "Noto Sans Devanagari", "sans-serif"],
+        arabic: ["var(--font-noto-arabic)", "Noto Sans Arabic", "sans-serif"],
+        cyrillic: ["var(--font-noto-cyrillic)", "Noto Sans", "sans-serif"],
+        han: ["var(--font-noto-han)", "Noto Sans SC", "sans-serif"],
+        kana: ["var(--font-noto-kana)", "Noto Sans JP", "sans-serif"],
       },
       borderRadius: {
         xl: "1.25rem",

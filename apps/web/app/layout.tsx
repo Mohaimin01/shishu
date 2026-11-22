@@ -16,6 +16,41 @@ const notoBengali = localFont({
   display: "swap",
 });
 
+const notoDevanagari = localFont({
+  src: "../fonts/noto-devanagari-variable-devanagari.woff2",
+  weight: "100 900",
+  variable: "--font-noto-devanagari",
+  display: "swap",
+});
+
+const notoArabic = localFont({
+  src: "../fonts/noto-arabic-variable-arabic.woff2",
+  weight: "100 900",
+  variable: "--font-noto-arabic",
+  display: "swap",
+});
+
+const notoCyrillic = localFont({
+  src: "../fonts/noto-sans-variable-cyrillic.woff2",
+  weight: "100 900",
+  variable: "--font-noto-cyrillic",
+  display: "swap",
+});
+
+const notoHan = localFont({
+  src: "../fonts/noto-sans-sc-variable-han.woff2",
+  weight: "700",
+  variable: "--font-noto-han",
+  display: "swap",
+});
+
+const notoKana = localFont({
+  src: "../fonts/noto-sans-jp-variable-kana.woff2",
+  weight: "700",
+  variable: "--font-noto-kana",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Shishu — gentle learning for little ones",
   description:
@@ -38,7 +73,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${nunito.variable} ${notoBengali.variable}`}>
+    <html
+      lang="en"
+      className={[
+        nunito.variable,
+        notoBengali.variable,
+        notoDevanagari.variable,
+        notoArabic.variable,
+        notoCyrillic.variable,
+        notoHan.variable,
+        notoKana.variable,
+      ].join(" ")}
+    >
       <body className="min-h-screen bg-bg text-text antialiased">{children}</body>
     </html>
   );

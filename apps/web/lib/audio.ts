@@ -83,10 +83,21 @@ export function speak(text: string, langCode: string, rate = 0.8): boolean {
 }
 
 /** Resolves a CSS font family stack for canvas rendering (canvas can't read CSS vars). */
-export function canvasFontFamily(): string {
+const CANVAS_FONT_STACK: Record<string, string> = {
+  latin: "var(--font-nunito), sans-serif",
+  bengali: "var(--font-noto-bengali), var(--font-nunito), sans-serif",
+  devanagari: "var(--font-noto-devanagari), var(--font-nunito), sans-serif",
+  arabic: "var(--font-noto-arabic), var(--font-nunito), sans-serif",
+  cyrillic: "var(--font-noto-cyrillic), var(--font-nunito), sans-serif",
+  han: "var(--font-noto-han), var(--font-nunito), sans-serif",
+  kana: "var(--font-noto-kana), var(--font-nunito), sans-serif",
+};
+
+export function canvasFontFamily(script: string = "latin"): string {
   if (typeof document === "undefined") return "sans-serif";
+  const stack = CANVAS_FONT_STACK[script] ?? CANVAS_FONT_STACK.latin;
   const probe = document.createElement("span");
-  probe.style.fontFamily = "var(--font-noto-bengali), var(--font-nunito), sans-serif";
+  probe.style.fontFamily = stack;
   probe.style.display = "none";
   document.body.appendChild(probe);
   const fam = getComputedStyle(probe).fontFamily || "sans-serif";
@@ -94,11 +105,17 @@ export function canvasFontFamily(): string {
   return fam;
 }
 
-/** Ensures webfonts needed by canvas glyphs are ready. */
-export async function fontsReady(): Promise<void> {
-  if (typeof document !== "undefined" && "fonts" in document) {
-    try { await document.fonts.ready; } catch { /* ignore */ }
-  }
+/**
+ * Ensures webfonts needed by canvas glyphs are ready. Canvas fillText never triggers a
+ * font download by itself, so when a spec + sample text are given we force-load the exact
+ * family for those characters first (document.fonts.load), then wait for everything.
+ */
+export async function fontsReady(fontSpec?: string, text?: string): Promise<void> {
+  if (typeof document === "undefined" || !("fonts" in document)) return;
+  try {
+    if (fontSpec && text) await document.fonts.load(fontSpec, text);
+    await document.fonts.ready;
+  } catch { /* ignore */ }
 }
 
 /** Plays pack audio when present (native/family recordings), else device TTS. */

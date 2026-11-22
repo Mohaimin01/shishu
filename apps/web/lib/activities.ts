@@ -1,6 +1,7 @@
 import { packs as bundledPacks } from "./packs";
 import type { LanguagePack, Phrase } from "@shishu/content-schema";
 import type { Stage } from "@shishu/core";
+import { glyphScriptOf, type GlyphScript } from "./script";
 
 export type ActivityType =
   | "color-letter"
@@ -19,12 +20,16 @@ export type ActivityCard = {
   itemId: string;
   label: string;
   glyph: string;    // shown on the card
-  glyphScript?: "bengali" | "latin";
+  glyphScript?: GlyphScript;
 };
 
-/** Whether tap-sound is speakable for this pack (single latin letters only). */
-function latinLetter(p: LanguagePack): boolean {
-  return p.letters.every((l) => /^[A-Za-z]$/.test(l.char));
+/**
+ * Whether tap-sound is speakable for this pack: single letters (any script — the TTS
+ * bridge knows every bundled language, and speaks letter names in-language). Single
+ * combining marks would not be speakable, so multi-codepoint letters stay out.
+ */
+function speakableLetters(p: LanguagePack): boolean {
+  return p.letters.length > 0 && p.letters.every((l) => /^[\p{L}\p{M}]+$/u.test(l.char));
 }
 
 /** Word tiles for a phrase — authored where available, else the text split on spaces. */
@@ -46,7 +51,7 @@ export function maxTokensFor(stage: Stage): number {
 
 export function listForPack(p: LanguagePack, stage?: Stage): ActivityCard[] {
   const cards: ActivityCard[] = [];
-  const script = p.script === "bengali" ? "bengali" : "latin";
+  const script = glyphScriptOf(p.script);
   const cap = stage ? maxTokensFor(stage) : undefined;
 
   for (const l of p.letters) {
@@ -54,12 +59,12 @@ export function listForPack(p: LanguagePack, stage?: Stage): ActivityCard[] {
     cards.push({ key: `trace-letter:${l.id}`, type: "trace-letter", itemId: l.id, label: "trace", glyph: l.char, glyphScript: script });
   }
   for (const n of p.numbers) {
-    cards.push({ key: `color-number:${n.value}`, type: "color-number", itemId: String(n.value), label: "color", glyph: n.char ?? String(n.value), glyphScript: script === "bengali" ? "bengali" : "latin" });
+    cards.push({ key: `color-number:${n.value}`, type: "color-number", itemId: String(n.value), label: "color", glyph: n.char ?? String(n.value), glyphScript: script });
   }
   for (const w of p.words) {
     cards.push({ key: `match-picture-word:${w.id}`, type: "match-picture-word", itemId: w.id, label: "word", glyph: w.emoji ?? "☑", glyphScript: "latin" });
   }
-  if (latinLetter(p)) {
+  if (speakableLetters(p)) {
     for (const l of p.letters) {
       cards.push({ key: `tap-sound:${l.id}`, type: "tap-sound", itemId: l.id, label: "hear", glyph: l.char, glyphScript: script });
     }

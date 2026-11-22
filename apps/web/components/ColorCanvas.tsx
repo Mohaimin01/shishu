@@ -5,6 +5,7 @@ import { canvasFontFamily, chime, fontsReady, pop } from "@/lib/audio";
 import { useSettings } from "@/store";
 import { recordExposure } from "@/lib/progress";
 import { isLetterComplete, measureCoverage, progressOf } from "@/lib/coverage";
+import { glyphScriptOf } from "@/lib/script";
 import type { Skill } from "@shishu/core";
 
 const PALETTE = ["#6B9080", "#C9A9A6", "#D4A373", "#9BB0C1", "#B9A0B8", "#8FA98F"];
@@ -21,7 +22,7 @@ type Props = {
   skill: Skill;
   itemId: string;
   glyph: string;
-  script?: "bengali" | "latin";
+  script?: string; // any pack script; normalised to one our fonts can draw
   mode: "paint" | "trace";
   stage: string;
   onDone?: (similarity: number) => void;
@@ -36,6 +37,7 @@ type Props = {
  * Starting anywhere, wobbling, or being imperfect is fine — that's the point.
  */
 export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, stage, onDone }: Props) {
+  const gscript = glyphScriptOf(script);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const maskRef = useRef<Uint8Array>(new Uint8Array(G * G));   // where the letter's ink is
   const inkRef = useRef<Uint8Array>(new Uint8Array(G * G));    // where the child has painted
@@ -55,7 +57,7 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
   const target = TARGET[mode];
 
   /** Draws the guide + learns where the letter's true shape is (mask). */
-  const drawGuide = (learn: boolean) => {
+  const drawGuide = (learn: boolean, fam = canvasFontFamily(gscript)) => {
     const cvs = canvasRef.current;
     if (!cvs) return () => {};
     const ctx = cvs.getContext("2d");
@@ -68,7 +70,6 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, SIZE, SIZE);
 
-    const fam = script === "bengali" ? canvasFontFamily() : getComputedStyle(document.body).fontFamily;
     const fontSpec = `700 ${SIZE * 0.6}px ${fam}`;
     ctx.font = fontSpec;
     ctx.textAlign = "center";
@@ -120,12 +121,16 @@ export default function ColorCanvas({ lang, skill, itemId, glyph, script, mode, 
     setProgress(0);
     let alive = true;
     (async () => {
-      await fontsReady();
-      if (alive) drawGuide(true);
+      // load the exact family for this glyph first — canvas fillText never triggers a
+      // download on its own, so without this the letter could rasterize in a fallback
+      const fam = canvasFontFamily(gscript);
+      const spec = `700 ${Math.round(SIZE * 0.6)}px ${fam}`;
+      await fontsReady(spec, glyph);
+      if (alive) drawGuide(true, fam);
     })();
     return () => { alive = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [glyph, mode]);
+  }, [glyph, mode, gscript]);
 
   /** Paints one dab and records which grid cells the child has covered. */
   const stamp = (x: number, y: number) => {
