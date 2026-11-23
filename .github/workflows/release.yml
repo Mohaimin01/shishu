@@ -8,6 +8,10 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
+    permissions:
+      # gh release create needs write access; without this the default
+      # read-only GITHUB_TOKEN fails with "Resource not accessible by integration"
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
