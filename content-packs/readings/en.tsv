@@ -1,0 +1,11 @@
+# Story Rows — English graded mini-stories.
+# Every word must be a Word Rows word, a form from core FORMS, or a closed function word (CI enforces this).
+# Level 1 uses only meanings ranked 1-30; level 2 only ranked 1-60.
+# Columns: id <TAB> lang <TAB> level <TAB> title <TAB> concepts (comma-separated) <TAB> text
+id	lang	level	title	concepts	text
+en-water-please	en	1	Water, please	i,you,want,say,please,give,drink,water,good,thank-you	I want water. I say: Please, give me water! You give me water. I drink the water. The water is good. Thank you!
+en-yes-no	en	1	Yes and no	i,you,he-she,we,what,say,yes,no	I say yes. You say no. He says yes too. We say: yes, yes, yes! She says no. What is it — yes or no? It is yes!
+en-you-and-i	en	1	You and I	hello,i,you,we,say,see,give,water,food,good	Hello! I am here. You are there. I see you. You see me. We say hello. Hello! I give you water. You give me food. Good!
+en-my-friend	en	2	My friend	friend,small,child,i,we,play,read,write,learn,say,good,day	My friend is small. My friend is a child. My friend and I play. We read. We write. We learn. We say: good day, friend! Good day!
+en-mother-father	en	2	Mother and father	mother,father,i,love,you,we,eat,food,drink,water,child,sleep,good,night	My mother is here. My father is there. Mother, father — I love you. We eat food. We drink water. The child sleeps. Good night, mother! Good night, father!
+en-school-day	en	2	A day at school	day,i,go,school,learn,read,write,say,when,night,time,sleep,good	It is day. I go to school. I learn. I read. I write. I say: when is night? Night is time for sleep. I sleep. Good night!

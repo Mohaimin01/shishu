@@ -8,7 +8,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { ActivityType } from "./activities";
 import { localDay } from "./db";
-
 /** Seeds earned per completed activity (correct answers only — quizzes complete on success). */
 export const XP_BY_TYPE: Record<ActivityType, number> = {
   "color-letter": 1,
@@ -55,11 +54,21 @@ function yesterday(): string {
   return localDay(d);
 }
 
+/** Whole days between two local day strings ("2026-11-23"); negative if `to` is before `from`. */
+export function dayGap(from: string, to: string): number {
+  const a = new Date(from);
+  const b = new Date(to);
+  if (Number.isNaN(a.getTime()) || Number.isNaN(b.getTime())) return 0;
+  return Math.round((b.getTime() - a.getTime()) / (24 * 60 * 60 * 1000));
+}
+
 type GamifyState = {
   xp: number;
   streak: number;
   bestStreak: number;
   lastDay: string | null;
+  /** full days missed before the most recent return (0 = no gap). Feeds the ✨ welcome-back badge. */
+  gapDays: number;
   /** Adds seeds for a completed activity and counts today in the streak. Returns seeds earned. */
   award: (type: ActivityType) => number;
   /** Adds seeds outside the play activities (e.g. a Word Rows row learned by an older learner). */
@@ -75,6 +84,7 @@ export const useGamify = create<GamifyState>()(
       streak: 0,
       bestStreak: 0,
       lastDay: null,
+      gapDays: 0,
       award: (type) => {
         const n = XP_BY_TYPE[type] ?? 1;
         set((s) => ({ xp: s.xp + n }));
@@ -90,8 +100,9 @@ export const useGamify = create<GamifyState>()(
         const today = localDay();
         set((s) => {
           if (s.lastDay === today) return {};
+          const missed = s.lastDay ? Math.max(0, dayGap(s.lastDay, today) - 1) : 0;
           const streak = s.lastDay === yesterday() ? s.streak + 1 : 1;
-          return { streak, bestStreak: Math.max(s.bestStreak, streak), lastDay: today };
+          return { streak, bestStreak: Math.max(s.bestStreak, streak), lastDay: today, gapDays: missed };
         });
       },
     }),

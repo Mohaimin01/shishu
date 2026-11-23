@@ -2,6 +2,33 @@
 
 Where Shishu is going, and the decisions behind it.
 
+## Shipped from the 8-app comparison (Nov 2026)
+
+A competitive pass over eight rival apps turned into shipped features — each one kept inside the
+"celebration, never pressure" and "zero server" rules:
+
+- **Garden badges** — five quiet visitors (🦋 7-day streak via bestStreak · 🐝 50 rows · 🐦 one meaning
+  across 5 languages · 🌈 a word learned in every chosen language · ✨ returned after a week away).
+  They arrive once and never expire; the home and Word Rows screens greet them.
+- **Review queue + stats** — the SM-2 engine in `@shishu/core` is finally wired to a learner. Marking
+  a row learned puts every non-empty cell in the queue (`conceptId|lang`); a new **Review** tab grades
+  again / hard / good / easy and every honest rating earns a seed. A stats bar shows due now, started,
+  mastered (3+ good reviews), per-language progress and a 14-day activity strip.
+- **Anki export** — **Print → 🃏 Anki deck (CSV)**: front = the learner's own language, back = the other
+  languages with the English meaning. The table leaves the app; no lock-in.
+- **Story Rows (graded reading)** — 18 hand-written mini-stories in English, Bengali and Spanish whose
+  every word is CI-checked to open a real row (level 1 uses only ranks 1–30, level 2 only 1–60). A new
+  **Read** tab: tap a word to see the whole row; "I read it ✓" feeds the story's words to the queue.
+- **Garden map + report-a-word** — `concepts.tsv` grew a fixed nine-theme column; a new **Map** tab
+  clusters the learned words by theme. Every table row carries a ⚠ button that opens a pre-filled
+  GitHub issue, so fixing a wrong word is one tap for a grown-up.
+- **Cloud save scaffold** — `lib/cloudSync.ts` detects Google Play Games / Game Center at runtime and,
+  when a provider exists, saves a snapshot that is a backup file **minus family voice recordings**
+  (voices never leave the device). On web (and until the native plugins ship — see
+  [PLAY-STORE.md](PLAY-STORE.md) §6) the UI says so honestly and points at the backup file.
+- **Release fix** — the APK workflow now runs `npx cap sync android` before building, so a release APK
+  carries the exact web build of its tag instead of stale (or empty) assets.
+
 ## Progress tracking: local-first, forever
 
 **Today:** everything (learning progress, minutes, Word Rows knowledge, garden seeds/streaks, family

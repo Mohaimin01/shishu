@@ -61,6 +61,8 @@ export type Concept = {
   pos?: string;
   /** short English hint so contributors know what the row means, e.g. "you (to a friend)" */
   gloss: string;
+  /** garden-map theme the meaning belongs to (one of the fixed THEMES) */
+  theme?: string;
 };
 
 // ---------- script detection ----------
@@ -359,11 +361,11 @@ export function parseConceptsTsv(tsv: string): { concepts: Concept[]; problems: 
   const seen = new Set<string>();
   tsv.replace(/^\uFEFF/, "").split(/\r?\n/).forEach((line, n) => {
     if (!line.trim() || line.trim().startsWith("#")) return;
-    const [rank, id, pos, gloss] = line.split("\t").map((x) => x?.trim());
+    const [rank, id, pos, gloss, theme] = line.split("\t").map((x) => x?.trim());
     if (rank?.toLowerCase() === "rank") return;
     const r = Number(rank);
     if (!Number.isFinite(r) || !id) {
-      problems.push(`line ${n + 1}: expected "rank<TAB>id<TAB>pos<TAB>gloss"`);
+      problems.push(`line ${n + 1}: expected "rank<TAB>id<TAB>pos<TAB>gloss<TAB>theme"`);
       return;
     }
     if (seen.has(id)) {
@@ -371,7 +373,7 @@ export function parseConceptsTsv(tsv: string): { concepts: Concept[]; problems: 
       return;
     }
     seen.add(id);
-    concepts.push({ id, rank: r, pos: pos || undefined, gloss: gloss || id });
+    concepts.push({ id, rank: r, pos: pos || undefined, gloss: gloss || id, theme: theme || undefined });
   });
   return { concepts, problems };
 }
@@ -399,6 +401,26 @@ export function rowsToCsv(rows: Row[], langNames: Record<string, string>): strin
   const head = ["#", "meaning", ...rows[0].cells.map((c) => langNames[c.langCode] ?? c.langCode)];
   const body = rows.map((r, i) => [String(i + 1), r.concept.gloss, ...r.cells.map((c) => cellText(c, " ; "))]);
   return [head, ...body].map((cols) => cols.map(csvCell).join(",")).join("\r\n");
+}
+
+/**
+ * Anki import file (opens in Anki: File → Import, note type "Basic").
+ * Front = the word in the learner's OWN language; Back = the same meaning in the other
+ * chosen languages (HTML line breaks, which Anki renders), with the English meaning on top.
+ */
+export function rowsToAnkiCsv(rows: Row[], nativeCode: string, langNames: Record<string, string>): string {
+  const body = rows.map((r) => {
+    const front = r.cells.find((c) => c.langCode === nativeCode) ?? r.cells[0];
+    const others = r.cells.filter((c) => c.langCode !== (front?.langCode ?? "") && !c.empty);
+    const back = [
+      r.concept.gloss,
+      ...others.map((c) => `${langNames[c.langCode] ?? c.langCode}: ${cellText(c)}`),
+    ].join("<br>");
+    // a row where the own language has no word yet still makes a card, anchored on the English meaning
+    const frontText = front && !front.empty ? cellText(front) : r.concept.gloss;
+    return [frontText, back];
+  });
+  return [["Front", "Back"], ...body].map((cols) => cols.map(csvCell).join(",")).join("\r\n");
 }
 
 /**

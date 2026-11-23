@@ -5,6 +5,10 @@ import Link from "next/link";
 import { useSettings, weeklyTargetFor } from "@/store";
 import { useGamify, levelOf } from "@/lib/gamify";
 import { applyBackup, buildBackup, downloadBackup, parseBackup } from "@/lib/backup";
+import {
+  cloudLoad, cloudSave, cloudSignIn, cloudSignOut, detectCloudProvider, makeCloudSnapshot,
+  PROVIDER_LABEL, validateCloudSnapshot, type CloudProvider, type CloudUser,
+} from "@/lib/cloudSync";
 import { packs, LANGS } from "@/lib/packs";
 import { fontClassForText } from "@/lib/script";
 import { langProgress } from "@/lib/progress";
@@ -39,6 +43,12 @@ export default function ParentPage() {
   const [packMsg, setPackMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [backupMsg, setBackupMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const backupFileRef = useRef<HTMLInputElement>(null);
+
+  // cloud sync (Play Games / Game Center) — honest about what the current platform can do
+  const [cloud, setCloud] = useState<CloudProvider | null>(null);
+  const [cloudUser, setCloudUser] = useState<CloudUser | null>(null);
+  const [cloudMsg, setCloudMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  useEffect(() => { setCloud(detectCloudProvider()); }, []);
 
   const activeCodes = s.activeLangs;
 
@@ -308,6 +318,94 @@ const downloadPack = async () => {
           <p className="text-xs text-muted mt-2">
             Seeds and streaks are celebration, never pressure — nothing expires, nothing is lost.
           </p>
+        </section>
+
+        {/* Cloud save — progress travels through the platform's own trusted sign-in, never a Shishu server.
+            Family voice recordings never leave the device, not even inside a snapshot. */}
+        <section className="card" aria-label="cloud save">
+          <h2 className="text-sm text-muted uppercase tracking-wide font-semibold mb-2">
+            Cloud save <span className="font-bengali font-normal">· ক্লাউড</span>
+          </h2>
+          {cloud ? (
+            <p className="text-xs text-muted mb-3">
+              This device offers <strong>{PROVIDER_LABEL[cloud]}</strong> — progress can ride on the
+              sign-in you already trust. Family voice recordings never leave this device.
+            </p>
+          ) : (
+            <p className="text-xs text-muted mb-3">
+              Cloud save through Google Play Games / Game Center arrives with the native app
+              (see docs/PLAY-STORE.md). On this device, the backup file below does the same job
+              without any account — nothing leaves your hands.
+            </p>
+          )}
+          {cloud && !cloudUser && (
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={async () => {
+                  setCloudMsg(null);
+                  try {
+                    const u = await cloudSignIn(cloud);
+                    setCloudUser(u);
+                    setCloudMsg({ ok: true, text: `Signed in as ${u.displayName}. Save now to put a copy in ${PROVIDER_LABEL[cloud]} cloud save.` });
+                  } catch (err) {
+                    setCloudMsg({ ok: false, text: err instanceof Error ? err.message : "Could not sign in." });
+                  }
+                }}
+                className="min-h-[48px] px-5 rounded-2xl bg-primary text-white font-semibold active:scale-95 transition duration-gentle"
+              >
+                Sign in with {PROVIDER_LABEL[cloud]}
+              </button>
+            </div>
+          )}
+          {cloud && cloudUser && (
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={async () => {
+                  setCloudMsg(null);
+                  try {
+                    const b = await buildBackup();
+                    const snap = makeCloudSnapshot(b);
+                    await cloudSave(cloud, cloudUser, snap);
+                    setCloudMsg({ ok: true, text: "Saved ✓ (without family voice recordings — they stay on this device)." });
+                  } catch (err) {
+                    setCloudMsg({ ok: false, text: err instanceof Error ? err.message : "Could not save." });
+                  }
+                }}
+                className="min-h-[48px] px-5 rounded-2xl bg-primary text-white font-semibold active:scale-95 transition duration-gentle"
+              >
+                ☁ Save progress
+              </button>
+              <button
+                onClick={async () => {
+                  setCloudMsg(null);
+                  try {
+                    const snap = await cloudLoad(cloud, cloudUser);
+                    const restored = await applyBackup(validateCloudSnapshot(snap));
+                    setCloudMsg({ ok: true, text: `Restored: ${restored.join(" · ")}. Reloading…` });
+                    setTimeout(() => window.location.reload(), 1200);
+                  } catch (err) {
+                    setCloudMsg({ ok: false, text: err instanceof Error ? err.message : "Could not restore." });
+                  }
+                }}
+                className="min-h-[48px] px-5 rounded-2xl bg-bg ring-1 ring-text/10 active:scale-95 transition duration-gentle"
+              >
+                ⬆ Restore from cloud
+              </button>
+              <button
+                onClick={async () => {
+                  try { await cloudSignOut(cloud); } catch { /* already signed out */ }
+                  setCloudUser(null);
+                  setCloudMsg({ ok: true, text: "Signed out — nothing was deleted, the device keeps everything." });
+                }}
+                className="min-h-[48px] px-5 rounded-2xl bg-bg ring-1 ring-text/10 active:scale-95 transition duration-gentle"
+              >
+                Sign out
+              </button>
+            </div>
+          )}
+          {cloudMsg && (
+            <p role="status" className={`text-sm mt-2 ${cloudMsg.ok ? "text-success" : "text-danger"}`}>{cloudMsg.text}</p>
+          )}
         </section>
 
         {/* Backup & restore — no accounts, no server: progress travels in one file you control */}

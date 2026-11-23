@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { localDay } from "./db";
-import { LEVELS, levelOf, useGamify, XP_BY_TYPE } from "./gamify";
+import { dayGap, LEVELS, levelOf, useGamify, XP_BY_TYPE } from "./gamify";
 
 const dayShift = (n: number) => {
   const d = new Date();
@@ -9,7 +9,7 @@ const dayShift = (n: number) => {
 };
 
 beforeEach(() => {
-  useGamify.setState({ xp: 0, streak: 0, bestStreak: 0, lastDay: null });
+  useGamify.setState({ xp: 0, streak: 0, bestStreak: 0, lastDay: null, gapDays: 0 });
 });
 
 describe("garden levels", () => {
@@ -95,5 +95,39 @@ describe("streaks", () => {
     useGamify.getState().touchDay();
     expect(useGamify.getState().streak).toBe(1);
     expect(useGamify.getState().bestStreak).toBe(5);
+  });
+});
+
+describe("gaps (for the ✨ welcome-back badge)", () => {
+  it("dayGap counts whole days between local day strings", () => {
+    expect(dayGap("2026-11-10", "2026-11-23")).toBe(13);
+    expect(dayGap("2026-11-23", "2026-11-23")).toBe(0);
+    expect(dayGap("2026-11-23", "2026-11-10")).toBe(-13);
+    expect(dayGap("not-a-day", "2026-11-23")).toBe(0);
+  });
+
+  it("a same-day return reports no gap", () => {
+    useGamify.setState({ lastDay: dayShift(0) });
+    useGamify.getState().touchDay();
+    expect(useGamify.getState().gapDays).toBe(0);
+  });
+
+  it("returning after one missed day reports 1", () => {
+    useGamify.setState({ lastDay: dayShift(2) });
+    useGamify.getState().touchDay();
+    expect(useGamify.getState().gapDays).toBe(1);
+  });
+
+  it("returning after a week away reports 7 — the sparkles are earned", () => {
+    useGamify.setState({ lastDay: dayShift(8), streak: 4, bestStreak: 4 });
+    useGamify.getState().touchDay();
+    expect(useGamify.getState().gapDays).toBe(7);
+    expect(useGamify.getState().streak).toBe(1); // a fresh start, gently
+    expect(useGamify.getState().bestStreak).toBe(4); // the best is never lost
+  });
+
+  it("a first-ever visit has no gap to report", () => {
+    useGamify.getState().touchDay();
+    expect(useGamify.getState().gapDays).toBe(0);
   });
 });

@@ -29,13 +29,25 @@ You do **not** need to code. Everything is plain text files in `content-packs/le
 ## Improve an existing language
 Edit its `.tsv`: fix a word, add a synonym, reorder by how common it is, add `|region` notes such as `বারি|bari|Sylhet`.
 
+**Found a wrong word inside the app?** Every row in the Word Rows table has a **⚠** button
+(print view hides it). It opens a GitHub issue pre-filled with the row number, the meaning and every
+language's word — you only write what is wrong. CI runs the same checks locally with `npm run validate:lexicon`.
+
+## Take your table elsewhere (Anki)
+**Word Rows → Print → 🃏 Anki deck (CSV)** downloads `shishu-anki.csv`:
+front = the word in your own language, back = the same meaning in the other chosen languages
+(with the English meaning on top). In Anki: **File → Import**, note type **Basic**, and the deck is
+yours — with Anki's own scheduler. Nothing leaves the app unless you press the button.
+
 ## Help readers of other scripts
 Add a spelling in another script with `script=spelling`, e.g. English for Bengali readers:
 `water|bengali=ওয়াটার`. Hindi ⇄ Bengali letters are converted automatically.
 
 ## Add a new meaning (row)
-Add a line to `concepts.tsv` (`rank  id  part-of-speech  English hint`). Rank = how commonly the meaning is used
-(1 = most common). Then add the word to as many language files as you can.
+Add a line to `concepts.tsv` (`rank  id  part-of-speech  English hint  theme`). Rank = how commonly the meaning is used
+(1 = most common). Theme must be one of the nine fixed garden-map themes — `people courtesy questions
+actions school food describing numbers world` — CI enforces it and the **Map** tab groups by it.
+Then add the word to as many language files as you can.
 
 ## Rules
 - Content is licensed **CC BY-SA 4.0**. Only add words you may share. No personal data.

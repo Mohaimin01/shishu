@@ -1,0 +1,11 @@
+# Story Rows — Spanish graded mini-stories (Español).
+# Every word must be a Word Rows word, a form from core FORMS, or a closed function word (CI enforces this).
+# Level 1 uses only meanings ranked 1-30; level 2 only ranked 1-60.
+# Columns: id <TAB> lang <TAB> level <TAB> title <TAB> concepts (comma-separated) <TAB> text
+id	lang	level	title	concepts	text
+es-agua-por-favor	es	1	Agua, por favor	i,you,please,give,drink,water,good,thank-you,want	Yo quiero agua. Por favor, dame agua. Tú me das agua. Yo bebo agua. El agua es buena. ¡Gracias!
+es-si-y-no	es	1	Sí y no	i,you,he-she,we,what,say,yes,no	Yo digo sí. Tú dices no. Él dice sí también. Nosotros decimos: sí, sí, sí. Ella dice no. ¿Qué es — sí o no? ¡Es sí!
+es-tu-y-yo	es	1	Tú y yo	hello,i,you,see,give,water,food,good,thank-you	¡Hola! Yo veo. Tú ves. Yo te doy agua. Tú me das comida. ¡Bueno! ¡Gracias!
+es-mi-amigo	es	2	Mi amigo	friend,small,child,i,we,play,read,write,learn,good,day	Mi amigo es pequeño. Mi amigo es un niño. Mi amigo y yo jugamos. Nosotros leemos. Nosotros escribimos. Nosotros aprendemos. ¡Buen día!
+es-madre-padre	es	2	Madre y padre	mother,father,i,we,eat,drink,water,child,sleep,good,night,want	Mi madre está aquí. Mi padre está allí. Madre, padre — yo los quiero. Nosotros comemos. Nosotros bebemos agua. El niño duerme. ¡Buenas noches, madre! ¡Buenas noches, padre!
+es-escuela-dia	es	2	Un día en la escuela	day,i,go,school,learn,read,write,when,night,sleep,good	Es día. Yo voy a la escuela. Yo aprendo. Yo leo. Yo escribo. ¿Cuándo es la noche? La noche es para dormir. Yo duermo. ¡Buenas noches!

@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/paths";
 import { useSettings, type LastActivity } from "@/store";
 import { useGamify } from "@/lib/gamify";
-
-/** One-tap resume (board P0): the 4-year-old's first screen action. */
+import { useWords } from "@/lib/wordsStore";
+import { useBadges } from "@/lib/badgesStore";
+import BadgeLine from "@/components/words/BadgeLine";/** One-tap resume (board P0): the 4-year-old's first screen action. */
 function ContinueChip() {
   // Never read persisted state during the first render (server HTML would not match).
   // Read after mount, then stay live via subscribe — no arbitrary timeout needed.
@@ -50,8 +51,22 @@ function SeedLine() {
     </p>
   );
 }
-
 export default function Home() {
+  // greet any badge visitor the light way: streak + welcome-back live here; the words page
+  // runs the full check (rows, widest row, rainbow) once the lexicon is loaded
+  useEffect(() => {
+    const gm = useGamify.getState();
+    const w = useWords.getState();
+    useBadges.getState().sync({
+      bestStreak: gm.bestStreak,
+      gapDays: gm.gapDays,
+      rowsLearned: w.known.length,
+      widestRowLangs: 0,
+      langsSelected: 0,
+      langsLearned: 0,
+    });
+  }, []);
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 gap-8">
       <div className="text-center space-y-3">
@@ -88,6 +103,8 @@ export default function Home() {
       </div>
 
       <SeedLine />
+
+      <BadgeLine />
 
       <p className="text-sm text-muted mt-8 text-center">
         Free &amp; open source · No ads · Works offline

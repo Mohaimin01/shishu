@@ -48,3 +48,25 @@ v0.x — <date>
 - GitHub Releases APK (see `docs/INSTALL.md`) — for Play-Protected and global phones
 - PWA install prompt — the primary install path
 - F-Droid: consider metadata later (FOSSDiff tooling) — not urgent
+
+## 6. Enabling cloud save (Play Games / Game Center)
+
+The code side already ships: `apps/web/lib/cloudSync.ts` detects the plugins at runtime, snapshots
+progress (a backup file **minus family voice recordings** — voices never leave the device), and the
+Grown-ups screen shows sign-in / save / restore / sign-out when a provider exists. On web — and until
+the plugins are bundled — it says so honestly and points at the backup file. To turn the buttons on:
+
+1. **Version match first.** The existing plugins target older Capacitor majors:
+   `@codetrix-studio/capacitor-google-auth`-line Google Play Games plugins are Capacitor 5/8-era;
+   this repo's shell is Capacitor 6. Either pin a compatible fork or upgrade the shell in one
+   dedicated PR — do **not** force-install mismatched plugins into `apps/web/android`, it breaks the
+   release build in ways CI cannot catch locally.
+2. **Android:** add `@codetrix-studio/capacitor-google-play-games` (or equivalent), register the app's
+   SHA-1 fingerprint in Play Console, enable Play Games Services for the app, and wire the plugin's
+   `signIn` / `save` / `load` / `signOut` to the calls `cloudSync.ts` already makes
+   (plugin names: `GooglePlayGames`, `GameCenter`).
+3. **iOS:** a GameKit wrapper plugin named `GameCenter` with the same four methods.
+4. **Sync scope stays the snapshot:** everything except `familyaudio`. `validateCloudSnapshot`
+   refuses any snapshot that carries recordings — keep that guarantee in the native layer too.
+5. Then flip the data-safety note in §2 only if the platform's own storage changes the answers
+   (Play Games Saved Games / iCloud hold the snapshot, not us — our server still tracks nothing).

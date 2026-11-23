@@ -28,9 +28,23 @@ Android APK: push a tag like `v0.1.0` and GitHub Actions publishes an installabl
 **/words** shows one meaning per row in many languages side by side — your own language first, most used
 meanings first, every synonym grouped in its cell (Bengali *water*: পানি, বারি, জল). Choose any number of
 languages, choose which letters you can read (Bengali, English, Hindi… words are shown in letters you
-understand), study a few rows a day, and **print** the tables (many languages are split across sheets).
-Add any language with a spreadsheet-style worksheet — see [docs/WORDS.md](./docs/WORDS.md). Study
-a few rows a day (🌱 seeds and 🔥 streaks included) and the words you meet will click when you then
+understand), and **print** the tables (many languages are split across sheets). Add any language with a
+spreadsheet-style worksheet — see [docs/WORDS.md](./docs/WORDS.md).
+
+Six views keep the table alive:
+
+- **Table** — the side-by-side rows, with a ⚠ on every row to report a wrong word (opens a pre-filled issue).
+- **Study** — a few rows a day; mark one learned and every word in it joins the review queue.
+- **Review** — spaced repetition (SM-2) over what you learned: again / hard / good / easy, and a quiet
+  stats bar (due now · started · mastered · per-language progress · 14-day strip).
+- **Read** — graded mini-stories whose every word opens a row (CI-checked: level 1 uses only the first
+  30 meanings); tap a word, see the whole row.
+- **Map** — your learned words clustered by nine garden themes.
+- **Print** — printable sheets, a spreadsheet CSV, and an **Anki deck CSV** (front: your language,
+  back: the rest).
+
+Garden rewards stay gentle: 🌱 seeds, 🔥 streaks and five visitor badges (🦋 🐝 🐦 🌈 ✨) that arrive
+once and never expire. Study a few rows a day and the words you meet will click when you then
 watch a film or listen to a speaker of the language.
 
 ## Quick start
@@ -64,8 +78,10 @@ spreadsheet-style TSV. No coding needed; CI checks your file and explains any fi
 ## Progress stays on your device
 
 No accounts, no tracking. Moving to a new phone? **Grown-ups → Backup & restore** saves one file
-with everything — garden, learned words, family voices. Our position on optional Google Play
-Games / Game Center sign-in: [docs/ROADMAP.md](./docs/ROADMAP.md).
+with everything — garden, learned words, family voices. On devices with Google Play Games or
+Game Center available, an optional cloud save can ride on that platform's own sign-in — but the
+snapshot never includes family voice recordings, and our server still tracks nothing
+([docs/PLAY-STORE.md](./docs/PLAY-STORE.md) §6, [docs/ROADMAP.md](./docs/ROADMAP.md)).
 
 ## Guides
 

@@ -3,26 +3,47 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  buildRows, columnOrder, rowsToCsv, type Concept, type LexiconLanguage,
+  buildRows, columnOrder, rowsToCsv, rowsToAnkiCsv, type Concept, type LexiconLanguage, type Row,
 } from "@shishu/core";
 import { loadCatalogue, loadLanguage, type LangMeta } from "@/lib/lexicon";
 import { useWords } from "@/lib/wordsStore";
 import { useGamify, levelOf } from "@/lib/gamify";
+import { useReview, summarize } from "@/lib/review";
+import { useBadges, computeBadgeStats } from "@/lib/badgesStore";
+import { loadReadings } from "@/lib/readings";
+import type { Reading } from "@shishu/core";
 import SetupPanel from "@/components/words/SetupPanel";
 import WordTable from "@/components/words/WordTable";
 import StudyMode from "@/components/words/StudyMode";
 import PrintSheets from "@/components/words/PrintSheets";
 import AddLanguage from "@/components/words/AddLanguage";
+import WordsStats from "@/components/words/WordsStats";
+import ReviewQueue from "@/components/words/ReviewQueue";
+import StoryRows from "@/components/words/StoryRows";
+import ThemeMap from "@/components/words/ThemeMap";
+import BadgeLine from "@/components/words/BadgeLine";
 
-type Mode = "table" | "study" | "print";
+type Mode = "table" | "study" | "review" | "read" | "map" | "print";
+
+function download(name: string, body: string, type: string) {
+  const url = URL.createObjectURL(new Blob([`\uFEFF${body}`], { type }));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
 
 export default function WordsPage() {
   const w = useWords();
   const g = useGamify();
   const lv = levelOf(g.xp);
+  const reviewCards = useReview((s) => s.cards);
+  const dueCount = useMemo(() => summarize(reviewCards).due, [reviewCards]);
   const [metas, setMetas] = useState<LangMeta[]>([]);
   const [concepts, setConcepts] = useState<Concept[]>([]);
   const [langs, setLangs] = useState<Record<string, LexiconLanguage>>({});
+  const [readings, setReadings] = useState<Reading[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>("table");
   const [printAll, setPrintAll] = useState(true);
@@ -43,6 +64,15 @@ export default function WordsPage() {
     }
   }, []);
   useEffect(() => { void refresh(); }, [refresh]);
+
+  // story files are static and tiny — load once
+  useEffect(() => {
+    let alive = true;
+    loadReadings()
+      .then((rs) => { if (alive) setReadings(rs); })
+      .catch(() => { /* stories stay hidden offline; nothing breaks */ });
+    return () => { alive = false; };
+  }, []);
 
   const columns = useMemo(() => columnOrder(w.native, w.targets), [w.native, w.targets]);
   const byCode = useMemo(() => Object.fromEntries(metas.map((m) => [m.code, m])), [metas]);
@@ -75,6 +105,7 @@ export default function WordsPage() {
     }) : []),
     [ready, concepts, langs, w.native, w.targets, w.readable, w.maxSynonyms],
   );
+  const rowsById = useMemo(() => new Map(allRows.map((r) => [r.concept.id, r])), [allRows]);
   const shown = useMemo(() => (w.hideKnown ? allRows.filter((r) => !known.has(r.concept.id)) : allRows), [allRows, known, w.hideKnown]);
 
   const size = w.pageSize || shown.length || 1;
@@ -83,19 +114,58 @@ export default function WordsPage() {
   const pageRows = shown.slice(page * size, page * size + size);
 
   const names = Object.fromEntries(metas.map((m) => [m.code, m.nativeName]));
-  const exportCsv = () => {
-    const csv = rowsToCsv(shown, names);
-    const url = URL.createObjectURL(new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "shishu-word-rows.csv";
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
-  };
+
+  // badges: evaluate on every meaningful change; the store only keeps the new visitors
+  const syncBadges = useCallback(() => {
+    const st = useWords.getState();
+    const gm = useGamify.getState();
+    const stats = computeBadgeStats({
+      known: st.known, concepts, langs, columns, bestStreak: gm.bestStreak, gapDays: gm.gapDays,
+    });
+    useBadges.getState().sync(stats);
+  }, [concepts, langs, columns]);
+  useEffect(() => { if (ready) syncBadges(); }, [ready, syncBadges]);
+
+  /** Marks a row learned (or unlearns it). Learning puts every non-empty cell in the review queue. */
+  const learnRow = useCallback((conceptId: string) => {
+    const st = useWords.getState();
+    const wasKnown = st.known.includes(conceptId);
+    st.toggleKnown(conceptId);
+    if (wasKnown) return; // unlearning: nothing expires, the queue keeps its schedule
+    const row = rowsById.get(conceptId);
+    if (row) {
+      useReview.getState().enqueueRow(row.cells.map((c) => ({
+        conceptId: row.concept.id, langCode: c.langCode, empty: c.empty,
+      })));
+    }
+    useGamify.getState().awardRaw(1);
+    syncBadges();
+  }, [rowsById, syncBadges]);
+
+  /** A finished story feeds the words the learner just read (the story's language) to the queue. */
+  const feedStory = useCallback((conceptIds: string[], lang: string) => {
+    const review = useReview.getState();
+    for (const id of conceptIds) {
+      const row = rowsById.get(id);
+      if (!row) continue;
+      const cell = row.cells.find((c) => c.langCode === lang);
+      if (cell && !cell.empty) {
+        review.enqueueRow([{ conceptId: id, langCode: cell.langCode, empty: cell.empty }]);
+      }
+    }
+    useGamify.getState().awardRaw(conceptIds.length);
+    syncBadges();
+  }, [rowsById, syncBadges]);
+
+  const exportCsv = () => download("shishu-word-rows.csv", rowsToCsv(shown, names), "text/csv;charset=utf-8");
+  const exportAnki = () => download("shishu-anki.csv", rowsToAnkiCsv(shown, w.native, names), "text/csv;charset=utf-8");
 
   const tabs: { id: Mode; label: string }[] = [
     { id: "table", label: "Table" },
     { id: "study", label: "Study" },
+    { id: "review", label: "Review" },
+    { id: "read", label: "Read" },
+    { id: "map", label: "Map" },
     { id: "print", label: "Print" },
   ];
 
@@ -116,6 +186,10 @@ export default function WordsPage() {
           )}
         </div>
       </header>
+
+      <div className="flex justify-center -mt-1 mb-2 print:hidden">
+        <BadgeLine />
+      </div>
 
       {error && <p role="alert" className="text-red-700 text-center py-3 print:hidden">{error}</p>}
 
@@ -139,6 +213,9 @@ export default function WordsPage() {
               }`}
             >
               {t.label}
+              {t.id === "review" && dueCount > 0 && (
+                <span className="ml-1.5 text-xs rounded-full bg-white/25 px-1.5 py-0.5">{dueCount}</span>
+              )}
             </button>
           ))}
           <span className="text-xs text-muted ml-auto">
@@ -165,6 +242,10 @@ export default function WordsPage() {
             <label className="flex items-center gap-2"><input type="checkbox" checked={w.showRoman} onChange={(e) => w.set({ showRoman: e.target.checked })} className="w-5 h-5 accent-[#6B9080]" />show pronunciation</label>
           </div>
         )}
+
+        {ready && mode !== "print" && mode !== "read" && (
+          <WordsStats columns={columns} langNames={names} knownCount={w.known.length} totalRows={allRows.length} />
+        )}
       </div>
 
       <div className="mt-4">
@@ -174,7 +255,7 @@ export default function WordsPage() {
           <>
             <WordTable
               rows={pageRows} metas={byCode} readable={w.readable} showRoman={w.showRoman}
-              known={known} onToggleKnown={w.toggleKnown}
+              known={known} onToggleKnown={learnRow}
               startRank={page * size + 1}
             />
             {pages > 1 && (
@@ -192,7 +273,28 @@ export default function WordsPage() {
             rows={allRows} metas={byCode} readable={w.readable} showRoman={w.showRoman}
             known={known} rowsPerDay={w.rowsPerDay}
             onPerDay={(n) => w.set({ rowsPerDay: n })}
-            onKnown={(id) => { if (!known.has(id)) w.toggleKnown(id); }}
+            onKnown={learnRow}
+          />
+        )}
+
+        {ready && mode === "review" && (
+          <ReviewQueue
+            rowsById={rowsById} metas={byCode} readable={w.readable} showRoman={w.showRoman}
+            onGraded={syncBadges}
+          />
+        )}
+
+        {ready && mode === "read" && (
+          <StoryRows
+            readings={readings.filter((r) => columns.includes(r.lang))}
+            langs={langs} metas={byCode} readable={w.readable} showRoman={w.showRoman}
+            rowsById={rowsById} onRead={feedStory}
+          />
+        )}
+
+        {ready && mode === "map" && (
+          <ThemeMap
+            concepts={concepts} known={known} native={w.native} langs={langs} showRoman={w.showRoman}
           />
         )}
 
@@ -212,6 +314,7 @@ export default function WordsPage() {
               <label className="flex items-center gap-2"><input type="checkbox" checked={printAll} onChange={(e) => setPrintAll(e.target.checked)} className="w-5 h-5 accent-[#6B9080]" />all rows (not just this page)</label>
               <button onClick={() => window.print()} className="btn-primary min-h-[48px] px-5 text-base">🖨 Print / save as PDF</button>
               <button onClick={exportCsv} className="min-h-[48px] px-5 rounded-2xl bg-bg ring-1 ring-text/10">⬇ Spreadsheet (CSV)</button>
+              <button onClick={exportAnki} className="min-h-[48px] px-5 rounded-2xl bg-bg ring-1 ring-text/10" title="Front: your language · Back: the other languages — import into Anki as a Basic deck">🃏 Anki deck (CSV)</button>
               <p className="w-full text-xs text-muted">Tip: in the print window choose “Save as PDF”, landscape, and turn on “background graphics”. Your own language is repeated on every sheet.</p>
             </div>
             <PrintSheets

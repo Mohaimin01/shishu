@@ -3,9 +3,11 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   buildRows, cellText, columnOrder, detectScript, devanagariToBengali, bengaliToDevanagari, formFor,
-  pageGroups, parseConceptsTsv, parseLexiconTsv, parseTerm, rowText, rowsToTsv, rowsToCsv, templateTsv, perDayFor,
+  pageGroups, parseConceptsTsv, parseLexiconTsv, parseTerm, rowText, rowsToTsv, rowsToCsv, rowsToAnkiCsv,
+  templateTsv, perDayFor,
   type LexiconLanguage, type ScriptId, SCRIPT_LABEL,
 } from "./words";
+import { THEMES } from "./themes";
 
 const dir = path.resolve(__dirname, "..", "..", "..", "content-packs", "lexicon");
 const metas = JSON.parse(fs.readFileSync(path.join(dir, "languages.json"), "utf8")) as {
@@ -214,5 +216,50 @@ describe("shipped lexicon data", () => {
       const texts = terms.map((t) => t.text);
       expect(new Set(texts).size, `${m.code}/${id}`).toBe(texts.length);
     }
+  });
+});
+
+describe("themes", () => {
+  it("every shipped concept carries one of the nine garden themes", () => {
+    for (const c of concepts) {
+      expect(c.theme, `${c.id} has no theme`).toBeTruthy();
+      expect(THEMES.some((t) => t.id === c.theme), `${c.id}: unknown theme ${c.theme}`).toBe(true);
+    }
+  });
+
+  it("a concept without a theme still parses (theme is optional in the TSV)", () => {
+    const { concepts: cs, problems } = parseConceptsTsv("rank\tid\tpos\tgloss\n1\twater\tnoun\twater");
+    expect(problems).toEqual([]);
+    expect(cs[0].theme).toBeUndefined();
+  });
+});
+
+describe("rowsToAnkiCsv", () => {
+  const rows = buildRows(concepts, langs, { native: "bn", targets: ["en"], readable: ["bengali", "latin"] });
+  const names = { bn: "বাংলা", en: "English" };
+
+  it("front is the learner's own language, back the others with the English meaning", () => {
+    const csv = rowsToAnkiCsv(rows, "bn", names);
+    const lines = csv.split("\r\n");
+    expect(lines[0]).toBe("Front,Back");
+    expect(lines.find((l) => l.startsWith('"পানি, বারি, জল"'))).toBe(
+      `"পানি, বারি, জল",water<br>English: water`,
+    );
+  });
+
+  it("escapes commas and quotes so Anki imports cleanly", () => {
+    const csv = rowsToAnkiCsv(rows, "bn", names);
+    const you = rows.find((r) => r.concept.id === "you")!;
+    // the bengali you-cell has commas and needs quoting; the plain back does not
+    expect(csv).toContain(`"${cellText(you.cells[0])}",you (one person)<br>English: you`);
+  });
+
+  it("a row where the own language is empty anchors the card on the English meaning", () => {
+    const emptyNative: typeof rows = rows.map((r) => r.concept.id === "water" ? {
+      ...r,
+      cells: r.cells.map((c) => c.langCode === "bn" ? { ...c, empty: true, forms: [] } : c),
+    } : r);
+    const csv = rowsToAnkiCsv(emptyNative, "bn", names);
+    expect(csv).toContain("water,water<br>English: water");
   });
 });

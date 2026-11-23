@@ -1,0 +1,11 @@
+# Story Rows — Bengali graded mini-stories (বাংলা).
+# Every word must be a Word Rows word, a form from core FORMS, or a closed function word (CI enforces this).
+# Level 1 uses only meanings ranked 1-30; level 2 only ranked 1-60.
+# Columns: id <TAB> lang <TAB> level <TAB> title <TAB> concepts (comma-separated) <TAB> text
+id	lang	level	title	concepts	text
+bn-pani-chai	bn	1	পানি চাই	i,you,please,give,eat,water,good,thank-you,want	আমি পানি চাই। দয়া করে, আমাকে পানি দাও। তুমি আমাকে পানি দাও। আমি পানি খাই। পানি ভালো! ধন্যবাদ!
+bn-nomoshkar	bn	1	নমস্কার	hello,i,you,yes,we,see,this,what,water,that,food,good,say	নমস্কার! আমি বলি, নমস্কার। তুমি বলো, হ্যাঁ, নমস্কার। আমরা দেখি — এই কী? এই পানি! ওই খাবার! ভালো, ভালো!
+bn-tumi-o-ami	bn	1	তুমি ও আমি	i,you,we,he-she,they,come,eat,go,food,give,water,good	আমি আসি। তুমি আসো। আমরা খাই। সে খায়। তারা যায়। আমি তুমিকে খাবার দিই। তুমি আমাকে পানি দাও। ভালো!
+bn-amar-bondhu	bn	2	আমার বন্ধু	friend,small,child,i,we,play,read,write,learn,say,good,day	আমার বন্ধু ছোট। আমার বন্ধু শিশু। আমরা খেলি। আমরা পড়ি। আমরা লেখি। আমরা শিখি। আমি বলি, ভালো দিন!
+bn-ma-o-baba	bn	2	মা ও বাবা	mother,father,i,love,we,eat,water,child,sleep,night,good	আমার মা এখানে। আমার বাবা সেখানে। মা, বাবা — আমি তোমাদের ভালোবাসি। আমরা খাই। আমরা পানি খাই। শিশু ঘুমায়। রাত ভালো, মা! রাত ভালো, বাবা!
+bn-school-din	bn	2	স্কুলে দিন	i,day,school,go,learn,read,write,say,when,night,child,sleep,good	দিন। আমি স্কুলে যাই। আমি শিখি, পড়ি, লেখি। আমি বলি, কখন রাত? রাত — শিশু ঘুমায়। আমি ঘুমাই। রাত ভালো!

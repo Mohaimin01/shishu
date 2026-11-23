@@ -5,7 +5,30 @@ import type { LangMeta } from "@/lib/lexicon";
 import WordCell from "./WordCell";
 import { fontClassForText } from "@/lib/script";
 
+const REPO = "Mohaimin01/shishu";
 
+/** Pre-filled GitHub issue for a wrong word — one tap, the grown-up only adds the detail. */
+export function reportIssueUrl(row: Row, langNames: Record<string, string>): string {
+  const words = row.cells
+    .filter((c) => !c.empty)
+    .map((c) => `${langNames[c.langCode] ?? c.langCode}: ${c.forms.map((f) => f.text).join(", ")}`)
+    .join("\n");
+  const params = new URLSearchParams({
+    title: `Word report: "${row.concept.gloss}" (row ${row.concept.rank})`,
+    body: [
+      "A word in this row looks wrong:",
+      "",
+      `Row: #${row.concept.rank} — ${row.concept.gloss} (${row.concept.id})`,
+      words,
+      "",
+      "What is wrong, and what should it be?",
+      "",
+      "(opened from the Word Rows table — thank you for helping the word lists grow honest)",
+    ].join("\n"),
+    labels: "word-report",
+  });
+  return `https://github.com/${REPO}/issues/new?${params.toString()}`;
+}
 /** The side-by-side table. First column = the learner's own language. */
 export default function WordTable({ rows, metas, readable, showRoman, known, onToggleKnown, startRank, interactive = true }: {
   rows: Row[];
@@ -18,6 +41,7 @@ export default function WordTable({ rows, metas, readable, showRoman, known, onT
   startRank?: number;
   interactive?: boolean;
 }) {
+  const langNames = (code: string) => metas[code]?.name ?? code;
   if (rows.length === 0) return <p className="text-muted text-center py-8">Nothing to show with these choices.</p>;
   const cols = rows[0].cells.map((c) => c.langCode);
   return (
@@ -43,6 +67,7 @@ export default function WordTable({ rows, metas, readable, showRoman, known, onT
               );
             })}
             {onToggleKnown && <th scope="col" className="w-14 px-2 py-3 text-[10px] font-semibold text-muted text-center print:hidden">learned</th>}
+            <th scope="col" className="w-8 px-1 py-3 print:hidden" aria-label="report a mistake" />
           </tr>
         </thead>
         <tbody>
@@ -76,6 +101,20 @@ export default function WordTable({ rows, metas, readable, showRoman, known, onT
                       className="w-6 h-6 accent-[#6B9080]"
                       aria-label={`I have learned: ${row.concept.gloss}`}
                     />
+                  </td>
+                )}
+                {interactive && (
+                  <td className="px-1 py-3 text-center print:hidden">
+                    <a
+                      href={reportIssueUrl(row, Object.fromEntries(row.cells.map((c) => [c.langCode, langNames(c.langCode)])))}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center w-8 h-8 rounded-xl hover:bg-danger/10 active:scale-95 transition duration-gentle text-sm"
+                      aria-label={`report a mistake in the row "${row.concept.gloss}"`}
+                      title={`Something wrong in “${row.concept.gloss}”? Open a pre-filled report`}
+                    >
+                      ⚠
+                    </a>
                   </td>
                 )}
               </tr>

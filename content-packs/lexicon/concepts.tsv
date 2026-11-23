@@ -1,85 +1,86 @@
 # Shishu Word Rows — the list of meanings (rows), most used first.
-# rank<TAB>id<TAB>part of speech<TAB>short English hint
+# rank<TAB>id<TAB>part of speech<TAB>short English hint<TAB>theme
+# theme is one of the nine fixed garden-map themes (people, courtesy, questions, actions, school, food, describing, numbers, world); CI enforces it.
 # Add new meanings at the END (or insert with a rank between neighbours) and then add a cell for them in each language file.
-rank	id	pos	gloss
-1	i	pron	I (me)
-2	you	pron	you (one person)
-3	he-she	pron	he / she (another person)
-4	we	pron	we
-5	they	pron	they
-6	this	pron	this
-7	that	pron	that
-8	what	pron	what
-9	who	pron	who
-10	where	adv	where
-11	yes	interj	yes
-12	no	interj	no
-13	hello	greeting	hello
-14	thank-you	phrase	thank you
-15	please	phrase	please
-16	go	verb	to go
-17	come	verb	to come
-18	want	verb	to want
-19	know	verb	to know
-20	see	verb	to see / to look
-21	say	verb	to say / to speak
-22	give	verb	to give
-23	take	verb	to take
-24	eat	verb	to eat
-25	drink	verb	to drink
-26	water	noun	water
-27	food	noun	food
-28	good	adj	good
-29	bad	adj	bad
-30	big	adj	big
-31	small	adj	small
-32	one	num	1
-33	two	num	2
-34	three	num	3
-35	when	adv	when
-36	why	adv	why
-37	how	adv	how
-38	mother	noun	mother
-39	father	noun	father
-40	child	noun	child
-41	man	noun	man
-42	woman	noun	woman
-43	friend	noun	friend
-44	name	noun	name
-45	home	noun	home / house
-46	day	noun	day
-47	night	noun	night
-48	time	noun	time
-49	money	noun	money
-50	love	noun	love
-51	understand	verb	to understand
-52	sleep	verb	to sleep
-53	work	verb	to work
-54	play	verb	to play
-55	read	verb	to read
-56	write	verb	to write
-57	learn	verb	to learn / to study
-58	help	verb	to help
-59	buy	verb	to buy
-60	school	noun	school
-61	book	noun	book
-62	milk	noun	milk
-63	sun	noun	sun
-64	moon	noun	moon
-65	fire	noun	fire
-66	tree	noun	tree
-67	hot	adj	hot
-68	cold	adj	cold
-69	new	adj	new
-70	old	adj	old
-71	beautiful	adj	beautiful
-72	happy	adj	happy
-73	four	num	4
-74	five	num	5
-75	six	num	6
-76	seven	num	7
-77	eight	num	8
-78	nine	num	9
-79	ten	num	10
-80	sorry	phrase	sorry / excuse me
-81	goodbye	phrase	goodbye
+rank	id	pos	gloss	theme
+1	i	pron	I (me)	people
+2	you	pron	you (one person)	people
+3	he-she	pron	he / she (another person)	people
+4	we	pron	we	people
+5	they	pron	they	people
+6	this	pron	this	world
+7	that	pron	that	world
+8	what	pron	what	questions
+9	who	pron	who	questions
+10	where	adv	where	questions
+11	yes	interj	yes	courtesy
+12	no	interj	no	courtesy
+13	hello	greeting	hello	courtesy
+14	thank-you	phrase	thank you	courtesy
+15	please	phrase	please	courtesy
+16	go	verb	to go	actions
+17	come	verb	to come	actions
+18	want	verb	to want	actions
+19	know	verb	to know	actions
+20	see	verb	to see / to look	actions
+21	say	verb	to say / to speak	actions
+22	give	verb	to give	actions
+23	take	verb	to take	actions
+24	eat	verb	to eat	actions
+25	drink	verb	to drink	actions
+26	water	noun	water	food
+27	food	noun	food	food
+28	good	adj	good	describing
+29	bad	adj	bad	describing
+30	big	adj	big	describing
+31	small	adj	small	describing
+32	one	num	1	numbers
+33	two	num	2	numbers
+34	three	num	3	numbers
+35	when	adv	when	questions
+36	why	adv	why	questions
+37	how	adv	how	questions
+38	mother	noun	mother	people
+39	father	noun	father	people
+40	child	noun	child	people
+41	man	noun	man	people
+42	woman	noun	woman	people
+43	friend	noun	friend	people
+44	name	noun	name	people
+45	home	noun	home / house	world
+46	day	noun	day	world
+47	night	noun	night	world
+48	time	noun	time	world
+49	money	noun	money	world
+50	love	noun	love	people
+51	understand	verb	to understand	school
+52	sleep	verb	to sleep	actions
+53	work	verb	to work	actions
+54	play	verb	to play	actions
+55	read	verb	to read	school
+56	write	verb	to write	school
+57	learn	verb	to learn / to study	school
+58	help	verb	to help	actions
+59	buy	verb	to buy	actions
+60	school	noun	school	school
+61	book	noun	book	school
+62	milk	noun	milk	food
+63	sun	noun	sun	world
+64	moon	noun	moon	world
+65	fire	noun	fire	world
+66	tree	noun	tree	world
+67	hot	adj	hot	describing
+68	cold	adj	cold	describing
+69	new	adj	new	describing
+70	old	adj	old	describing
+71	beautiful	adj	beautiful	describing
+72	happy	adj	happy	describing
+73	four	num	4	numbers
+74	five	num	5	numbers
+75	six	num	6	numbers
+76	seven	num	7	numbers
+77	eight	num	8	numbers
+78	nine	num	9	numbers
+79	ten	num	10	numbers
+80	sorry	phrase	sorry / excuse me	courtesy
+81	goodbye	phrase	goodbye	courtesy

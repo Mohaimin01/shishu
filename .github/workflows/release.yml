@@ -20,6 +20,11 @@ jobs:
           cache: "npm"
       - run: npm ci --legacy-peer-deps --install-strategy=hoisted
       - run: npm run build --workspace web
+      - name: Sync the fresh web build into the Android shell (Capacitor assets)
+        # without this the APK ships with whatever stale (often empty) www/ was committed —
+        # the released app must carry the exact web build of this tag
+        run: npx cap sync android
+        working-directory: apps/web
       - name: Build installable APK (debug-signed)
         run: ./gradlew assembleDebug
         working-directory: apps/web/android
