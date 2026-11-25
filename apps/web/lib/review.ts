@@ -106,7 +106,9 @@ export const useReview = create<ReviewState>()(
         const key = cardKey(conceptId, lang);
         const card = get().cards[key];
         if (!card) return;
-        const day = localDay();
+        // the activity log counts the day the review HAPPENED (the graded moment),
+        // not the wall-clock day the store happens to be touched on
+        const day = localDay(new Date(now));
         set((s) => ({
           cards: { ...s.cards, [key]: gradeCard(card, g, now) },
           log: { ...s.log, [day]: (s.log[day] ?? 0) + 1 },

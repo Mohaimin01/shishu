@@ -1,6 +1,6 @@
 # Story Rows — Bengali graded mini-stories (বাংলা).
 # Every word must be a Word Rows word, a form from core FORMS, or a closed function word (CI enforces this).
-# Level 1 uses only meanings ranked 1-30; level 2 only ranked 1-60.
+# Level caps: 1→30, 2→60, 3→120, 4→200, 5→300 (ranked Word Rows meanings).
 # Columns: id <TAB> lang <TAB> level <TAB> title <TAB> concepts (comma-separated) <TAB> text
 id	lang	level	title	concepts	text
 bn-pani-chai	bn	1	পানি চাই	i,you,please,give,eat,water,good,thank-you,want	আমি পানি চাই। দয়া করে, আমাকে পানি দাও। তুমি আমাকে পানি দাও। আমি পানি খাই। পানি ভালো! ধন্যবাদ!
@@ -9,3 +9,12 @@ bn-tumi-o-ami	bn	1	তুমি ও আমি	i,you,we,he-she,they,come,eat,go,f
 bn-amar-bondhu	bn	2	আমার বন্ধু	friend,small,child,i,we,play,read,write,learn,say,good,day	আমার বন্ধু ছোট। আমার বন্ধু শিশু। আমরা খেলি। আমরা পড়ি। আমরা লেখি। আমরা শিখি। আমি বলি, ভালো দিন!
 bn-ma-o-baba	bn	2	মা ও বাবা	mother,father,i,love,we,eat,water,child,sleep,night,good	আমার মা এখানে। আমার বাবা সেখানে। মা, বাবা — আমি তোমাদের ভালোবাসি। আমরা খাই। আমরা পানি খাই। শিশু ঘুমায়। রাত ভালো, মা! রাত ভালো, বাবা!
 bn-school-din	bn	2	স্কুলে দিন	i,day,school,go,learn,read,write,say,when,night,child,sleep,good	দিন। আমি স্কুলে যাই। আমি শিখি, পড়ি, লেখি। আমি বলি, কখন রাত? রাত — শিশু ঘুমায়। আমি ঘুমাই। রাত ভালো!
+bn-bachcha-apel	bn	3	শিশু আর আপেল	child,small,sister,apple,give,laugh,brother,run,jump,we,play,sing,dance,mother,say,good,happy	শিশু ছোট। বোন আপেল দেয়। শিশু হাসে। ভাই দৌড়ায় আর লাফায়। আমরা খেলি আর গান করি। শিশু নাচে! মা বলে: ভালো শিশু! শিশু খুশি।
+bn-thakuma-ranna	bn	3	ঠাকুমা রান্না করে	grandmother,cook,rice,egg,hot,give,tea,i,eat,bread,say,child,food,good,wash,hand,thank-you	ঠাকুমা রান্না করে। ঠাকুমা ভাত রান্না করে, ডিম রান্না করে। ভাত গরম। ঠাকুমা চা দেয়। আমি রুটি খাই। ঠাকুমা বলে: খাও, শিশু! খাবার ভালো। আমি হাত ধুই। ধন্যবাদ, ঠাকুমা!
+bn-chhoto-bhai	bn	3	আমার ছোট ভাই	brother,small,he-she,stand,sit,run,jump,mother,say,sleep,child,cry,laugh,good,i	আমার ভাই ছোট। সে দাঁড়ায়। সে বসে। সে দৌড়ায় আর লাফায়। মা বলে: এখন ঘুমাও, শিশু! ভাই কাঁদে। তারপর সে হাসে। সে ঘুমায়। আমি হাসি। ভালো, ছোট ভাই!
+bn-biral-pakhi	bn	4	বিড়াল আর পাখি	cat,black,white,bird,tree,sit,see,go,run,dog,sky,happy,sleep,laugh	বিড়াল কালো আর সাদা। একটা পাখি গাছে বসে। বিড়াল পাখি দেখে। পাখি যায়। বিড়াল দৌড়ায়। কুকুর দৌড়ায়। পাখি আকাশে খুশি। বিড়াল বসে আর ঘুমায়। কুকুর হাসে।
+bn-brishti-batas	bn	4	বৃষ্টি আর বাতাস	big,cloud,sky,black,rain,wind,come,i,open,door,see,cold,good,flower,tree,happy,mother,say,child,close	বড় মেঘ, আকাশ কালো। বৃষ্টি আসে আর বাতাস আসে। আমি দরজা খুলি আর বৃষ্টি দেখি। বৃষ্টি ঠান্ডা আর ভালো। ফুল আর গাছ খুশি। মা বলে: ভেতরে এসো, শিশু! আমি দরজা বন্ধ করি।
+bn-notun-shart	bn	4	আমার নতুন শার্ট	mother,new,shirt,give,red,i,see,mirror,dance,sister,soap,wash,clean,sock,old,want,shoe,father,say,yes,we,buy,cap,happy	মা নতুন শার্ট দেয়। শার্ট লাল। আমি আয়নায় শার্ট দেখি। আমি নাচি! বোন সাবান দিয়ে শার্ট ধোয়। শার্ট পরিষ্কার। মোজা পুরনো। আমি নতুন জুতা চাই। বাবা বলে: হ্যাঁ! আমরা নতুন জুতা আর টুপি কিনি। আমি খুশি।
+bn-krishok-goru	bn	5	কৃষক আর গরু	farmer,morning,wake,cow,see,grass,eat,milk,give,happy,go,village,buy,bread,tea,sun,hot,river,one,he-she	সকালে কৃষক জাগে। সে গরু দেখে। গরু ঘাস খায় আর দুধ দেয়। কৃষক খুশি। সে গরু নিয়ে গ্রামে যায়। গ্রামে সে রুটি আর চা কেনে। সূর্য গরম। কৃষক নদী দেখে আর চা খায়। এক খুশি কৃষক, এক খুশি গরু!
+bn-choto-daktar	bn	5	ছোট ডাক্তার	woman,play,he-she,doctor,doll,sick,head,hot,touch,hand,say,water,take,apple,see,laugh,good,mother,hug,small	মেয়ে খেলে, সে ডাক্তার। তার পুতুল অসুস্থ, মাথা গরম। ডাক্তার মাথা আর হাত ছোঁয়। সে বলে: পুতুল, পানি নাও! আপেল নাও! পুতুল আপেল দেখে আর হাসে। এখন পুতুল ভালো। মা বলে: ভালো ডাক্তার! মেয়ে হাসে আর পুতুল জড়িয়ে ধরে।
+bn-holud-ghuri	bn	5	হলুদ ঘুড়ি	father,yellow,kite,give,i,run,wind,come,fly,sky,tall,friend,see,say,beautiful,we,laugh,dance,happy,he-she	বাবা হলুদ ঘুড়ি দেয়। আমি ঘুড়ি নিয়ে দৌড়াই। বাতাস আসে, ঘুড়ি ওড়ে। ঘুড়ি আকাশে উঁচু। বন্ধু ঘুড়ি দেখে। সে বলে: সুন্দর ঘুড়ি! আমি ঘুড়ি দিই। আমরা হাসি আর নাচি। ঘুড়ি আকাশে খুশি।

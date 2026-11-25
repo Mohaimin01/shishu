@@ -53,3 +53,5 @@ Then add the word to as many language files as you can.
 - Content is licensed **CC BY-SA 4.0**. Only add words you may share. No personal data.
 - Don't police dialects: list them with a note (`|Sylhet`, `|formal`).
 - The seed lists were written by an AI assistant and **need native-speaker review** — corrections are very welcome.
+  The original 81 rows and the Nov 2026 layer-1 batch (ranks 82–300, all 14 languages) both follow this rule:
+  when a word looks off, tap ⚠ on its row and say what it should be.

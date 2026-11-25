@@ -6,17 +6,17 @@
  *   2. one of a small closed set of FUNCTION_WORDS (articles, copulas, connectors — no link), or
  *   3. a form listed in FORMS, a closed inflection table (e.g. Bengali "খায়" → the row "eat").
  * Anything else is rejected by CI — the promise to the learner is honesty: every tappable word
- * opens a real row. Level 1 stories use only meanings ranked 1–30, level 2 only ranks 1–60.
+ * opens a real row. Level caps: 1→30, 2→60, 3→120, 4→200, 5→300.
  *
  * Pure functions only (no DOM, no I/O).
  */
 
 import type { Concept, LexiconLanguage } from "./words";
 
-export type ReadingLevel = 1 | 2;
+export type ReadingLevel = 1 | 2 | 3 | 4 | 5;
 
 /** Highest concept rank a story of this level may use (level 1 is the gentlest). */
-export const LEVEL_RANK_CAP: Record<ReadingLevel, number> = { 1: 30, 2: 60 };
+export const LEVEL_RANK_CAP: Record<ReadingLevel, number> = { 1: 30, 2: 60, 3: 120, 4: 200, 5: 300 };
 
 export type Reading = {
   id: string;
@@ -46,12 +46,14 @@ export const FUNCTION_WORDS: Record<string, ReadonlySet<string>> = {
     "এবং", "আর", "ও", "তাই", "কিন্তু", "আমার", "তোমার", "তার", "আমাকে", "তোমাকে", "তাকে",
     "আমাদের", "তোমাদের", "তাদের", "এখানে", "সেখানে", "এখন", "আজ", "খুব", "একটা", "একটি",
     "টা", "টি", "তুমিকে", "আছে", "নেই", "হয়", "হচ্ছে", "থেকে", "জন্য", "সাথে", "যে",
+    "তারপর", "দিয়ে", "ভেতরে", "নিয়ে",
   ]),
   es: new Set([
     "el", "la", "los", "las", "un", "una", "unos", "unas", "y", "o", "pero", "de", "del",
     "en", "con", "por", "para", "a", "al", "es", "son", "soy", "eres", "está", "estás",
     "están", "estoy", "hay", "mi", "mis", "tu", "tus", "su", "sus", "me", "te", "nos",
     "le", "les", "lo", "aquí", "allí", "ahí", "hoy", "ahora", "muy", "también", "qué",
+    "después", "tiene", "se", "él", "ella",
   ]),
 };
 
@@ -75,6 +77,42 @@ export const FORMS: Record<string, Readonly<Record<string, string>>> = {
     mothers: "mother", fathers: "father", homes: "home", houses: "home", days: "day",
     nights: "night", books: "book", trees: "tree", names: "name", bigger: "big",
     smaller: "small", helps: "help", helping: "help", buys: "buy", works: "work",
+    // level 3–5 story forms
+    sits: "sit", sat: "sit", sitting: "sit", stands: "stand", stood: "stand", standing: "stand",
+    runs: "run", ran: "run", running: "run", jumps: "jump", jumped: "jump", jumping: "jump",
+    sings: "sing", sang: "sing", singing: "sing", laughs: "laugh", laughed: "laugh", laughing: "laugh",
+    cries: "cry", cried: "cry", crying: "cry", dances: "dance", danced: "dance", dancing: "dance",
+    washes: "wash", washed: "wash", washing: "wash", cooks: "cook", cooked: "cook", cooking: "cook",
+    opens: "open", opened: "open", opening: "open", closes: "close", closed: "close", closing: "close",
+    walks: "walk", walked: "walk", walking: "walk", swims: "swim", swam: "swim", swimming: "swim",
+    flies: "fly", flew: "fly", flying: "fly", rides: "ride", rode: "ride", riding: "ride",
+    carries: "carry", carried: "carry", carrying: "carry", meets: "meet", met: "meet", meeting: "meet",
+    asks: "ask", asked: "ask", answers: "answer", answered: "answer", shows: "show", showed: "show",
+    teaches: "teach", taught: "teach", counts: "count", counted: "count", draws: "draw", drew: "draw",
+    thinks: "think", thought: "think", waits: "wait", waited: "wait", listens: "listen", listened: "listen",
+    touches: "touch", touched: "touch", smells: "smell", tasted: "taste", tastes: "taste", threw: "throw",
+    throws: "throw", pushes: "push", pulls: "pull", smiles: "smile", smiled: "smile", hugs: "hug",
+    hugged: "hug", kisses: "kiss", cuts: "cut", shares: "share", wakes: "wake", woke: "wake",
+    rests: "rest", rested: "rest", lives: "live", lived: "live",
+    babies: "baby", sisters: "sister", brothers: "brother", grandmothers: "grandmother",
+    grandfathers: "grandfather", eyes: "eye", ears: "ear", noses: "nose", mouths: "mouth",
+    hands: "hand", feet: "foot", heads: "head", hairs: "hair", faces: "face", teeth: "tooth",
+    apples: "apple", bananas: "banana", mangoes: "mango", cups: "cup", plates: "plate", spoons: "spoon",
+    eggs: "egg",
+    doors: "door", windows: "window", beds: "bed", tables: "table", chairs: "chair", rooms: "room",
+    kitchens: "kitchen", lamps: "lamp", boxes: "box", bags: "bag", pens: "pen", pencils: "pencil",
+    papers: "paper", pictures: "picture", letters: "letter", words: "word", songs: "song", stories: "story",
+    cats: "cat", dogs: "dog", birds: "bird", hens: "hen", cows: "cow", goats: "goat", ducks: "duck",
+    horses: "horse", monkeys: "monkey", elephants: "elephant", flowers: "flower", leaves: "leaf",
+    skies: "sky", clouds: "cloud", rains: "rain", winds: "wind", stars: "star", rivers: "river",
+    seas: "sea", mountains: "mountain", roads: "road", villages: "village", cities: "city",
+    shirts: "shirt", shoes: "shoe", socks: "sock", caps: "cap", towels: "towel", soaps: "soap",
+    combs: "comb", mirrors: "mirror", teachers: "teacher", doctors: "doctor", farmers: "farmer",
+    markets: "market", shops: "shop", gardens: "garden", fields: "field", boats: "boat", buses: "bus",
+    cars: "car", bicycles: "bicycle", trains: "train", keys: "key", clocks: "clock",
+    umbrellas: "umbrella", balls: "ball", dolls: "doll", toys: "toy", kites: "kite", drums: "drum",
+    phones: "phone", mornings: "morning", afternoons: "afternoon", evenings: "evening", weeks: "week",
+    months: "month", years: "year", summers: "summer", winters: "winter", snows: "snow",
   },
   bn: {
     চাই: "want", চাও: "want", চায়: "want", দাও: "give", দেয়: "give", দিই: "give",
@@ -87,6 +125,19 @@ export const FORMS: Record<string, Readonly<Record<string, string>>> = {
     খেলে: "play", বুঝি: "understand", বোঝে: "understand", কিনি: "buy", কেনে: "buy",
     "পান করি": "drink", "পান করে": "drink", স্কুলে: "school", বাড়িতে: "home",
     ভালোবাসি: "love", ভালোবাসে: "love", কাজ: "work", সাহায্য: "help",
+    // level 3–5 story forms
+    হাসে: "laugh", হাসি: "laugh", দৌড়ায়: "run", দৌড়াই: "run", দৌড়াও: "run",
+    লাফায়: "jump", লাফাই: "jump", নাচে: "dance", নাচি: "dance", কাঁদে: "cry", কাঁদি: "cry",
+    "গান করি": "sing", "গান করে": "sing", বসে: "sit", বসি: "sit", দাঁড়ায়: "stand", দাঁড়াই: "stand",
+    ধুই: "wash", ধোয়: "wash", "রান্না করে": "cook", "রান্না করি": "cook",
+    খোলে: "open", খুলি: "open", "বন্ধ করে": "close", "বন্ধ করি": "close",
+    ওড়ে: "fly", ওড়ি: "fly", ওড়ায়: "fly", হাঁটে: "walk", হাঁটি: "walk",
+    জাগে: "wake", জাগি: "wake", দেখায়: "show", দেখাই: "show",
+    শুনি: "listen", শোন: "listen", ছোঁয়: "touch", আঁকি: "draw", আঁকে: "draw",
+    গোনে: "count", গুনি: "count", ভাবি: "think", ভাবে: "think",
+    রান্নাঘরে: "kitchen", গ্রামে: "village", সকালে: "morning", আকাশে: "sky", আয়নায়: "mirror",
+    গাছে: "tree", এসো: "come",
+    "জড়িয়ে ধরে": "hug",
   },
   es: {
     quiero: "want", quieres: "want", quiere: "want", queremos: "want",
@@ -106,6 +157,19 @@ export const FORMS: Record<string, Readonly<Record<string, string>>> = {
     ayudo: "help", ayudas: "help", ayuda: "help", compramos: "buy", compro: "buy",
     compras: "buy", nueva: "new", nuevas: "new", pequeña: "small", pequeñas: "small",
     trabaja: "work", trabajo: "work",
+    // level 3–5 story forms
+    ríe: "laugh", río: "laugh", reímos: "laugh", corre: "run", corro: "run", corremos: "run",
+    salta: "jump", saltan: "jump", cantamos: "sing", canta: "sing",
+    baila: "dance", bailo: "dance", bailamos: "dance", llora: "cry", lloro: "cry",
+    cocinamos: "cook", lavo: "wash", lava: "wash", lavamos: "wash", manos: "hand",
+    vuela: "fly", vuelan: "fly", sienta: "sit", camina: "walk", caminamos: "walk",
+    despierta: "wake", abro: "open", abre: "open", cierra: "close", cierro: "close",
+    ven: "come", fría: "cold", roja: "red", amarilla: "yellow", vieja: "old",
+    alta: "tall", limpia: "clean", zapatos: "shoe", compra: "buy", toca: "touch",
+    sonríe: "smile", abraza: "hug", enferma: "sick", enfermo: "sick",
+    bonita: "beautiful", hermosa: "beautiful", doctora: "doctor",
+    felices: "happy", nuevos: "new",
+    pájaros: "bird", flores: "flower", gatos: "cat", perros: "dog", abuelas: "grandmother",
   },
 };
 
@@ -126,7 +190,7 @@ export function parseReadingsTsv(tsv: string): { readings: Reading[]; problems: 
     if (seen.has(id)) { problems.push(`line ${n + 1}: duplicate reading "${id}"`); return; }
     seen.add(id); // from here on the id counts, even if the rest of the row has problems
     if (!lang || !ID_RE.test(lang)) { problems.push(`line ${n + 1}: bad language code "${lang ?? ""}"`); return; }
-    if (level !== "1" && level !== "2") { problems.push(`line ${n + 1}: level must be 1 or 2`); return; }
+    if (!["1", "2", "3", "4", "5"].includes(level ?? "")) { problems.push(`line ${n + 1}: level must be 1, 2, 3, 4 or 5`); return; }
     if (!title || !text) { problems.push(`line ${n + 1}: missing title or text`); return; }
     const conceptList = (concepts ?? "").split(",").map((c) => c.trim()).filter(Boolean);
     if (conceptList.length === 0) { problems.push(`line ${n + 1}: concepts column is empty`); return; }
@@ -200,6 +264,14 @@ export function buildWordIndex(lang: LexiconLanguage): WordIndex {
           if (!byPhrase.has(key)) byPhrase.set(key, { conceptId, roman: t.roman, words: rWords.length });
         } else if (!byWord.has(norm(t.roman))) byWord.set(norm(t.roman), { conceptId, roman: t.roman });
       }
+    }
+  }
+  // multi-word inflection forms ("রান্না করে" → cook) match as phrases, like the docstring promises
+  for (const [form, conceptId] of Object.entries(FORMS[lang.code] ?? {})) {
+    const words = norm(form).split(/\s+/).filter(Boolean);
+    if (words.length > 1) {
+      const key = words.join(" ");
+      if (!byPhrase.has(key)) byPhrase.set(key, { conceptId, words: words.length });
     }
   }
   return {

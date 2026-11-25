@@ -26,7 +26,8 @@ Android APK: push a tag like `v0.1.0` and GitHub Actions publishes an installabl
 ## Word Rows — for older children and adults 🌍
 
 **/words** shows one meaning per row in many languages side by side — your own language first, most used
-meanings first, every synonym grouped in its cell (Bengali *water*: পানি, বারি, জল). Choose any number of
+meanings first, every synonym grouped in its cell (Bengali *water*: পানি, বারি, জল). The lexicon now carries
+**300 meanings, fully translated in all 14 bundled languages**. Choose any number of
 languages, choose which letters you can read (Bengali, English, Hindi… words are shown in letters you
 understand), and **print** the tables (many languages are split across sheets). Add any language with a
 spreadsheet-style worksheet — see [docs/WORDS.md](./docs/WORDS.md).
@@ -37,8 +38,8 @@ Six views keep the table alive:
 - **Study** — a few rows a day; mark one learned and every word in it joins the review queue.
 - **Review** — spaced repetition (SM-2) over what you learned: again / hard / good / easy, and a quiet
   stats bar (due now · started · mastered · per-language progress · 14-day strip).
-- **Read** — graded mini-stories whose every word opens a row (CI-checked: level 1 uses only the first
-  30 meanings); tap a word, see the whole row.
+- **Read** — graded mini-stories in five levels (rank caps 30/60/120/200/300) whose every word
+  opens a row (CI-checked); tap a word, see the whole row.
 - **Map** — your learned words clustered by nine garden themes.
 - **Print** — printable sheets, a spreadsheet CSV, and an **Anki deck CSV** (front: your language,
   back: the rest).

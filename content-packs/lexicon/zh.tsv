@@ -85,3 +85,222 @@ nine	九|jiǔ
 ten	十|shí
 sorry	对不起|duìbuqǐ ; 不好意思|bù hǎo yìsi|polite apology
 goodbye	再见|zàijiàn
+girl	女孩|nühai
+boy	男孩|nanhai
+baby	婴儿|yinger
+sister	姐姐|jiejie|elder sister ; 妹妹|meimei|younger sister
+brother	哥哥|gege|elder brother ; 弟弟|didi|younger brother
+grandmother	奶奶|nainai|father's mother ; 外婆|waipo|mother's mother
+grandfather	爷爷|yeye|father's father ; 外公|waigong|mother's father
+eye	眼睛|yanjing
+ear	耳朵|erduo
+nose	鼻子|bizi
+mouth	嘴|zui
+hand	手|shou
+foot	脚|jiao
+head	头|tou
+hair	头发|toufa
+face	脸|lian
+tooth	牙齿|yachi
+rice	米饭|mifan|cooked rice ; 大米|dami|uncooked rice
+bread	面包|mianbao
+egg	鸡蛋|jidan
+fish	鱼|yu
+tea	茶|cha
+fruit	水果|shuiguo
+apple	苹果|pingguo
+banana	香蕉|xiangjiao
+mango	芒果|mangguo
+cup	杯子|beizi
+plate	盘子|panzi
+spoon	勺子|shaozi
+sit	坐|zuo
+stand	站|zhan
+run	跑|pao
+jump	跳|tiao
+sing	唱歌|changge
+laugh	笑|xiao
+cry	哭|ku
+dance	跳舞|tiaowu
+wash	洗|xi
+cook	做饭|zuofan
+open	开|kai
+close	关|guan
+door	门|men
+window	窗户|chuanghu
+bed	床|chuang
+table	桌子|zhuozi
+chair	椅子|yizi
+room	房间|fangjian
+kitchen	厨房|chufang
+lamp	灯|deng
+box	盒子|hezi
+bag	包|bao ; 袋子|daizi|bag
+pen	笔|bi ; 钢笔|gangbi|pen
+pencil	铅笔|qianbi
+paper	纸|zhi
+picture	画|hua|drawing ; 图画|tuhua|picture
+letter	字|zi
+word	词|ci ; 词语|ciyu|word
+song	歌|ge
+story	故事|gushi
+cat	猫|mao
+dog	狗|gou
+bird	鸟|niao
+hen	母鸡|muji
+cow	牛|niu
+goat	羊|yang
+duck	鸭子|yazi
+horse	马|ma
+monkey	猴子|houzi
+elephant	大象|daxiang
+flower	花|hua
+leaf	叶子|yezi
+grass	草|cao
+sky	天空|tiankong
+cloud	云|yun
+rain	雨|yu
+wind	风|feng
+star	星星|xingxing
+river	河|he
+sea	海|hai
+mountain	山|shan
+road	路|lu
+village	村子|cunzi
+city	城市|chengshi
+shirt	衬衫|chenshan
+shoe	鞋|xie
+sock	袜子|wazi
+cap	帽子|maozi
+towel	毛巾|maojin
+soap	肥皂|feizao
+comb	梳子|shuzi
+mirror	镜子|jingzi
+white	白|bai ; 白色|baise|white color
+black	黑|hei ; 黑色|heise|black color
+red	红|hong ; 红色|hongse|red color
+blue	蓝|lan ; 蓝色|lanse|blue color
+green	绿|lü ; 绿色|lüse|green color
+yellow	黄|huang ; 黄色|huangse|yellow color
+orange	橙|cheng ; 橙色|chengse|orange color
+brown	棕|zong ; 棕色|zongse|brown color
+long	长|chang
+short	短|duan
+tall	高|gao
+fast	快|kuai
+slow	慢|man
+heavy	重|zhong
+light	轻|qing
+sweet	甜|tian
+sour	酸|suan
+salt	盐|yan
+sugar	糖|tang
+full	满|man
+empty	空|kong
+clean	干净|ganjing
+dirty	脏|zang
+strong	强壮|qiangzhuang
+weak	弱|ruo
+wet	湿|shi
+dry	干|gan
+soft	软|ruan
+hard	硬|ying
+easy	容易|rongyi
+difficult	难|nan
+near	近|jin
+far	远|yuan
+loud	大声|dasheng|loud
+quiet	安静|anjing
+angry	生气|shengqi
+sad	难过|nanguo ; 伤心|shangxin|sad
+tired	累|lei
+hungry	饿|e
+thirsty	渴|ke
+sick	生病|shengbing|to be sick ; 不舒服|bushufu|unwell
+afraid	害怕|haipa
+morning	早上|zaoshang ; 早晨|zaochen|morning
+afternoon	下午|xiawu
+evening	晚上|wanshang
+week	星期|xingqi ; 周|zhou|week
+month	月|yue
+year	年|nian
+summer	夏天|xiatian
+winter	冬天|dongtian
+snow	雪|xue
+ground	地面|dimian ; 地上|dishang|on the ground
+stone	石头|shitou
+sand	沙子|shazi
+wood	木头|mutou
+teacher	老师|laoshi
+doctor	医生|yisheng
+farmer	农民|nongmin
+market	市场|shichang
+shop	商店|shangdian
+garden	花园|huayuan
+field	田地|tiandi
+boat	船|chuan
+bus	公共汽车|gonggong qiche|bus ; 公交车|gongjiaoche|bus
+car	汽车|qiche ; 车|che|vehicle
+bicycle	自行车|zixingche
+train	火车|huoche
+key	钥匙|yaoshi
+clock	钟|zhong ; 表|biao|watch
+umbrella	雨伞|yusan
+ball	球|qiu
+doll	娃娃|wawa
+toy	玩具|wanju
+kite	风筝|fengzheng
+drum	鼓|gu
+phone	电话|dianhua
+walk	走路|zoulu
+swim	游泳|youyong
+fly	飞|fei
+ride	骑|qi
+carry	拿|na|carry, hold ; 提|ti|carry
+meet	见面|jianmian|to meet ; 遇见|yujian|to run into
+ask	问|wen
+answer	回答|huida
+show	给看|geikan|show someone ; 展示|zhanshi|display
+teach	教|jiao
+count	数数|shushu|to count
+draw	画画|huahua|to draw
+think	想|xiang
+wait	等|deng
+listen	听|ting
+touch	摸|mo
+smell	闻|wen|to smell
+taste	尝|chang
+throw	扔|reng
+push	推|tui
+pull	拉|la
+smile	微笑|weixiao
+hug	拥抱|yongbao
+kiss	亲吻|qinwen
+cut	切|qie
+share	分享|fenxiang
+wake	醒|xing
+rest	休息|xiuxi
+live	生活|shenghuo|to live, be alive ; 住|zhu|to live, reside
+which	哪个|nage
+how-many	多少|duoshao ; 几个|jige|how many
+welcome	欢迎|huanying
+good-morning	早上好|zaoshang hao
+good-night	晚安|wanan
+zero	零|ling
+eleven	十一|shiyi
+twelve	十二|shier
+thirteen	十三|shisan
+fourteen	十四|shisi
+fifteen	十五|shiwu
+sixteen	十六|shiliu
+seventeen	十七|shiqi
+eighteen	十八|shiba
+nineteen	十九|shijiu
+twenty	二十|ershi
+hundred	一百|yibai ; 百|bai|hundred
+first	第一|diyi
+last	最后|zuihou
+vegetable	蔬菜|shucai
+thin	薄|bao|thin (flat) ; 瘦|shou|thin (person)
+thick	厚|hou
+round	圆|yuan

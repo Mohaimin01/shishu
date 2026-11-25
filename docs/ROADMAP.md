@@ -2,6 +2,25 @@
 
 Where Shishu is going, and the decisions behind it.
 
+## Layer 1 shipped (Nov 2026) — the lexicon grows 4× ("the big vision" pass)
+
+The engine was starving on content: 81 meanings is a first-month; a real multilingual life needs
+hundreds. Layer 1 quadruples the corpus, all of it CI-checked:
+
+- **300 meanings** (was 81) — ranks 82–300 added as a pedagogical ladder: family/body/food/motion
+  verbs first (the story cast), then home, animals, nature, colors and opposites, then feelings,
+  time, places, transport, work and the number run to twenty and a hundred.
+- **Every one of the 14 bundled languages carries all 300 meanings** (~4,200 word cells plus
+  romanisations and dialect notes) — the whole table is a complete first-year vocabulary.
+- **English words carry Bengali-letter spellings** (as the first learner needs) for every new row.
+- **Story Rows grew five reading levels** — rank caps 30/60/120/200/300 — and 27 new stories
+  (45 total in en/bn/es), each word still CI-checked to open a real row.
+- **Reading engine fixes** — multi-word inflection forms ("রান্না করে" → cook) now actually match
+  as phrases, as the design promised; and the review activity log records the day a review
+  happened, not the day the store was touched.
+- The honest next layers (P0 from the board): dose engine v2 (family clustering), World Walk
+  scene, multilingual passport; then listening comprehension at scale and sentence mining.
+
 ## Shipped from the 8-app comparison (Nov 2026)
 
 A competitive pass over eight rival apps turned into shipped features — each one kept inside the
@@ -16,9 +35,9 @@ A competitive pass over eight rival apps turned into shipped features — each o
   mastered (3+ good reviews), per-language progress and a 14-day activity strip.
 - **Anki export** — **Print → 🃏 Anki deck (CSV)**: front = the learner's own language, back = the other
   languages with the English meaning. The table leaves the app; no lock-in.
-- **Story Rows (graded reading)** — 18 hand-written mini-stories in English, Bengali and Spanish whose
-  every word is CI-checked to open a real row (level 1 uses only ranks 1–30, level 2 only 1–60). A new
-  **Read** tab: tap a word to see the whole row; "I read it ✓" feeds the story's words to the queue.
+- **Story Rows (graded reading)** — 45 hand-written mini-stories in English, Bengali and Spanish whose
+  every word is CI-checked to open a real row, across five levels (rank caps 30/60/120/200/300).
+  A new **Read** tab: tap a word to see the whole row; "I read it ✓" feeds the story's words to the queue.
 - **Garden map + report-a-word** — `concepts.tsv` grew a fixed nine-theme column; a new **Map** tab
   clusters the learned words by theme. Every table row carries a ⚠ button that opens a pre-filled
   GitHub issue, so fixing a wrong word is one tap for a grown-up.

@@ -84,3 +84,222 @@ rank	id	pos	gloss	theme
 79	ten	num	10	numbers
 80	sorry	phrase	sorry / excuse me	courtesy
 81	goodbye	phrase	goodbye	courtesy
+82	girl	noun	girl	people
+83	boy	noun	boy	people
+84	baby	noun	baby	people
+85	sister	noun	sister	people
+86	brother	noun	brother	people
+87	grandmother	noun	grandmother	people
+88	grandfather	noun	grandfather	people
+89	eye	noun	eye	people
+90	ear	noun	ear	people
+91	nose	noun	nose	people
+92	mouth	noun	mouth	people
+93	hand	noun	hand	people
+94	foot	noun	foot / leg	people
+95	head	noun	head	people
+96	hair	noun	hair	people
+97	face	noun	face	people
+98	tooth	noun	tooth	people
+99	rice	noun	rice (cooked meal)	food
+100	bread	noun	bread	food
+101	egg	noun	egg	food
+102	fish	noun	fish	food
+103	tea	noun	tea	food
+104	fruit	noun	fruit	food
+105	apple	noun	apple	food
+106	banana	noun	banana	food
+107	mango	noun	mango	food
+108	cup	noun	cup	world
+109	plate	noun	plate	world
+110	spoon	noun	spoon	world
+111	sit	verb	to sit	actions
+112	stand	verb	to stand	actions
+113	run	verb	to run	actions
+114	jump	verb	to jump	actions
+115	sing	verb	to sing	actions
+116	laugh	verb	to laugh	actions
+117	cry	verb	to cry	actions
+118	dance	verb	to dance	actions
+119	wash	verb	to wash	actions
+120	cook	verb	to cook	actions
+121	open	verb	to open	actions
+122	close	verb	to close / to shut	actions
+123	door	noun	door	world
+124	window	noun	window	world
+125	bed	noun	bed	world
+126	table	noun	table	world
+127	chair	noun	chair	world
+128	room	noun	room	world
+129	kitchen	noun	kitchen	world
+130	lamp	noun	lamp	world
+131	box	noun	box	world
+132	bag	noun	bag	world
+133	pen	noun	pen	school
+134	pencil	noun	pencil	school
+135	paper	noun	paper	school
+136	picture	noun	picture / drawing	school
+137	letter	noun	letter (of the alphabet)	school
+138	word	noun	word	school
+139	song	noun	song	school
+140	story	noun	story	school
+141	cat	noun	cat	world
+142	dog	noun	dog	world
+143	bird	noun	bird	world
+144	hen	noun	hen	world
+145	cow	noun	cow	world
+146	goat	noun	goat	world
+147	duck	noun	duck	world
+148	horse	noun	horse	world
+149	monkey	noun	monkey	world
+150	elephant	noun	elephant	world
+151	flower	noun	flower	world
+152	leaf	noun	leaf	world
+153	grass	noun	grass	world
+154	sky	noun	sky	world
+155	cloud	noun	cloud	world
+156	rain	noun	rain	world
+157	wind	noun	wind	world
+158	star	noun	star	world
+159	river	noun	river	world
+160	sea	noun	sea	world
+161	mountain	noun	mountain	world
+162	road	noun	road / street	world
+163	village	noun	village	world
+164	city	noun	city / town	world
+165	shirt	noun	shirt	world
+166	shoe	noun	shoe	world
+167	sock	noun	sock	world
+168	cap	noun	cap / hat	world
+169	towel	noun	towel	world
+170	soap	noun	soap	world
+171	comb	noun	comb	world
+172	mirror	noun	mirror	world
+173	white	adj	white	describing
+174	black	adj	black	describing
+175	red	adj	red	describing
+176	blue	adj	blue	describing
+177	green	adj	green	describing
+178	yellow	adj	yellow	describing
+179	orange	adj	orange (color)	describing
+180	brown	adj	brown	describing
+181	long	adj	long	describing
+182	short	adj	short (not long)	describing
+183	tall	adj	tall / high	describing
+184	fast	adj	fast	describing
+185	slow	adj	slow	describing
+186	heavy	adj	heavy	describing
+187	light	adj	light (not heavy)	describing
+188	sweet	adj	sweet	describing
+189	sour	adj	sour	describing
+190	salt	noun	salt	food
+191	sugar	noun	sugar	food
+192	full	adj	full	describing
+193	empty	adj	empty	describing
+194	clean	adj	clean	describing
+195	dirty	adj	dirty	describing
+196	strong	adj	strong	describing
+197	weak	adj	weak	describing
+198	wet	adj	wet	describing
+199	dry	adj	dry	describing
+200	soft	adj	soft	describing
+201	hard	adj	hard (not soft)	describing
+202	easy	adj	easy	describing
+203	difficult	adj	difficult	describing
+204	near	adj	near	describing
+205	far	adj	far	describing
+206	loud	adj	loud	describing
+207	quiet	adj	quiet	describing
+208	angry	adj	angry	describing
+209	sad	adj	sad	describing
+210	tired	adj	tired	describing
+211	hungry	adj	hungry	describing
+212	thirsty	adj	thirsty	describing
+213	sick	adj	sick / ill	describing
+214	afraid	adj	afraid	describing
+215	morning	noun	morning	world
+216	afternoon	noun	afternoon	world
+217	evening	noun	evening	world
+218	week	noun	week	world
+219	month	noun	month	world
+220	year	noun	year	world
+221	summer	noun	summer	world
+222	winter	noun	winter	world
+223	snow	noun	snow	world
+224	ground	noun	ground / earth	world
+225	stone	noun	stone	world
+226	sand	noun	sand	world
+227	wood	noun	wood (material)	world
+228	teacher	noun	teacher	people
+229	doctor	noun	doctor	people
+230	farmer	noun	farmer	people
+231	market	noun	market	world
+232	shop	noun	shop	world
+233	garden	noun	garden	world
+234	field	noun	field	world
+235	boat	noun	boat	world
+236	bus	noun	bus	world
+237	car	noun	car	world
+238	bicycle	noun	bicycle	world
+239	train	noun	train	world
+240	key	noun	key	world
+241	clock	noun	clock	world
+242	umbrella	noun	umbrella	world
+243	ball	noun	ball	world
+244	doll	noun	doll	world
+245	toy	noun	toy	world
+246	kite	noun	kite	world
+247	drum	noun	drum	world
+248	phone	noun	phone	world
+249	walk	verb	to walk	actions
+250	swim	verb	to swim	actions
+251	fly	verb	to fly	actions
+252	ride	verb	to ride	actions
+253	carry	verb	to carry	actions
+254	meet	verb	to meet	actions
+255	ask	verb	to ask	questions
+256	answer	verb	to answer	questions
+257	show	verb	to show	actions
+258	teach	verb	to teach	school
+259	count	verb	to count	school
+260	draw	verb	to draw	school
+261	think	verb	to think	actions
+262	wait	verb	to wait	actions
+263	listen	verb	to listen	actions
+264	touch	verb	to touch	actions
+265	smell	verb	to smell	actions
+266	taste	verb	to taste	actions
+267	throw	verb	to throw	actions
+268	push	verb	to push	actions
+269	pull	verb	to pull	actions
+270	smile	verb	to smile	actions
+271	hug	verb	to hug	actions
+272	kiss	verb	to kiss	actions
+273	cut	verb	to cut	actions
+274	share	verb	to share	actions
+275	wake	verb	to wake up	actions
+276	rest	verb	to rest	actions
+277	live	verb	to live / to be alive	actions
+278	which	pron	which (one)	questions
+279	how-many	pron	how many / how much	questions
+280	welcome	phrase	welcome!	courtesy
+281	good-morning	phrase	good morning	courtesy
+282	good-night	phrase	good night	courtesy
+283	zero	num	0	numbers
+284	eleven	num	11	numbers
+285	twelve	num	12	numbers
+286	thirteen	num	13	numbers
+287	fourteen	num	14	numbers
+288	fifteen	num	15	numbers
+289	sixteen	num	16	numbers
+290	seventeen	num	17	numbers
+291	eighteen	num	18	numbers
+292	nineteen	num	19	numbers
+293	twenty	num	20	numbers
+294	hundred	num	100	numbers
+295	first	num	first	numbers
+296	last	adj	last	numbers
+297	vegetable	noun	vegetable	food
+298	thin	adj	thin	describing
+299	thick	adj	thick	describing
+300	round	adj	round	describing

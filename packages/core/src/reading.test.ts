@@ -22,9 +22,12 @@ const shipped = fs.readdirSync(readDir).filter((f) => f.endsWith(".tsv")).flatMa
 );
 
 describe("levels", () => {
-  it("level 1 is the gentlest: rank caps are 30 then 60", () => {
+  it("level 1 is the gentlest: rank caps are 30, 60, 120, 200, 300", () => {
     expect(LEVEL_RANK_CAP[1]).toBe(30);
     expect(LEVEL_RANK_CAP[2]).toBe(60);
+    expect(LEVEL_RANK_CAP[3]).toBe(120);
+    expect(LEVEL_RANK_CAP[4]).toBe(200);
+    expect(LEVEL_RANK_CAP[5]).toBe(300);
   });
 });
 
@@ -46,9 +49,9 @@ describe("parseReadingsTsv", () => {
 
   it("rejects bad levels, duplicate ids and empty concept lists in plain words", () => {
     const { problems } = parseReadingsTsv(
-      "id\tlang\tlevel\ttitle\tconcepts\ttext\nx\ten\t3\tT\ti\tHi.\nx\ten\t1\tT\ti\tHi.\ny\ten\t1\tT\t\tHi.",
+      "id\tlang\tlevel\ttitle\tconcepts\ttext\nx\ten\t6\tT\ti\tHi.\nx\ten\t1\tT\ti\tHi.\ny\ten\t1\tT\t\tHi.",
     );
-    expect(problems.some((p) => p.includes("level must be 1 or 2"))).toBe(true);
+    expect(problems.some((p) => p.includes("level must be 1, 2, 3, 4 or 5"))).toBe(true);
     expect(problems.some((p) => p.includes('duplicate reading "x"'))).toBe(true);
     expect(problems.some((p) => p.includes("concepts column is empty"))).toBe(true);
   });
@@ -151,18 +154,19 @@ describe("the shipped stories", () => {
     expect(problems).toEqual([]);
   });
 
-  it("all 18 shipped stories are honest: every word opens a row, caps respected, lists exact", () => {
-    expect(shipped.length).toBe(18);
+  it("all 45 shipped stories are honest: every word opens a row, caps respected, lists exact", () => {
+    expect(shipped.length).toBe(45);
     expect(new Set(shipped.map((r) => r.lang))).toEqual(new Set(["en", "bn", "es"]));
     const problems = validateReadings(shipped, concepts, langs);
     expect(problems).toEqual([]);
   });
 
-  it("every language ships 3 gentle (level 1) and 3 bigger (level 2) stories", () => {
+  it("every language ships 3 stories at each of the five levels", () => {
     for (const code of ["en", "bn", "es"]) {
       const mine = shipped.filter((r) => r.lang === code);
-      expect(mine.filter((r) => r.level === 1).length).toBe(3);
-      expect(mine.filter((r) => r.level === 2).length).toBe(3);
+      for (const level of [1, 2, 3, 4, 5] as const) {
+        expect(mine.filter((r) => r.level === level).length).toBe(3);
+      }
     }
   });
 
